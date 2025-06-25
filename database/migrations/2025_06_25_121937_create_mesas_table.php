@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mesas', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('nombre');
             $table->uuid('user_id');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique(['usuario_id','nombre']); // Nombre de mesa único para cada usuario
+            $table->unique(['user_id','nombre']); // Nombre de mesa único para cada usuario
 
             $table->timestamps();
         });
