@@ -22,7 +22,7 @@ class PedidoDetalle extends Model
         return $this->belongsTo(Pedido::class,'pedido_id');
     }
 
-    public function articulos(): BelongsTo
+    public function articulo(): BelongsTo
     {
         return $this->belongsTo(Articulo::class,'articulo_id');
     }

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -61,5 +62,10 @@ class User extends Authenticatable
     public function articulos(): HasMany
     {
         return $this->hasMany(Articulo::class,'user_id');
+    }
+
+    public function pedidos(): HasManyThrough
+    {
+        return $this->hasManyThrough(Pedido::class, Mesa::class, 'user_id', 'mesa_id');
     }
 }

@@ -23,6 +23,9 @@ class Pedido extends Model
         return $this->belongsTo(Mesa::class);
     }
 
-
+    public function detalles(): HasMany
+    {
+        return $this->hasMany(PedidoDetalle::class, 'pedido_id');
+    }
 
 }

@@ -17,6 +17,15 @@ class MesaController extends Controller
         ]);
     }
 
+    public function get(Mesa $mesa){
+        $articulos = $mesa->user->articulos;
+        
+        return view('mesa',[
+            'mesa' => $mesa,
+            'articulos' => $articulos,
+        ]);
+    }
+
     public function crear(Request $request){
         $validated = Validator::make($request->all(), [
             'nombre' => [

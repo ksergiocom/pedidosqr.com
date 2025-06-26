@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             
             $table->uuid('mesa_id');
             

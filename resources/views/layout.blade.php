@@ -18,6 +18,7 @@
                 @auth
                     <li><a href="{{ route('gestion.mesas.index') }}">Mesas</a></li>
                     <li><a href="{{ route('gestion.articulos.index') }}">Artículos</a></li>
+                    <li><a href="{{ route('gestion.pedidos.index') }}">Pedidos</a></li>
                     <form method="POST" action="{{ route('auth.logout') }}">
                         @csrf 
                         <input type="submit" value="logout"/>

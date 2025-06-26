@@ -4,10 +4,14 @@ use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MesaController;
 
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::view('/', 'home')->name('home');
+
+Route::get('{mesa}',[MesaController::class, 'get'])->name('mesa');
+Route::post('{mesa}/pedir',[PedidoController::class, 'pedir'])->name('mesa.pedir');
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -27,5 +31,9 @@ Route::prefix('gestion')->name('gestion.')->group(function () {
         Route::get('', [ArticuloController::class,'index'])->name('index');
         Route::post('', [ArticuloController::class,'crear'])->name('crear');
         Route::delete('{articulo}', [ArticuloController::class,'eliminar'])->name('eliminar');
+    });
+    Route::prefix('pedidos')->name('pedidos.')->group(function(){
+        Route::get('',[PedidoController::class,'index'])->name('index');
+        Route::delete('{pedido}',[PedidoController::class,'destroy'])->name('destroy');
     });
 });
