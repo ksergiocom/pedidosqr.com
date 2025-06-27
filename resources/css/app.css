@@ -136,10 +136,10 @@
 }
 
 /* Copiados de: https://ui.shadcn.com/docs/components/typography */
-h1{
-    @apply scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance;
+ h1{
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight text-balance;
 }
-
+/*
 h2{
     @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
 }
@@ -182,4 +182,4 @@ ul{
 
 code {
     @apply bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
-}
+} */

@@ -6,7 +6,7 @@ function PedidosPage(props){
     
     return <>
         <h1>Pagina de pedidos</h1>
-        <pre>{JSON.stringify(props)}</pre>
+        <p>{JSON.stringify(props)}</p>
     </>
 }
 

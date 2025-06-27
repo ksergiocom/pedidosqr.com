@@ -1,17 +1,20 @@
 import React from 'react'
 
 import { Link } from '@inertiajs/react'
+import { Sidebar, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+
+import AppSidebar from '@/components/AppSidebar'
 
 export default function GestionLayout({ children }) {
   return (
-    <main>
-      <header>
-        <Link href="/gestion/pedidos">Pedidos</Link>
-        <Link href="/gestion/articulos">Articulos</Link>
-        <Link href="/gestion/mesas">Mesas</Link>
-        <Link href="/auth/logout" method='post'>Cerrar sesión</Link>
-      </header>
-      <main>{children}</main>
-    </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <div className='p-5'>
+        <SidebarTrigger className='mb-5' />
+        <main>
+          {children}
+        </main>
+      </div>
+    </SidebarProvider>
   )
 }

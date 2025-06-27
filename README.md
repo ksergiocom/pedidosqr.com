@@ -13,6 +13,8 @@ Proyecto para mandar comandas por web sockets
 - ON CASCADE en detalles etc
 - Login social
 - Gates y Policies para modelos
+- Agregar Zippy para enlazar rutas backend con forntend
+- Head ReactInertia titles y demás!
 
 ## ¿Que necesito?
 

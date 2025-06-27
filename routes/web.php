@@ -25,7 +25,8 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth
 Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function () {
     Route::prefix('mesas')->name('mesas.')->group(function () {
         Route::get('', [MesaController::class,'index'])->name('index');
-        Route::post('', [MesaController::class,'crear'])->name('crear');
+        Route::get('crear', [MesaController::class,'create'])->name('create');
+        Route::post('crear', [MesaController::class,'store'])->name('store');
         Route::delete('{mesa}', [MesaController::class,'eliminar'])->name('eliminar');
     });
     Route::prefix('articulos')->name('articulos.')->group(function () {

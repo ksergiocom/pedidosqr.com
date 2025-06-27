@@ -12,8 +12,15 @@ class MesaController extends Controller
     public function index(){
         $mesas = auth()->user()->mesas;
 
-        return inertia("Gestion/MesasPage", [
+        return inertia("Gestion/Mesas/IndexPage", [
             "mesas" => $mesas,
+        ]);
+    }
+
+    public function create(){
+        $mesas = auth()->user()->mesas;
+
+        return inertia("Gestion/Mesas/CreatePage", [
         ]);
     }
 
@@ -26,7 +33,7 @@ class MesaController extends Controller
         ]);
     }
 
-    public function crear(Request $request){
+    public function store(Request $request){
         $validated = Validator::make($request->all(), [
             'nombre' => [
                 'required',
@@ -43,7 +50,7 @@ class MesaController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-          return redirect()->back()->with('success', 'Mesa creada correctamente.');
+          return redirect()->route('gestion.mesas.index')->with('success', 'Mesa creada correctamente.');
     }
 
     public function eliminar(Mesa $mesa){
