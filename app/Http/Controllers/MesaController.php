@@ -12,7 +12,7 @@ class MesaController extends Controller
     public function index(){
         $mesas = auth()->user()->mesas;
 
-        return view("gestion.mesas", [
+        return inertia("Gestion/MesasPage", [
             "mesas" => $mesas,
         ]);
     }

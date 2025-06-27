@@ -13,7 +13,7 @@ class ArticuloController extends Controller
         public function index(){
         $articulos = auth()->user()->articulos;
 
-        return view("gestion.articulos", [
+        return inertia("Gestion/ArticulosPage", [
             "articulos" => $articulos,
         ]);
     }

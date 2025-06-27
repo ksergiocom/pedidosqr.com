@@ -23,7 +23,7 @@ class PedidoController extends Controller
             ->latest()
             ->get();
 
-        return view('gestion.pedidos', [
+        return inertia('Gestion/PedidosPage', [
             'pedidos' => $pedidos,
         ]);
     }
