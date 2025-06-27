@@ -12,11 +12,11 @@ class AuthController extends Controller
     // --- Vistas -----------------------------------------
 
     public function loginView(Request $request){
-        return view('auth.login');
+        return inertia('Auth/LoginPage');
     }
 
     public function registrarView(Request $request){
-        return view('auth.registrar');
+        return inertia('Auth/RegistrarPage');
     }
 
     
@@ -29,7 +29,7 @@ class AuthController extends Controller
     
         $request->session()->regenerateToken();
     
-        return redirect('/');
+        return redirect()->route('auth.login');
     }
 
     public function autentificar(Request $request){
@@ -41,7 +41,7 @@ class AuthController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('/');
+            return redirect()->intended('/gestion/pedidos');
         }
      
         return back()->withErrors([

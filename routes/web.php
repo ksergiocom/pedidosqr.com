@@ -13,15 +13,16 @@ Route::view('/', 'home')->name('home');
 Route::get('{mesa}',[MesaController::class, 'get'])->name('mesa');
 Route::post('{mesa}/pedir',[PedidoController::class, 'pedir'])->name('mesa.pedir');
 
-Route::prefix('auth')->name('auth.')->group(function () {
+Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login', [AuthController::class, 'autentificar']);
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/registrar', [AuthController::class, 'registrarView'])->name('registrar');
     Route::post('/registrar', [AuthController::class, 'registrar']);
 });
 
-Route::prefix('gestion')->name('gestion.')->group(function () {
+Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
+
+Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function () {
     Route::prefix('mesas')->name('mesas.')->group(function () {
         Route::get('', [MesaController::class,'index'])->name('index');
         Route::post('', [MesaController::class,'crear'])->name('crear');

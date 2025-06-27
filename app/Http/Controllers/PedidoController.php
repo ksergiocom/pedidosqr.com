@@ -10,6 +10,8 @@ use App\Models\Pedido;
 use App\Models\PedidoDetalle;
 use App\Models\Mesa;
 
+use App\Events\PedidoRealizado;
+
 class PedidoController extends Controller
 {
     public function index()

@@ -3,10 +3,10 @@
 @section('main')
     <h1>Gestión mesas</h1>
     <h3>Listado de mesas disponibles</h3>
-    <ul>
+    <ul class="grid-mesas">
         @foreach ($mesas as $mesa)
-            <li>
-            {{ $mesa }}
+            <li class="grid-item">
+            {{ $mesa->nombre }}
 
             <form action="{{ route('gestion.mesas.eliminar', $mesa) }}" method="POST" style="display:inline">
                 @csrf
@@ -15,6 +15,13 @@
                     Eliminar
                 </button>
             </form>
+            <button
+                    class="btn-generate-qr"
+                    data-content="{{ $mesa->id }}"
+                    style="margin-left: 0.5em;"
+                >
+                    Ver QR
+                </button>
         </li>
         @endforeach
     </ul>
@@ -30,3 +37,7 @@
     </form>
 
 @endsection
+
+@push('scripts')
+    @vite('resources/js/qr.js')
+@endpush
