@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
-// Route::get('{mesa}',[MesaController::class, 'get'])->name('mesa');
-Route::post('{mesa}/pedir',[PedidoController::class, 'pedir'])->name('mesa.pedir');
+Route::get('{mesa}',[MesaController::class, 'showPedidoEnMesa'])->name('pedidoEnMesa.show');
+Route::post('{mesa}/pedir',[PedidoController::class, 'pedirPedidoEnMesa'])->name('pedidoEnMesa.pedir');
 
 Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');

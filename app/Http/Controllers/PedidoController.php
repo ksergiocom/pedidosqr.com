@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PedidoCreado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,34 +24,39 @@ class PedidoController extends Controller
             ->latest()
             ->get();
 
-        return inertia('Gestion/PedidosPage', [
+        return inertia('Gestion/Pedidos/IndexPage', [
             'pedidos' => $pedidos,
         ]);
     }
 
-    public function pedir(Request $request, Mesa $mesa)
-    {
-        $articulos = $request->input('articulos', []);
+    public function pedirPedidoEnMesa(Request $request, Mesa $mesa)
+{
+    $articulos = $request->input('articulos', []);
 
-        DB::transaction(function () use ($mesa, $articulos) {
-            // Crear el pedido primero
-            $pedido = Pedido::create([
-                'mesa_id' => $mesa->id,
-            ]);
+    $pedido = DB::transaction(function () use ($mesa, $articulos) {
+        $pedido = Pedido::create(['mesa_id' => $mesa->id]);
 
-            foreach ($articulos as $articuloId => $cantidad) {
-                if ($cantidad > 0) {
-                    PedidoDetalle::create([
-                        'pedido_id'   => $pedido->id,
-                        'articulo_id' => $articuloId,
-                        'cantidad'    => $cantidad,
-                    ]);
-                }
+        foreach ($articulos as $articuloId => $cantidad) {
+            if ($cantidad > 0) {
+                PedidoDetalle::create([
+                    'pedido_id'   => $pedido->id,
+                    'articulo_id' => $articuloId,
+                    'cantidad'    => $cantidad,
+                ]);
             }
-        });
+        }
 
-        return back()->with('success', 'Pedido y detalles creados correctamente.');
-    }
+        return $pedido;
+    });
+
+    // Aquí la transacción ya se ha completado
+    DB::afterCommit(function () use ($pedido) {
+        $pedido->load(['mesa', 'detalles.articulo']); // Cargar relaciones
+        broadcast(new PedidoCreado($pedido));
+    });
+
+    return "Pedido realizado";
+}
 
 
     public function destroy(Pedido $pedido){

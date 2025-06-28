@@ -36,6 +36,15 @@ class MesaController extends Controller
         ]);
     }
 
+    public function showPedidoEnMesa(Request $request,Mesa $mesa){
+        $articulos = $mesa->user->articulos;
+
+        return inertia('PedidoEnMesa', [
+            'mesa' => $mesa,
+            'articulos' => $articulos,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [

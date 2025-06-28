@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 class Pedido extends Model
 {
     use HasUuids;
-    use BroadcastsEvents;
 
     protected $table = 'pedidos';
     protected $fillable = [
@@ -38,16 +37,5 @@ class Pedido extends Model
     {
         return $this->hasMany(PedidoDetalle::class, 'pedido_id');
     }
-
-    // --- Sockets ----------------------------------------
-
-    public function broadcastOn(string $event): array
-    {
-        Log::info("BroadcastOn llamado para Pedido ID {$this->id} en evento $event");
-        return [
-            new PrivateChannel('user.' . $this->mesa->user_id),
-        ];
-    }
-
 
 }
