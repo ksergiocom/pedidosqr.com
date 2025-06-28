@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 
-Route::get('{mesa}',[MesaController::class, 'get'])->name('mesa');
+// Route::get('{mesa}',[MesaController::class, 'get'])->name('mesa');
 Route::post('{mesa}/pedir',[PedidoController::class, 'pedir'])->name('mesa.pedir');
 
 Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
@@ -27,12 +27,18 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
         Route::get('', [MesaController::class,'index'])->name('index');
         Route::get('crear', [MesaController::class,'create'])->name('create');
         Route::post('crear', [MesaController::class,'store'])->name('store');
-        Route::delete('{mesa}', [MesaController::class,'eliminar'])->name('eliminar');
+        Route::get('{mesa}', [MesaController::class,'show'])->name('show');
+        Route::delete('{mesa}', [MesaController::class,'destroy'])->name('destroy');
+        Route::get('{mesa}/editar', [MesaController::class,'edit'])->name('edit');
+        Route::put('{mesa}/editar', [MesaController::class,'update'])->name('update');
     });
     Route::prefix('articulos')->name('articulos.')->group(function () {
         Route::get('', [ArticuloController::class,'index'])->name('index');
-        Route::post('', [ArticuloController::class,'crear'])->name('crear');
-        Route::delete('{articulo}', [ArticuloController::class,'eliminar'])->name('eliminar');
+        Route::get('crear', [ArticuloController::class,'create'])->name('create');
+        Route::post('crear', [ArticuloController::class,'store'])->name('store');
+        Route::get('{articulo}/editar', [ArticuloController::class,'edit'])->name('edit');
+        Route::put('{articulo}/editar', [ArticuloController::class,'update'])->name('update');
+        Route::delete('{articulo}', [ArticuloController::class,'destroy'])->name('destroy');
     });
     Route::prefix('pedidos')->name('pedidos.')->group(function(){
         Route::get('',[PedidoController::class,'index'])->name('index');

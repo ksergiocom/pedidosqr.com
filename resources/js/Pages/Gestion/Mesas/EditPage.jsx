@@ -14,21 +14,21 @@ import { MoveLeft } from "lucide-react";
 
 function CreatePage(props){
 
-    const { data, setData, post, processing, errors } = useForm({
-        nombre: '',
+    const { data, setData, put, processing, errors } = useForm({
+        nombre: props.mesa.nombre,
     })
 
     function submit(e) {
         e.preventDefault()
-        post('/gestion/mesas/crear')
+        put(`/gestion/mesas/${props.mesa.id}/editar`)
     }
 
     return (
         <form onSubmit={submit}>
         <Card>
             <CardHeader>
-                <CardTitle>Crear Mesa</CardTitle>
-                <CardDescription>Crear nueva mesa a tu grupo de mesas. También se le asocia directamente un QR.</CardDescription>
+                <CardTitle>Actualizar Mesa</CardTitle>
+                <CardDescription>Actualiza los datos de tu mesa. Seguirá manteniendo su QR único.</CardDescription>
                 <CardAction>
                 <Link href="/gestion/mesas">
                     <Button type="button" variant="ghost" size="icon">
@@ -47,7 +47,7 @@ function CreatePage(props){
                     </div>
             </CardContent>
             <CardFooter>
-                <Button disabled={processing} className='w-full'>Crear</Button>
+                <Button disabled={processing} className='w-full'>Actualizar</Button>
             </CardFooter>
         </Card>
         </form>

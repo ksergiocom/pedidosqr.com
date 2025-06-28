@@ -15,6 +15,7 @@ Proyecto para mandar comandas por web sockets
 - Gates y Policies para modelos
 - Agregar Zippy para enlazar rutas backend con forntend
 - Head ReactInertia titles y demás!
+- Crear landing page, about, etc a parte. El dashboard funciona con inetia (separar las dos partes en el código)
 
 ## ¿Que necesito?
 
