@@ -44,11 +44,14 @@ class ArticuloSeeder extends Seeder
                 }
                 $usados[] = $nombre;
 
+                // $imageUrl = $faker->imageUrl(640, 480, 'food', true); 
+
                 Articulo::create([
                     'nombre' => $nombre,
                     'descripcion' => $faker->sentence(nbWords:$faker->numberBetween(10,80)),
                     'precio' => $faker->randomFloat(2, 1, 30),
                     'user_id' => $user->id,
+                    'image_url'   => 'https://placehold.co/600x400',
                 ]);
             }
         }

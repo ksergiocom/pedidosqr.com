@@ -27,8 +27,8 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
         Route::post('crear', [MesaController::class,'store'])->name('store');
         Route::get('{mesa}', [MesaController::class,'show'])->name('show');
         Route::delete('{mesa}', [MesaController::class,'destroy'])->name('destroy');
-        Route::get('{mesa}/editar', [MesaController::class,'edit'])->name('edit');
         Route::put('{mesa}/editar', [MesaController::class,'update'])->name('update');
+        Route::get('{mesa}/editar', [MesaController::class,'edit'])->name('edit');
     });
     Route::prefix('articulos')->name('articulos.')->group(function () {
         Route::get('', [ArticuloController::class,'index'])->name('index');

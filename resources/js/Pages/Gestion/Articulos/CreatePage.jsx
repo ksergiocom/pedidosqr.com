@@ -18,6 +18,7 @@ function CreatePage(props) {
         nombre: '',
         precio: '',
         descripcion: '',
+        image: null,
     });
 
     function submit(e) {
@@ -73,6 +74,17 @@ function CreatePage(props) {
                             onChange={e => setData('descripcion', e.target.value)}
                         />
                         {errors.descripcion && <small className="text-red-500">{errors.descripcion}</small>}
+                    </div>
+                    <div className="grid w-full max-w-sm items-center gap-3 mt-5">
+                        <Label htmlFor="image">Imagen (opcional)</Label>
+                        <Input
+                            type="file"
+                            id="image"
+                            name="image"
+                            accept="image/*"
+                            onChange={e => setData('image', e.target.files[0])}
+                        />
+                        {errors.image && <small className="text-red-500">{errors.image}</small>}
                     </div>
                 </CardContent>
                 <CardFooter>

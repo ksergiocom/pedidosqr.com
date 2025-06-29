@@ -15,7 +15,7 @@ export default function GestionLayout(props) {
       <AppSidebar />
       <div className='p-5'>
         <SidebarTrigger className='mb-5' />
-        {flash.success && <Alert className='mb-7 w-fit'>
+        {flash.success && <Alert className='mb-7'>
           <CircleCheck></CircleCheck>
           <AlertTitle>
             {flash.success}

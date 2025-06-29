@@ -53,6 +53,7 @@ function IndexPage({ pedidos: initialPedidos }) {
         detalles.
       </p>
 
+      <section className="w-3xl">
       {pedidos.length === 0 ? (
         <p className="text-muted-foreground">No hay pedidos registrados.</p>
       ) : (
@@ -62,8 +63,7 @@ function IndexPage({ pedidos: initialPedidos }) {
               <AccordionTrigger>
                 <div className="flex justify-between w-full pr-4">
                   <span>
-                    Pedido #{pedido.id.slice(0, 8)} — Mesa:{" "}
-                    {pedido.mesa?.nombre}
+                    Pedido {pedido.id.slice(24, 32)} — {pedido.mesa?.nombre}
                   </span>
                   <span>{pedido.detalles.length} artículo(s)</span>
                 </div>
@@ -114,6 +114,7 @@ function IndexPage({ pedidos: initialPedidos }) {
           ))}
         </Accordion>
       )}
+      </section>
 
       {/* Diálogo de confirmación */}
       <ConfirmDialog

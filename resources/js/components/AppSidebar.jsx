@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode, ChevronUp, User2 } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode, ChevronUp, User2, ChevronDown } from "lucide-react"
 
 import {usePage} from "@inertiajs/react";
 
@@ -15,6 +15,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { Link } from "@inertiajs/react";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu";
@@ -44,6 +45,33 @@ export default function AppSidebar() {
 
   return (
     <Sidebar>
+        <SidebarHeader>
+        <SidebarMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton className='flex justify-between'>
+                <User2 /> {auth.user.email ?? 'Usuario'}
+                <ChevronDown className="" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="top"
+              //  className="w-[--radix-popper-anchor-width]"
+            >
+              <DropdownMenuItem>
+                <span>Perfil</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>Facturación</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link method="post" href="/auth/logout">Cerrar sesión</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarSeparator  className='mx-auto w-fit'/>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Gestión</SidebarGroupLabel>
@@ -63,32 +91,7 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton>
-                <User2 /> {auth.user.email ?? 'Usuario'}
-                <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              side="top"
-              //  className="w-[--radix-popper-anchor-width]"
-            >
-              {/* <DropdownMenuItem>
-                <span>Account</span>
-              </DropdownMenuItem> */}
-              {/* <DropdownMenuItem>
-                <span>Billing</span>
-              </DropdownMenuItem> */}
-              <DropdownMenuItem>
-                <Link method="post" href="/auth/logout">Cerrar sesión</Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenu>
-      </SidebarFooter>
+
     </Sidebar>
   )
 }

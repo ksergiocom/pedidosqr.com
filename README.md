@@ -1,12 +1,31 @@
-# Laravel + React + WebSockets
+># Laravel + React + WebSockets
 
 Proyecto para mandar comandas por web sockets
 
 ## En curso
-- Cerrar sesión sidebar
-- Agergar estados al pedido
-- En el lado de las mesas debe salir finalizado pedido en curso y dar la opcion de volver atrás para editarlo.
+- Estilizar
+    -> Crear un header para gestion para poder navegar a la landing page y display del nombre
+    -> Crear pagina perfil de usuario
+    -> Crear página facturación
+    -> Mesas
+        -> Acordeon
+            -> Ver pedidos en curso de cada mesa
+            -> Poder eliminarlos desde aquí también
+            -> Modificar botones para estar abajo como los otros
+            -> Si clico en mesa me lleva a su descripcion donde tengo la opcion de imprimir QR y ver pedidos más comodcamente
+    
+    -> Arituclos
+        -> Foto derecha / Placeholder sin foto
+        -> Descripcion y botones separados atotalmente (botones al final del todo derecha)
+        -> Sin descrpcion debe ser un texto en el centro muted
+        -> Create y Edit Page separator y estilizar bonito
 
+    -> Pedidos
+        -> Agregar foto y respetar proporciones de Mesas y Articulos
+
+    -> Auth formularios deben estar los mensajes con opacidad 0 para no hacer layout shift
+
+    -> Crear animación en la página de espera del usuario en la mesa
 ## Todo
 
 - Reestructurar carpetas y archivos
@@ -19,10 +38,14 @@ Proyecto para mandar comandas por web sockets
 - Crear landing page, about, etc a parte. El dashboard funciona con inetia (separar las dos partes en el código)
 - Pasarela de pago
 - LOcalstorage para el cliente de mesa
-- Subir imagenes y mostrar imagenes
+- Crear estilo consistente
+- Agergar estados al pedido
+- Agregar historial
+- Crear landing page
 
 ## ¿Que necesito?
 
 1. php artisan serve <- Servir app
 2. php artisan rever:start <- Servidor WebSockets
 3. php artisan queue:work  <- Despachar los eventos con un worker (se puede cambiar a sync para dev)
+4. php artisan storage:link <- Para servir las imagenes subidas

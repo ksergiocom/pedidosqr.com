@@ -29,7 +29,7 @@ const RegistrarPage = () => {
   }
 
   return (
-    <Card className="w-full max-w-md h-fit m-5 self-center">
+    <Card className="w-full max-w-md min-h-1/2  m-5 self-center">
       <CardHeader>
         <CardTitle>Regístrate en tu cuenta</CardTitle>
         <CardDescription>

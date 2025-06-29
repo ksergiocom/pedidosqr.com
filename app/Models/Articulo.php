@@ -17,6 +17,7 @@ class Articulo extends Model
         'descripcion',
         'precio',
         'user_id',
+        'image_url', 
     ];
 
     // --- Relaciones -------------------------------------
