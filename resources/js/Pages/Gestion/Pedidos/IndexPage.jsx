@@ -12,6 +12,31 @@ import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 import { router, usePage } from "@inertiajs/react";
 
+// --- Auxiliares -----------------------------------------
+
+function formatearFecha(fechaISO) {
+  const date = new Date(fechaISO);
+
+  const horas = String(date.getHours()).padStart(2, '0');
+  const minutos = String(date.getMinutes()).padStart(2, '0');
+  const dia = String(date.getDate()).padStart(2, '0');
+  const mes = String(date.getMonth() + 1).padStart(2, '0'); // enero = 0
+  const año = String(date.getFullYear()).slice(-2); // últimos 2 dígitos
+
+  // Solo hora
+  return `${horas}:${minutos} `;
+  // return `${horas}:${minutos} ${dia}-${mes}-${año}`;
+}
+
+function calcularTotalPedido(detalles) {
+  return detalles.reduce(
+    (acc, detalle) => acc + detalle.cantidad * detalle.articulo.precio,
+    0
+  );
+}
+
+// ----- Componente ---------------------------------------
+
 function IndexPage({ pedidos: initialPedidos }) {
   // El user hay que sacarlo explicitamente
   const { auth } = usePage().props;
@@ -45,75 +70,84 @@ function IndexPage({ pedidos: initialPedidos }) {
   );
 
   return (
-    <div className="flex flex-col gap-7">
-      <h1>Listado de pedidos</h1>
-      <p>
+    <div className="flex flex-col">
+      <h1 className="text-4xl font-semibold">Listado de pedidos</h1>
+      <p className="mt-2">
         Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus
         clientes, organizados por mesa. Despliega cada uno para ver sus
         detalles.
       </p>
 
-      <section className="w-3xl">
-      {pedidos.length === 0 ? (
-        <p className="text-muted-foreground">No hay pedidos registrados.</p>
-      ) : (
-        <Accordion type="single" collapsible className="w-full">
-          {pedidos.map((pedido) => (
-            <AccordionItem key={pedido.id} value={pedido.id}>
-              <AccordionTrigger>
-                <div className="flex justify-between w-full pr-4">
-                  <span>
-                    Pedido {pedido.id.slice(24, 32)} — {pedido.mesa?.nombre}
-                  </span>
-                  <span>{pedido.detalles.length} artículo(s)</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="flex flex-col gap-3 p-2">
-                  {pedido.detalles.map((detalle) => (
-                    <div
-                      key={detalle.id}
-                      className="flex justify-between border-b pb-2"
-                    >
-                      <div>
-                        <div className="font-medium">
-                          {detalle.articulo.nombre}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {detalle.articulo.descripcion || "Sin descripción"}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div>
-                          {detalle.cantidad} × {detalle.articulo.precio}€
-                        </div>
-                        <div className="font-semibold">
-                          {(
-                            detalle.cantidad * detalle.articulo.precio
-                          ).toFixed(2)}
-                          €
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Botón para eliminar */}
-                  <div className="mt-4 flex justify-end">
-                    <Button
-                      onClick={() => confirmDelete(pedido.id)}
-                      variant="destructive"
-                      size="sm"
-                    >
-                      <Trash className="w-4 h-4 mr-2" />
-                      Eliminar pedido
-                    </Button>
+      <section className="w-3xl mt-8">
+        {pedidos.length === 0 ? (
+          <p className="text-muted-foreground">No hay pedidos registrados.</p>
+        ) : (
+          <Accordion type="single" collapsible className="w-full">
+            {pedidos.map((pedido) => (
+              <AccordionItem key={pedido.id} value={pedido.id}>
+                <AccordionTrigger>
+                  <div className="flex justify-between w-full pr-4">
+                    <span>
+                      {pedido.mesa?.nombre} <span className="text-gray-500 text-xs ml-5 font-normal">{formatearFecha(pedido.updated_at)}h</span>
+                    </span>
+                    <span>{pedido.detalles.length} artículo(s)</span>
                   </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      )}
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-col gap-3 p-2 mb-5">
+                    {pedido.detalles.map((detalle) => (
+                      <div
+                        key={detalle.id}
+                        className="flex justify-between items-center border-b pb-2"
+                      >
+                        {/* Imagen */}
+                        <div className="flex items-center gap-3">
+                          {detalle.articulo.image_url ? (
+                            <img
+                              src={detalle.articulo.image_url}
+                              alt={detalle.articulo.nombre}
+                              className="w-12 h-12 object-cover rounded"
+                            />
+                          ) : (
+                            <div className="w-12 h-12 bg-muted text-xs flex items-center justify-center rounded text-muted-foreground">
+                              Sin imagen
+                            </div>
+                          )}
+                          <div className="font-medium">{detalle.cantidad} x {detalle.articulo.nombre}</div>
+                        </div>
+
+                        {/* Precio */}
+                        <div className="text-right">
+                          <div>
+                            {detalle.cantidad} × {detalle.articulo.precio}€
+                          </div>
+                          <div className="font-semibold">
+                            {(detalle.cantidad * detalle.articulo.precio).toFixed(2)}€
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Botón para eliminar */}
+                    <div className="mt-4 flex justify-between">
+                      <div>
+                        <p className="text-2xl font-bold">Total pedido: {calcularTotalPedido(pedido.detalles).toFixed(2)}€</p>
+                      </div>
+                      <Button
+                        onClick={() => confirmDelete(pedido.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        <Trash className="w-4 h-4 mr-2" />
+                        Eliminar pedido
+                      </Button>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        )}
       </section>
 
       {/* Diálogo de confirmación */}

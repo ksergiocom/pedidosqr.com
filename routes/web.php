@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MesaController;
 
 use App\Http\Controllers\PedidoController;
@@ -21,6 +22,8 @@ Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function () {
+    Route::redirect('/','/info');
+
     Route::prefix('mesas')->name('mesas.')->group(function () {
         Route::get('', [MesaController::class,'index'])->name('index');
         Route::get('crear', [MesaController::class,'create'])->name('create');
@@ -34,6 +37,7 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
         Route::get('', [ArticuloController::class,'index'])->name('index');
         Route::get('crear', [ArticuloController::class,'create'])->name('create');
         Route::post('crear', [ArticuloController::class,'store'])->name('store');
+        Route::get('{articulo}', [ArticuloController::class,'show'])->name('show');
         Route::get('{articulo}/editar', [ArticuloController::class,'edit'])->name('edit');
         Route::put('{articulo}/editar', [ArticuloController::class,'update'])->name('update');
         Route::delete('{articulo}', [ArticuloController::class,'destroy'])->name('destroy');
@@ -44,6 +48,11 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
     });
 });
 
+Route::prefix('info')->name('info.')->middleware('auth')->group(function(){
+    Route::get('', [InfoController::class, 'index'])->middleware('auth')->name('index');
+    Route::get('sobre-nosotros', [InfoController::class, 'about'])->middleware('auth')->name('about');
+    Route::get('contacto', [InfoController::class,'contacto'])->name('contacto');
+});
 
 Route::get('{mesa}',[MesaController::class, 'showPedidoEnMesa'])->name('pedidoEnMesa.show');
 Route::post('{mesa}/pedir',[PedidoController::class, 'pedirPedidoEnMesa'])->name('pedidoEnMesa.pedir');

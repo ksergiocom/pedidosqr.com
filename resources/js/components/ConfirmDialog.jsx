@@ -1,4 +1,4 @@
-// components/ConfirmDialog.jsx
+ // components/ConfirmDialog.jsx
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { Button } from "./ui/button";
 
 export default function ConfirmDialog({ open, onCancel, onConfirm, title, description }) {
   return (

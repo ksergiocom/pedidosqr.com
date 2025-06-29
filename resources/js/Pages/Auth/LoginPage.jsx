@@ -25,77 +25,66 @@ const LoginPage = () => {
   }
 
   return (
-    <Card className="w-full max-w-md m-5 self-center">
-      <CardHeader className="space-y-2">
-        <CardTitle>Inicia sesión en tu cuenta</CardTitle>
-        <CardDescription>
-          Introduce tu correo electrónico para acceder a tu cuenta
-        </CardDescription>
-      </CardHeader>
+    <div className="flex flex-col gap-6 p-6 w-full max-w-md mx-auto">
+      <h1 className="text-3xl font-semibold">Inicia sesión en tu cuenta</h1>
+      <p className="text-muted-foreground">
+        Introduce tu correo electrónico para acceder a tu cuenta
+      </p>
 
-      <CardContent>
-        <form onSubmit={submit}>
-          <div className="flex flex-col gap-2">
-            {/* Email */}
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Correo electrónico</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="ejemplo@correo.com"
-                required
-                value={data.email}
-                onChange={(e) => setData("email", e.target.value)}
-              />
-              <small
-                className={`text-red-500 text-sm transition-opacity duration-300 ${
-                  errors.email ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                {errors.email || "placeholder"}
-              </small>
-            </div>
+      <form onSubmit={submit} className="flex flex-col gap-5">
+        {/* Email */}
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="email">Correo electrónico</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="ejemplo@correo.com"
+            required
+            value={data.email}
+            onChange={(e) => setData("email", e.target.value)}
+          />
+          {errors.email && (
+            <small className="text-red-500 text-sm">{errors.email}</small>
+          )}
+        </div>
 
-            {/* Password */}
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                required
-                value={data.password}
-                onChange={(e) => setData("password", e.target.value)}
-              />
-              <small
-                className={`text-red-500 text-sm transition-opacity duration-300 ${
-                  errors.password ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                {errors.password || "placeholder"}
-              </small>
-            </div>
-          </div>
-        </form>
-      </CardContent>
+        {/* Password */}
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="password">Contraseña</Label>
+          <Input
+            id="password"
+            type="password"
+            required
+            value={data.password}
+            onChange={(e) => setData("password", e.target.value)}
+          />
+          {errors.password && (
+            <small className="text-red-500 text-sm">{errors.password}</small>
+          )}
+        </div>
 
-      <CardFooter className="flex flex-col gap-4">
-        <Button disabled={processing} onClick={submit} type="submit" className="w-full">
-          Iniciar sesión
-        </Button>
-        <Button disabled variant="outline" className="w-full">
-          Iniciar sesión con Google
-        </Button>
-        <p className="text-sm text-muted-foreground font-thin text-center mt-5">
-          ¿Aún no estás registrado?{" "}
-          <Link
-            className="underline-offset-4 hover:underline text-black font-normal"
-            href="/auth/registrar"
-          >
-            Regístrate aquí
-          </Link>
-        </p>
-      </CardFooter>
-    </Card>
+        {/* Botones */}
+        <div className="flex flex-col gap-3 mt-2">
+          <Button disabled={processing} type="submit" className="w-full">
+            Iniciar sesión
+          </Button>
+          <Button disabled variant="outline" className="w-full">
+            Iniciar sesión con Google
+          </Button>
+        </div>
+      </form>
+
+      {/* Registro */}
+      <p className="text-sm text-muted-foreground text-center mt-4">
+        ¿Aún no estás registrado?{" "}
+        <Link
+          href="/auth/registrar"
+          className="text-black font-medium underline-offset-4 hover:underline"
+        >
+          Regístrate aquí
+        </Link>
+      </p>
+    </div>
   );
 };
 

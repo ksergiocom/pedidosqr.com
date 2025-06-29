@@ -1,9 +1,5 @@
 import React from "react";
-
-import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode, ChevronUp, User2, ChevronDown } from "lucide-react"
-
-import {usePage} from "@inertiajs/react";
-
+import { Link, usePage } from "@inertiajs/react";
 import {
   Sidebar,
   SidebarContent,
@@ -16,82 +12,119 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarSeparator,
-} from "@/components/ui/sidebar"
-import { Link } from "@inertiajs/react";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu";
+} from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu";
+import {
+  HandPlatter,
+  Hamburger,
+  QrCode,
+  User2,
+  ChevronDown,
+  Info,
+  EqualApproximately,
+  Phone,
+} from "lucide-react";
 
-// Menu items.
-const items = [
+const sections = [
   {
-    title: "Pedidos",
-    url: "/gestion/pedidos",
-    icon: HandPlatter,
+    label: "Gestión",
+    items: [
+      { title: "Pedidos", url: "/gestion/pedidos", icon: HandPlatter },
+      { title: "Artículos", url: "/gestion/articulos", icon: Hamburger },
+      { title: "Mesas", url: "/gestion/mesas", icon: QrCode },
+    ],
   },
   {
-    title: "Artículos",
-    url: "/gestion/articulos",
-    icon: Hamburger,
+    label: "Información",
+    items: [
+      { title: "Ayuda", url: "/info", icon: Info },
+      { title: "Sobre nosotros", url: "/info/sobre-nosotros", icon: EqualApproximately },
+      { title: "Contacto", url: "/info/contacto", icon: Phone },
+    ],
   },
-  {
-    title: "Mesas",
-    url: "/gestion/mesas",
-    icon: QrCode,
-  },
-]
+];
 
 export default function AppSidebar() {
+  // Saca url y props por separado
+  const { props, url } = usePage();
+  const { auth } = props;
 
-  const {auth} = usePage().props
+  const activeClasses =
+    "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear";
 
   return (
     <Sidebar>
-        <SidebarHeader>
+      <SidebarHeader>
         <SidebarMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton className='flex justify-between'>
-                <User2 /> {auth.user.email ?? 'Usuario'}
-                <ChevronDown className="" />
+              <SidebarMenuButton className="flex justify-between">
+                <User2 /> {auth.user.email ?? "Usuario"}
+                <ChevronDown />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
-            <DropdownMenuContent
-              side="top"
-              //  className="w-[--radix-popper-anchor-width]"
-            >
+            <DropdownMenuContent side="top">
               <DropdownMenuItem>
-                <span>Perfil</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <span>Facturación</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link method="post" href="/auth/logout">Cerrar sesión</Link>
+                <Link method="post" href="/auth/logout">
+                  Cerrar sesión
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarSeparator  className='mx-auto w-fit'/>
+
+      <SidebarSeparator className="mx-auto w-fit" />
+
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Gestión</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {sections.map((section) => (
+          <React.Fragment key={section.label}>
+            <SidebarGroup>
+              <SidebarGroupLabel>{section.label}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {section.items.map((item) => {
+                    const isGestion = section.label === "Gestión";
+
+                    // Si es Ayuda exactamente
+                    const isAyuda = item.url === "/info" && url === "/info";
+
+                    // Si es otra info (requiere coincidencia exacta)
+                    const isInfo = section.label === "Información" && item.url !== "/info" && url === item.url;
+
+                    // Gestión: coincidencia parcial
+                    const isGestionActive = isGestion && url.startsWith(item.url);
+
+                    const isActive = isAyuda || isInfo || isGestionActive;
+
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                          asChild
+                          className={isActive ? activeClasses : ""}
+                        >
+                          <Link href={item.url}>
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarSeparator />
+          </React.Fragment>
+        ))}
       </SidebarContent>
 
+      <SidebarFooter />
     </Sidebar>
-  )
+  );
 }

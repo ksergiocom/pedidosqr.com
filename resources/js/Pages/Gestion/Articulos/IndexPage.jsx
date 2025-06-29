@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GestionLayout from "../../Layout/GestionLayout";
 import ConfirmDialog from "@/components/ConfirmDialog";
-import { Trash, Edit, CirclePlus } from "lucide-react";
+import { Trash, Edit, CirclePlus, Eye, EllipsisVertical } from "lucide-react";
 import { Link, router } from "@inertiajs/react";
 import {
     Accordion,
@@ -10,6 +10,14 @@ import {
     AccordionContent,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 function IndexPage({ articulos }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -26,20 +34,21 @@ function IndexPage({ articulos }) {
     };
 
     return (
-        <div className="flex flex-col gap-7">
-            <h1>Listado de artículos</h1>
-            <p>
-                Crea los artículos de tu menú. Se mostrarán en el menú del
-                código QR para ser seleccionados.
+        <div className="flex flex-col">
+
+            <h1 className="text-4xl font-semibold">Artículos de tu menú</h1>
+            <p className="mt-2">
+                Crea aquí los artículos que quieres que aparezcan en tu menú QR.
             </p>
-            <Link href="/gestion/articulos/crear">
+
+            <Link className="w-fit mt-8" href="/gestion/articulos/crear">
                 <Button className="w-fit">
                     <CirclePlus />
                     <span>Agregar artículo</span>
                 </Button>
             </Link>
 
-            <section className="w-3xl">
+            <section className="w-3xl mt-8">
 
                 {articulos.length === 0 ? (
                     <p className="text-muted-foreground">No hay artículos disponibles.</p>
@@ -54,38 +63,65 @@ function IndexPage({ articulos }) {
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
-                                    <div className="flex items-stretch gap-4 p-2">
-                                        {/* Imagen a la izquierda, estirándose para igualar la altura del bloque de texto */}
-                                        {art.image_url ? 
+                                    <div className="flex gap-4 p-2 min-h-40 "> {/* fija una altura, o usa h-full si el padre ya la da */}
+                                        {/* Imagen */}
+                                        {art.image_url ? (
                                             <img
                                                 src={art.image_url}
                                                 alt={art.nombre}
-                                                className="w-1/4 h-full object-cover rounded"
+                                                className="w-1/4 h-full object-cover object-center rounded"
                                             />
-                                            :
-                                            <p>Sin imagen</p>
-                                        }
-
-                                        {/* Zona de descripción + botones */}
-                                        <div className="flex flex-col flex-1">
-                                            <div className="text-sm text-muted-foreground">
-                                                {art.descripcion || "Sin descripción"}
+                                        ) : (
+                                            <div className="w-1/4 h-full bg-gray-100 flex items-center justify-center rounded">
+                                                Sin imagen
                                             </div>
-                                            <div className="flex justify-end gap-2 mt-8">
-                                                <Link href={`/gestion/articulos/${art.id}/editar`}>
-                                                    <Button variant="outline" size="sm">
-                                                        <Edit className="w-4 h-4 mr-1" />
-                                                        Editar
-                                                    </Button>
-                                                </Link>
-                                                <Button
-                                                    variant="destructive"
-                                                    size="sm"
-                                                    onClick={() => confirmDelete(art.id)}
+                                        )}
+
+                                        {/* Descripción + botones */}
+                                        <div className="flex flex-col flex-1">
+                                            {/* Descripción: si no, centrar */}
+                                            {art.descripcion ?
+                                                <div
+                                                    className="flex-1 text-sm text-muted-foreground"
                                                 >
-                                                    <Trash className="w-4 h-4 mr-1" />
-                                                    Borrar
-                                                </Button>
+                                                    {art.descripcion}
+                                                </div>
+                                                : <div className="flex-1 flex items-center justify-center">
+                                                    <span className="text-sm text-gray-300">Sin descripción</span>
+                                                </div>
+                                            }
+
+                                            {/* Botones abajo a la derecha */}
+                                            <div className="flex justify-end mt-4">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="outline">
+                                                            <EllipsisVertical className="w-5 h-5" />
+                                                            <span>Acciones</span>
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem asChild>
+                                                            <Link href={`/gestion/articulos/${art.id}`}>
+                                                                <Eye className="w-4 h-4 mr-2" />
+                                                                Ver
+                                                            </Link>
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem asChild>
+                                                            <Link href={`/gestion/articulos/${art.id}/editar`}>
+                                                                <Edit className="w-4 h-4 mr-2" />
+                                                                Editar
+                                                            </Link>
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem
+                                                            onClick={() => confirmDelete(art.id)}
+                                                            className="text-destructive"
+                                                        >
+                                                            <Trash className="w-4 h-4 mr-2" />
+                                                            Eliminar
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
                                             </div>
                                         </div>
                                     </div>

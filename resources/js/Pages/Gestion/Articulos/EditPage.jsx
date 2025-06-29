@@ -1,144 +1,129 @@
 import React from "react";
-import GestionLayout from "../../Layout/GestionLayout";
 import { Link, useForm } from "@inertiajs/react";
+import GestionLayout from "../../Layout/GestionLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardAction,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import { MoveLeft, Trash } from "lucide-react";
 
 export default function EditPage({ articulo }) {
-  const { data, setData, put, post, processing, errors } = useForm({
+  const { data, setData, post, processing, errors } = useForm({
     nombre: articulo.nombre || "",
     precio: articulo.precio || "",
     descripcion: articulo.descripcion || "",
-    image: null,            // para subir nueva imagen
-    _method: 'put',
+    image: null,
+    _method: "put",
   });
 
-  const submit = (e) => {
+  function submit(e) {
     e.preventDefault();
     post(`/gestion/articulos/${articulo.id}/editar`);
-  };
+  }
+
+  function deleteImage() {
+    // aquí peticionarías al endpoint de eliminar imagen
+    if (confirm("¿Eliminar la imagen actual?")) {
+      post(
+        `/gestion/articulos/${articulo.id}/imagen/eliminar`,
+        { _method: "delete" },
+        { preserveScroll: true }
+      );
+    }
+  }
 
   return (
-    <form onSubmit={submit} encType="multipart/form-data">
-      <Card>
-        <CardHeader>
-          <CardTitle>Editar Artículo</CardTitle>
-          <CardDescription>Modifica los datos de tu artículo</CardDescription>
-          <CardAction>
-            <Link href="/gestion/articulos">
-              <Button type="button" variant="ghost" size="icon">
-                <MoveLeft />
-              </Button>
-            </Link>
-          </CardAction>
-        </CardHeader>
+    <div className="flex flex-col w-xl">
 
-        <CardContent>
-          {/* Nombre */}
-          <div className="grid w-full max-w-sm items-center gap-3">
-            <Label htmlFor="nombre">Nombre</Label>
-            <Input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={data.nombre}
-              onChange={(e) => setData("nombre", e.target.value)}
+      <h1 className="text-4xl font-semibold">Editar Artículo</h1>
+      <p className="mt-2">Modifica los datos de tu artículo existente</p>
+
+      <form onSubmit={submit} encType="multipart/form-data" className="mt-8 max-w-sm flex flex-col gap-6">
+        {/* Nombre */}
+        <div className="grid w-full items-center gap-3">
+          <Label htmlFor="nombre">Nombre</Label>
+          <Input
+            id="nombre"
+            type="text"
+            name="nombre"
+            value={data.nombre}
+            onChange={(e) => setData("nombre", e.target.value)}
+          />
+          {errors.nombre && <small className="text-red-500 text-sm">{errors.nombre}</small>}
+        </div>
+
+        {/* Precio */}
+        <div className="grid w-full items-center gap-3">
+          <Label htmlFor="precio">Precio</Label>
+          <Input
+            id="precio"
+            type="number"
+            step="0.01"
+            name="precio"
+            value={data.precio}
+            onChange={(e) => setData("precio", e.target.value)}
+          />
+          {errors.precio && <small className="text-red-500 text-sm">{errors.precio}</small>}
+        </div>
+
+        {/* Descripción */}
+        <div className="grid w-full items-center gap-3">
+          <Label htmlFor="descripcion">Descripción</Label>
+          <Textarea
+            id="descripcion"
+            name="descripcion"
+            placeholder="Opcional"
+            value={data.descripcion}
+            onChange={(e) => setData("descripcion", e.target.value)}
+          />
+          {errors.descripcion && <small className="text-red-500 text-sm">{errors.descripcion}</small>}
+        </div>
+
+        <Separator className='my-5'></Separator>
+
+        {/* Imagen actual y botón borrar */}
+        {articulo.image_url && (
+          <div className="flex flex-col gap-3">
+            <Button variant="destructive" onClick={deleteImage} className="w-full">
+              <Trash className="w-4 h-4 mr-1" />
+              Borrar imagen
+            </Button>
+            <img
+              src={articulo.image_url}
+              alt={articulo.nombre}
+              className="w-full h-auto rounded"
             />
-            {errors.nombre && (
-              <small className="text-red-500">{errors.nombre}</small>
-            )}
           </div>
+        )}
 
-          {/* Precio */}
-          <div className="grid w-full max-w-sm items-center gap-3 mt-5">
-            <Label htmlFor="precio">Precio</Label>
-            <Input
-              type="number"
-              id="precio"
-              step="0.01"
-              name="precio"
-              value={data.precio}
-              onChange={(e) => setData("precio", e.target.value)}
-            />
-            {errors.precio && (
-              <small className="text-red-500">{errors.precio}</small>
-            )}
-          </div>
+        <Separator className='my-5'></Separator>
 
-          {/* Descripción */}
-          <div className="grid w-full max-w-sm items-center gap-3 mt-5">
-            <Label htmlFor="descripcion">Descripción</Label>
-            <Textarea
-              id="descripcion"
-              name="descripcion"
-              placeholder="Opcional"
-              value={data.descripcion}
-              onChange={(e) => setData("descripcion", e.target.value)}
-            />
-            {errors.descripcion && (
-              <small className="text-red-500">{errors.descripcion}</small>
-            )}
-          </div>
+        {/* Reemplazar imagen */}
+        <div className="grid w-full items-center gap-3">
+          <Label htmlFor="image">Reemplazar imagen (opcional)</Label>
+          <Input
+            id="image"
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={(e) => setData("image", e.target.files[0])}
+          />
+          {errors.image && <small className="text-red-500 text-sm">{errors.image}</small>}
+        </div>
 
-          {/* Imagen actual */}
-          {articulo.image_url && (
-            <div className="mt-5">
-              <Label>Imagen actual</Label>
-              <img
-                src={articulo.image_url}
-                alt={articulo.nombre}
-                className="w-full max-w-xs h-auto mt-2 rounded"
-              />
-              <Button
-                variant="destructive"
-                className='mt-5 mb-7 w-full p-1'
-                onClick={() => confirmDelete(art.id)}
-              >
-                <Trash className="w-4 h-4 mr-1" />
-                Borrar imágen
-              </Button>
-            </div>
-          )}
-
-          {/* Campo para subir nueva imagen */}
-          <div className="grid w-full max-w-sm items-center gap-3 mt-5">
-            <Label htmlFor="image">Reemplazar imagen (opcional)</Label>
-            <Input
-              type="file"
-              id="image"
-              name="image"
-              accept="image/*"
-              onChange={(e) => setData("image", e.target.files[0])}
-            />
-            {errors.image && (
-              <small className="text-red-500">{errors.image}</small>
-            )}
-          </div>
-        </CardContent>
-
-        <CardFooter>
-          <Button disabled={processing} className="w-full">
+        {/* Botones de acción */}
+        <div className="flex flex-col gap-3 mt-6">
+          <Button disabled={processing} type="submit" className="w-full">
             Guardar cambios
           </Button>
-        </CardFooter>
-      </Card>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }
 
-// Usa el mismo layout
 EditPage.layout = (page) => (
   <GestionLayout children={page} title="Editar Artículo" />
 );

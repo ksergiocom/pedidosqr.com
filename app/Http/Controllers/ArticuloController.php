@@ -20,6 +20,13 @@ class ArticuloController extends Controller
         ]);
     }
 
+    public function show(Articulo $articulo)
+    {
+        return inertia("Gestion/Articulos/ShowPage", [
+            "articulo" => $articulo,
+        ]);
+    }
+
     public function create()
     {
         return inertia('Gestion/Articulos/CreatePage');
