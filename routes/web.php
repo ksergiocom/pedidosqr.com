@@ -12,6 +12,11 @@ Route::view('/', 'home')->name('home');
 
 Route::get('{mesa}',[MesaController::class, 'showPedidoEnMesa'])->name('pedidoEnMesa.show');
 Route::post('{mesa}/pedir',[PedidoController::class, 'pedirPedidoEnMesa'])->name('pedidoEnMesa.pedir');
+Route::get('{mesa}/{pedido}',[MesaController::class, 'gracias'])->name('pedidoEnMesa.gracias');
+Route::put('/{mesa}/{pedido}', [PedidoController::class, 'update'])->name('pedidoEnMesa.update');
+Route::delete('/{mesa}/{pedido}', [PedidoController::class, 'cancelar'])->name('pedidoEnMesa.cancelar');
+Route::get('/{mesa}/{pedido}/editar', [PedidoController::class, 'edit'])->name('pedidoEnMesa.edit');
+
 
 Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');

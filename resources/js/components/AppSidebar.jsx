@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode, ChevronUp, User2 } from "lucide-react"
 
 
 
@@ -17,7 +17,8 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import { Link } from "@inertiajs/react";
- 
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu";
+
 // Menu items.
 const items = [
   {
@@ -59,6 +60,32 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton>
+                <User2 /> Username
+                <ChevronUp className="ml-auto" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              side="top"
+              //  className="w-[--radix-popper-anchor-width]"
+            >
+              <DropdownMenuItem>
+                <span>Account</span>
+              </DropdownMenuItem>
+              {/* <DropdownMenuItem>
+                <span>Billing</span>
+              </DropdownMenuItem> */}
+              <DropdownMenuItem>
+                <Link method="post" href="/auth/logout">Sign out</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }

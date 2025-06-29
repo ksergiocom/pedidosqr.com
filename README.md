@@ -3,12 +3,13 @@
 Proyecto para mandar comandas por web sockets
 
 ## En curso
-- InertiaJS
-- shadcn
+- Cerrar sesión sidebar
+- Agergar estados al pedido
+- En el lado de las mesas debe salir finalizado pedido en curso y dar la opcion de volver atrás para editarlo.
 
 ## Todo
 
-- Proteger rutas
+- Reestructurar carpetas y archivos
 - Logger
 - ON CASCADE en detalles etc
 - Login social
@@ -16,6 +17,9 @@ Proyecto para mandar comandas por web sockets
 - Agregar Zippy para enlazar rutas backend con forntend
 - Head ReactInertia titles y demás!
 - Crear landing page, about, etc a parte. El dashboard funciona con inetia (separar las dos partes en el código)
+- Pasarela de pago
+- LOcalstorage para el cliente de mesa
+- Subir imagenes y mostrar imagenes
 
 ## ¿Que necesito?
 

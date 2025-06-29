@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -39,9 +40,16 @@ class MesaController extends Controller
     public function showPedidoEnMesa(Request $request,Mesa $mesa){
         $articulos = $mesa->user->articulos;
 
-        return inertia('PedidoEnMesa', [
+        return inertia('Mesa/Pedido/CreatePage', [
             'mesa' => $mesa,
             'articulos' => $articulos,
+        ]);
+    }
+
+    public function gracias(Request $request, Mesa $mesa, Pedido $pedido){
+        return inertia('Mesa/GraciasPage',[
+            'mesa' => $mesa,
+            'pedido' => $pedido,
         ]);
     }
 

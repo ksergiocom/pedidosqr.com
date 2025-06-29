@@ -62,17 +62,16 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
     };
 
     return (
-        <main className="p-5">
+        <main className="p-5 w-xl mx-auto">
             <h1>¡Haz tu pedido!</h1>
-            <h3 className="mt-5">Tu mesa es {mesa.id}</h3>
             <Table className="mt-7">
-                <TableHeader>
+                {/* <TableHeader>
                     <TableRow>
                         <TableHead>Nombre</TableHead>
                         <TableHead>Precio</TableHead>
                         <TableHead className="text-right"></TableHead>
                     </TableRow>
-                </TableHeader>
+                </TableHeader> */}
                 <TableBody>
                     {articulos.map(articulo => (
                         <TableRow key={articulo.id}>
@@ -107,8 +106,8 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
             </Table>
 
             <div className="mt-8 flex justify-between items-center">
-                <p className="text-lg">Total artículos: {cantidadTotal}</p>
-                <p className="text-lg">Importe total: {importeTotal.toFixed(2)}€</p>
+                <p className="text-lg text-gray-500 font-thin">Total artículos: <strong className='text-black font-bold'>{cantidadTotal}</strong></p>
+                <p className="text-lg text-gray-500 font-thin">Importe total: <strong className='text-black font-bold'>{importeTotal.toFixed(2)}€</strong></p>
             </div>
             <Button className='w-full mt-10' onClick={hacerPedido}>Hacer pedido</Button>
         </main>
