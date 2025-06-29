@@ -1,15 +1,8 @@
-# Para Juan y Victor
-
-Si me tocais el código sin permiso (sin explicarme que coño haceis) os reviento la puta cara.
-
-No me chatgpteis todo sin cabeza por favor.
-
--------
-
-
->## Laravel + React + WebSockets
+## Laravel + React + WebSockets
 
 Proyecto para mandar comandas por web sockets
+
+![preview](preview.png)
 
 ## En curso
 - Estilizar
