@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid('user_id');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique(['nombre','unique_id']); // Nombre de elemento único para cada usuario
+            $table->unique(['nombre','user_id']); // Nombre de elemento único para cada usuario
 
             $table->timestamps();
         });

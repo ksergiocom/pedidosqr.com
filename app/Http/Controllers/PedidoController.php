@@ -128,6 +128,6 @@ class PedidoController extends Controller
         $pedido->detalles()->delete(); // Eliminar detalles primero si no hay cascade
         $pedido->delete();
 
-        return back()->with('success', 'Se ha eliminado el pedido correctamente');
+        return redirect()->route('pedidoEnMesa.show',['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
     }
 }

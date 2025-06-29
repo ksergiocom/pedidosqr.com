@@ -2,7 +2,7 @@ import React from "react";
 
 import { Calendar, Home, Inbox, Search, Settings, ShoppingCart, Hamburger, HandPlatter, QrCode, ChevronUp, User2 } from "lucide-react"
 
-
+import {usePage} from "@inertiajs/react";
 
 import {
   Sidebar,
@@ -39,6 +39,9 @@ const items = [
 ]
 
 export default function AppSidebar() {
+
+  const {auth} = usePage().props
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -65,7 +68,7 @@ export default function AppSidebar() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton>
-                <User2 /> Username
+                <User2 /> {auth.user.email ?? 'Usuario'}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
@@ -73,14 +76,14 @@ export default function AppSidebar() {
               side="top"
               //  className="w-[--radix-popper-anchor-width]"
             >
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <span>Account</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               {/* <DropdownMenuItem>
                 <span>Billing</span>
               </DropdownMenuItem> */}
               <DropdownMenuItem>
-                <Link method="post" href="/auth/logout">Sign out</Link>
+                <Link method="post" href="/auth/logout">Cerrar sesión</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
