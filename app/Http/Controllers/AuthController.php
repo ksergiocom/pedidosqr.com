@@ -74,7 +74,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'password_actual' => ['required', 'current_password'],
-            'password_nuevo' => ['required', 'min:8', 'confirmed'],
+            'password_nuevo' => ['required', 'string', 'min:5', 'confirmed'],
         ], [
             'password_actual.current_password' => 'La contraseña actual no es correcta.',
             'password_nuevo.confirmed' => 'La confirmación no coincide con la nueva contraseña.',
@@ -84,7 +84,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password_nuevo); // El warning no hay problema
         $user->save();
 
-        return redirect()->route('perfil.mi-prefil')->with('success', 'La contraseña se ha actualizado correctamente.');
+        return redirect()->route('perfil.mi-perfil')->with('success', 'La contraseña se ha actualizado correctamente.');
     }
 
 }
