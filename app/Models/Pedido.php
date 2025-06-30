@@ -20,11 +20,26 @@ class Pedido extends Model
         'estado',
     ];
 
+    protected $with = ['detalles.articulo'];
+    protected $appends = ['total'];
+
     protected static function booted()
     {
         static::created(function ($pedido) {
             Log::info("Pedido creado: Emisión de evento broadcast para Pedido ID {$pedido->id}");
         });
+    }
+
+    /**
+     * Suma del importe total del pedido
+     */
+    public function getTotalAttribute()
+    {
+        $total = $this->detalles->sum(function ($detalle) {
+            return $detalle->cantidad * $detalle->articulo->precio;
+        });
+
+        return round($total, 2);
     }
 
     // --- Relaciones -------------------------------------

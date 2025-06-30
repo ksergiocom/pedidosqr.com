@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InfoController;
@@ -24,7 +25,7 @@ Route::put('/auth/actualizar-contraseña', [AuthController::class, 'actualizarPa
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function () {
-    Route::redirect('/','/info');
+    Route::redirect('/','/gestion/pedidos');
 
     Route::prefix('mesas')->name('mesas.')->group(function () {
         Route::get('', [MesaController::class,'index'])->name('index');
@@ -47,10 +48,15 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
     Route::prefix('pedidos')->name('pedidos.')->group(function(){
         Route::get('',[PedidoController::class,'index'])->name('index');
         Route::get('{pedido}',[PedidoController::class,'show'])->name('show');
-        Route::get('{pedido}/completar',[PedidoController::class,'completar'])->name('completar');
-        Route::get('{pedido}/pendiente',[PedidoController::class,'pendiente'])->name('pendiente');
+        Route::put('{pedido}/completar',[PedidoController::class,'completar'])->name('completar');
+        Route::put('{pedido}/pendiente',[PedidoController::class,'pendiente'])->name('pendiente');
         Route::delete('{pedido}',[PedidoController::class,'destroy'])->name('destroy');
     });
+});
+
+Route::prefix('analisis')->name('info.')->middleware('auth')->group(function(){
+    Route::redirect('/','/analisis/pedidos');
+    Route::get('pedidos', [AnalisisController::class, 'pedidos'])->name('pedidos');
 });
 
 Route::prefix('info')->name('info.')->middleware('auth')->group(function(){

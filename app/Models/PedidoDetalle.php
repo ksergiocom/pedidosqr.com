@@ -12,18 +12,20 @@ class PedidoDetalle extends Model
 
     protected $table = "pedidos_detalles";
     protected $fillable = [
-    'pedido_id',
-    'articulo_id',
-    'cantidad',
+        'pedido_id',
+        'articulo_id',
+        'cantidad',
     ];
+
+    // --- Relaciones -------------------------------------
 
     public function pedido(): BelongsTo
     {
-        return $this->belongsTo(Pedido::class,'pedido_id');
+        return $this->belongsTo(Pedido::class, 'pedido_id');
     }
 
     public function articulo(): BelongsTo
     {
-        return $this->belongsTo(Articulo::class,'articulo_id');
+        return $this->belongsTo(Articulo::class, 'articulo_id');
     }
 }

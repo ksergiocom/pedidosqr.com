@@ -20,6 +20,7 @@ class PedidoController extends Controller
         $user = Auth::user();
 
         $pedidos = $user->pedidos()
+            ->where('estado', '=', 'pendiente')
             ->with(['mesa', 'detalles.articulo'])
             ->latest()
             ->get();
@@ -61,12 +62,13 @@ class PedidoController extends Controller
         ])->with('success', '¡Pedido creado con éxito!');
     }
 
-    public function edit(Mesa $mesa, Pedido $pedido){
+    public function edit(Mesa $mesa, Pedido $pedido)
+    {
         $articulos = $mesa->user->articulos;
 
         $pedido->load(['detalles.articulo']);
 
-        return inertia('Mesa/Pedido/EditPage',[
+        return inertia('Mesa/Pedido/EditPage', [
             'mesa' => $mesa,
             'pedido' => $pedido,
             'articulos' => $articulos,
@@ -128,41 +130,44 @@ class PedidoController extends Controller
         $pedido->detalles()->delete(); // Eliminar detalles primero si no hay cascade
         $pedido->delete();
 
-        return redirect()->route('pedidoEnMesa.show',['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
+        return redirect()->route('pedidoEnMesa.show', ['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
     }
 
 
-    public function show(Pedido $pedido){
-        if ($pedido->mesa->user_id !== auth()->id()){
+    public function show(Pedido $pedido)
+    {
+        if ($pedido->mesa->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para ver esta pedido');
         }
 
-        $pedido->load(['detalles.articulo','mesa']);
+        $pedido->load(['detalles.articulo', 'mesa']);
 
-        return inertia('Gestion/Pedidos/ShowPage',[
+        return inertia('Gestion/Pedidos/ShowPage', [
             'pedido' => $pedido,
         ]);
     }
 
-    public function completar(Pedido $pedido){
-        if ($pedido->mesa->user_id !== auth()->id()){
+    public function completar(Pedido $pedido)
+    {
+        if ($pedido->mesa->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para modificar el estado de este pedido');
         }
 
         $pedido->estado = 'completado';
         $pedido->save();
 
-        return redirect()->back()->with('success','Se ha marcado el pedido como completado');
+        return redirect()->back()->with('success', 'Se ha marcado el pedido como completado');
     }
 
-        public function pendiente(Pedido $pedido){
-        if ($pedido->mesa->user_id !== auth()->id()){
+    public function pendiente(Pedido $pedido)
+    {
+        if ($pedido->mesa->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para modificar el estado de este pedido');
         }
 
         $pedido->estado = 'pendiente';
         $pedido->save();
 
-        return redirect()->back()->with('success','Se ha marcado el pedido como pendiente');
+        return redirect()->back()->with('success', 'Se ha marcado el pedido como pendiente');
     }
 }

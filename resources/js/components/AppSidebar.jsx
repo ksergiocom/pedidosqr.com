@@ -29,6 +29,8 @@ import {
   Info,
   EqualApproximately,
   Phone,
+  ChartNoAxesCombined,
+  PackageSearch,
 } from "lucide-react";
 
 const sections = [
@@ -46,6 +48,13 @@ const sections = [
       { title: "Ayuda", url: "/info", icon: Info },
       { title: "Sobre nosotros", url: "/info/sobre-nosotros", icon: EqualApproximately },
       { title: "Contacto", url: "/info/contacto", icon: Phone },
+    ],
+  },
+  {
+    label: "Análisis",
+    items: [
+      { title: "Pedidos", url: "/analisis/pedidos", icon: ChartNoAxesCombined },
+      { title: "Artículos", url: "/analisis/articulos", icon: PackageSearch },
     ],
   },
 ];

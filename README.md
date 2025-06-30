@@ -44,6 +44,8 @@ Proyecto para mandar comandas por web sockets
 - Crear landing page
 - En el historial de pedidos se debe de poder deshacer un pedido completado a estado pendiente
 - El badge de pedidos del tiempo se actualiza de color al entrar nuevos?
+- En el perfil de usuroi activar/desactivar toast de nuevo pedido entrante (preferencias)
+- FUncoinan los eventos cuando se actualizan o se borran?
 
 ## ¿Que necesito?
 

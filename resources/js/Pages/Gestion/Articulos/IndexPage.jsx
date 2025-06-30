@@ -17,7 +17,10 @@ import {
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { Card, CardContent } from "@/components/ui/card";
+import { truncarTexto } from "@/lib/truncar";
 
 function IndexPage({ articulos }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -34,7 +37,7 @@ function IndexPage({ articulos }) {
     };
 
     return (
-        <div className="flex flex-col max-w-3xl">
+        <div className="flex flex-col">
 
             <h1 className="text-4xl font-semibold">Listado de artículos</h1>
             <p className="mt-2">
@@ -42,94 +45,88 @@ function IndexPage({ articulos }) {
             </p>
 
             <Link className="w-fit mt-8" href="/gestion/articulos/crear">
-                <Button className="w-fit">
-                    <CirclePlus />
+                <Button variant='outline' className="w-fit">
+                    {/* <CirclePlus /> */}
                     <span>Agregar artículo</span>
                 </Button>
             </Link>
 
-            <section className="w-3xl mt-8">
+            <section className="mt-8 grid grid-cols-2 gap-5">
 
                 {articulos.length === 0 ? (
                     <p className="text-muted-foreground">No hay artículos disponibles.</p>
                 ) : (
-                    <Accordion type="single" collapsible className="w-full">
-                        {articulos.map((art) => (
-                            <AccordionItem key={art.id} value={art.id}>
-                                <AccordionTrigger>
-                                    <div className="flex justify-between w-full pr-4">
-                                        <span className="font-medium">{art.nombre}</span>
-                                        <span>{art.precio.toFixed(2)}€</span>
-                                    </div>
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="flex gap-4 p-2 min-h-40 "> {/* fija una altura, o usa h-full si el padre ya la da */}
-                                        {/* Imagen */}
-                                        {art.image_url ? (
-                                            <img
-                                                src={art.image_url}
-                                                alt={art.nombre}
-                                                className="w-1/4 h-full object-cover object-center rounded"
-                                            />
-                                        ) : (
-                                            <div className="w-1/4 h-full bg-gray-100 flex items-center justify-center rounded">
-                                                Sin imagen
-                                            </div>
-                                        )}
+                    articulos.map((art) => (
+                        <Card className="p-0 overflow-hidden h-full">
+                            <div className="flex h-full">
+                                {/* Imagen */}
+                                <div className="w-56 h-full">
+                                    <img
+                                        className="h-full w-full object-cover"
+                                        src={art.image_url}
+                                        alt={art.nombre}
+                                    />
+                                </div>
 
-                                        {/* Descripción + botones */}
-                                        <div className="flex flex-col flex-1">
-                                            {/* Descripción: si no, centrar */}
-                                            {art.descripcion ?
-                                                <div
-                                                    className="flex-1 text-sm text-muted-foreground"
-                                                >
-                                                    {art.descripcion}
-                                                </div>
-                                                : <div className="flex-1 flex items-center justify-center">
-                                                    <span className="text-sm text-gray-300">Sin descripción</span>
-                                                </div>
-                                            }
-
-                                            {/* Botones abajo a la derecha */}
-                                            <div className="flex justify-end mt-4">
-                                                <DropdownMenu>
-                                                    <DropdownMenuTrigger asChild>
-                                                        <Button variant="outline">
-                                                            <EllipsisVertical className="w-5 h-5" />
-                                                            <span>Acciones</span>
-                                                        </Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end">
-                                                        <DropdownMenuItem asChild>
-                                                            <Link href={`/gestion/articulos/${art.id}`}>
-                                                                <Eye className="w-4 h-4 mr-2" />
-                                                                Ver
-                                                            </Link>
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem asChild>
-                                                            <Link href={`/gestion/articulos/${art.id}/editar`}>
-                                                                <Edit className="w-4 h-4 mr-2" />
-                                                                Editar
-                                                            </Link>
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem
-                                                            onClick={() => confirmDelete(art.id)}
-                                                            className="text-destructive"
-                                                        >
-                                                            <Trash className="w-4 h-4 mr-2 text-destructive" />
-                                                            Eliminar
-                                                        </DropdownMenuItem>
-                                                    </DropdownMenuContent>
-                                                </DropdownMenu>
-                                            </div>
+                                {/* Contenido */}
+                                <div className="flex flex-col justify-between p-2 px-4 flex-1">
+                                    <div>
+                                        <div className="flex justify-between">
+                                            <h2 className="text-lg font-semibold">
+                                                <span className="text-2xl mr-3">{art.nombre}</span>
+                                                <span className="font-normal">{art.precio}€</span>
+                                            </h2>
                                         </div>
+                                        <p className="text-muted-foreground text-sm mt-2">
+                                            {truncarTexto(art.descripcion, 150)}
+                                        </p>
                                     </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                        ))}
-                    </Accordion>
 
+
+                                </div>
+                                {/* Acciones */}
+                                <div className="flex justify-end m-2">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="icon">
+                                                <EllipsisVertical />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem asChild>
+                                                <Link
+                                                    href={`/gestion/articulos/${art.id}`}
+                                                    className="flex items-center gap-2"
+                                                >
+                                                    <Eye className="w-4 h-4" />
+                                                    Ver
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem asChild>
+                                                <Link
+                                                    href={`/gestion/articulos/${art.id}/editar`}
+                                                    className="flex items-center gap-2"
+                                                >
+                                                    <Edit className="w-4 h-4" />
+                                                    Editar
+                                                </Link>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSeparator />
+                                            <DropdownMenuItem
+                                                onClick={() => confirmDelete(art.id)}
+                                                className="flex items-center gap-2 text-red-600"
+                                            >
+                                                <Trash className="w-4 h-4" />
+                                                Eliminar
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+                            </div>
+                        </Card>
+
+
+                    ))
                 )}
 
                 <ConfirmDialog
