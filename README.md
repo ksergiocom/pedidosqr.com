@@ -5,7 +5,9 @@ Proyecto para mandar comandas por web sockets
 ![preview](preview.png)
 
 ## En curso
-- Agregar sooner
+
+- Agregar estados de articulos
+- Agregar historial de pedidos y charts (seccion analisis)
 
 - Estilizar
     -> Crear pagina perfil de usuario
@@ -24,6 +26,8 @@ Proyecto para mandar comandas por web sockets
     -> Ampliar detalle mesa y detalle articulos y detalle pedido (primero agregar estado a pedido)
 ## Todo
 
+- Ajustar tiempo de espera para alerta en rojo en PERFIL
+- Seguridad; solo el pedido en mesa puede cancelaro o editarlo. <- Manejar con tokens en cada petición!
 - Reestructurar carpetas y archivos
 - Logger
 - ON CASCADE en detalles etc
@@ -38,6 +42,8 @@ Proyecto para mandar comandas por web sockets
 - Agergar estados al pedido
 - Agregar historial
 - Crear landing page
+- En el historial de pedidos se debe de poder deshacer un pedido completado a estado pendiente
+- El badge de pedidos del tiempo se actualiza de color al entrar nuevos?
 
 ## ¿Que necesito?
 

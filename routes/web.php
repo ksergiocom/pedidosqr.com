@@ -46,6 +46,9 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
     });
     Route::prefix('pedidos')->name('pedidos.')->group(function(){
         Route::get('',[PedidoController::class,'index'])->name('index');
+        Route::get('{pedido}',[PedidoController::class,'show'])->name('show');
+        Route::get('{pedido}/completar',[PedidoController::class,'completar'])->name('completar');
+        Route::get('{pedido}/pendiente',[PedidoController::class,'pendiente'])->name('pendiente');
         Route::delete('{pedido}',[PedidoController::class,'destroy'])->name('destroy');
     });
 });

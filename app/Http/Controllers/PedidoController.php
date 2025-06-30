@@ -130,4 +130,39 @@ class PedidoController extends Controller
 
         return redirect()->route('pedidoEnMesa.show',['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
     }
+
+
+    public function show(Pedido $pedido){
+        if ($pedido->mesa->user_id !== auth()->id()){
+            abort(403, 'No tienes permisos para ver esta pedido');
+        }
+
+        $pedido->load(['detalles.articulo','mesa']);
+
+        return inertia('Gestion/Pedidos/ShowPage',[
+            'pedido' => $pedido,
+        ]);
+    }
+
+    public function completar(Pedido $pedido){
+        if ($pedido->mesa->user_id !== auth()->id()){
+            abort(403, 'No tienes permisos para modificar el estado de este pedido');
+        }
+
+        $pedido->estado = 'completado';
+        $pedido->save();
+
+        return redirect()->back()->with('success','Se ha marcado el pedido como completado');
+    }
+
+        public function pendiente(Pedido $pedido){
+        if ($pedido->mesa->user_id !== auth()->id()){
+            abort(403, 'No tienes permisos para modificar el estado de este pedido');
+        }
+
+        $pedido->estado = 'pendiente';
+        $pedido->save();
+
+        return redirect()->back()->with('success','Se ha marcado el pedido como pendiente');
+    }
 }

@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 export default function GestionLayout(props) {
   const { flash } = usePage().props;
 
+  // Toast que vienen de los mensajes de ->with() de Laravel (success, error, warning, info)
   useEffect(() => {
     if (flash?.success) {
       toast.success(flash.success);
@@ -26,7 +27,7 @@ export default function GestionLayout(props) {
       toast.warning(flash.warning);
     }
     if (flash?.info) {
-      toast(flash.info); // Info genérica
+      toast(flash.info);
     }
   }, [flash]);
 

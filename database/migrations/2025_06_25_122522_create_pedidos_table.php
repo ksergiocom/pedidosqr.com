@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             
             $table->uuid('mesa_id');
+            $table->enum('estado', ['pendiente', 'completado'])->default('pendiente');
+
             
             $table->foreign('mesa_id')->references('id')->on('mesas');
 

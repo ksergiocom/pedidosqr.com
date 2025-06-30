@@ -17,6 +17,7 @@ class Pedido extends Model
     protected $table = 'pedidos';
     protected $fillable = [
         'mesa_id',
+        'estado',
     ];
 
     protected static function booted()
