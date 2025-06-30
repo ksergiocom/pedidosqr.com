@@ -6,6 +6,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MesaController;
 
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,9 +17,10 @@ Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login', [AuthController::class, 'autentificar']);
     Route::get('/registrar', [AuthController::class, 'registrarView'])->name('registrar');
-    Route::post('/registrar', [AuthController::class, 'registrar']);
+    Route::post('/registrar', [AuthController::class, 'registrar'])->name('registrar');
 });
 
+Route::put('/auth/actualizar-contraseña', [AuthController::class, 'actualizarPassword'])->middleware('auth')->name('auth.actualizar-contraseña');
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function () {
@@ -52,6 +54,10 @@ Route::prefix('info')->name('info.')->middleware('auth')->group(function(){
     Route::get('', [InfoController::class, 'index'])->middleware('auth')->name('index');
     Route::get('sobre-nosotros', [InfoController::class, 'about'])->middleware('auth')->name('about');
     Route::get('contacto', [InfoController::class,'contacto'])->name('contacto');
+});
+
+Route::prefix('perfil')->name('perfil.')->middleware('auth')->group(function(){
+    Route::get('', [UsuarioController::class,'miPerfil'])->name('mi-perfil');
 });
 
 Route::get('{mesa}',[MesaController::class, 'showPedidoEnMesa'])->name('pedidoEnMesa.show');

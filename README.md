@@ -5,8 +5,9 @@ Proyecto para mandar comandas por web sockets
 ![preview](preview.png)
 
 ## En curso
+- Agregar sooner
+
 - Estilizar
-    -> Crear un header para gestion para poder navegar a la landing page y display del nombre
     -> Crear pagina perfil de usuario
     -> Crear página facturación
     -> Mesas
@@ -15,19 +16,12 @@ Proyecto para mandar comandas por web sockets
             -> Poder eliminarlos desde aquí también
             -> Modificar botones para estar abajo como los otros
             -> Si clico en mesa me lleva a su descripcion donde tengo la opcion de imprimir QR y ver pedidos más comodcamente
-    
-    -> Arituclos
-        -> Foto derecha / Placeholder sin foto
-        -> Descripcion y botones separados atotalmente (botones al final del todo derecha)
-        -> Sin descrpcion debe ser un texto en el centro muted
-        -> Create y Edit Page separator y estilizar bonito
 
-    -> Pedidos
-        -> Agregar foto y respetar proporciones de Mesas y Articulos
-
-    -> Auth formularios deben estar los mensajes con opacidad 0 para no hacer layout shift
 
     -> Crear animación en la página de espera del usuario en la mesa
+    -> Transiciones entre vistas
+    -> En detalles de cada cosa agregar los 3 botones de opcoines para eliminar o editar
+    -> Ampliar detalle mesa y detalle articulos y detalle pedido (primero agregar estado a pedido)
 ## Todo
 
 - Reestructurar carpetas y archivos

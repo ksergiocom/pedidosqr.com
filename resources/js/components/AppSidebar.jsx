@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
   DropdownMenuContent,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
   HandPlatter,
@@ -69,8 +70,14 @@ export default function AppSidebar() {
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent side="top">
-              <DropdownMenuItem>
-                <Link method="post" href="/auth/logout">
+              <DropdownMenuItem asChild>
+                <Link className="w-full" href="/perfil">
+                  Perfil
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator/>
+              <DropdownMenuItem asChild>
+                <Link className="w-full" method="post" href="/auth/logout">
                   Cerrar sesión
                 </Link>
               </DropdownMenuItem>

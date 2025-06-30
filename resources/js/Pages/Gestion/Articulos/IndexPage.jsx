@@ -34,11 +34,11 @@ function IndexPage({ articulos }) {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col max-w-3xl">
 
-            <h1 className="text-4xl font-semibold">Artículos de tu menú</h1>
+            <h1 className="text-4xl font-semibold">Listado de artículos</h1>
             <p className="mt-2">
-                Crea aquí los artículos que quieres que aparezcan en tu menú QR.
+                Crea aquí los artículos que quieres que <strong>aparezcan</strong> en tu menú QR.
             </p>
 
             <Link className="w-fit mt-8" href="/gestion/articulos/crear">
@@ -117,7 +117,7 @@ function IndexPage({ articulos }) {
                                                             onClick={() => confirmDelete(art.id)}
                                                             className="text-destructive"
                                                         >
-                                                            <Trash className="w-4 h-4 mr-2" />
+                                                            <Trash className="w-4 h-4 mr-2 text-destructive" />
                                                             Eliminar
                                                         </DropdownMenuItem>
                                                     </DropdownMenuContent>
@@ -134,7 +134,7 @@ function IndexPage({ articulos }) {
 
                 <ConfirmDialog
                     title="¿Estás seguro?"
-                    description="Esta acción eliminará el artículo seleccionado. Esta operación no se puede deshacer."
+                    description="¡Cuidado! Esta acción eliminará el artículo seleccionado. Esta operación no se puede deshacer."
                     open={showConfirm}
                     onCancel={() => setShowConfirm(false)}
                     onConfirm={() => {

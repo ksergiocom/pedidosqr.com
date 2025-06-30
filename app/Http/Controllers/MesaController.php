@@ -31,7 +31,7 @@ class MesaController extends Controller
     {
         // $articulos = $mesa->user->articulos;
 
-        return inertia('Gestion/Mesas/QrPage', [
+        return inertia('Gestion/Mesas/ShowPage', [
             'mesa' => $mesa,
             // 'articulos' => $articulos,
         ]);

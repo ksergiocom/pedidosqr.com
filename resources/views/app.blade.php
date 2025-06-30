@@ -8,6 +8,7 @@
     @inertiaHead
   </head>
   <body class="h-full">
+    @routes
     @inertia
   </body>
 </html>

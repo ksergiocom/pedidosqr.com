@@ -70,7 +70,7 @@ function IndexPage({ pedidos: initialPedidos }) {
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col max-w-3xl">
       <h1 className="text-4xl font-semibold">Listado de pedidos</h1>
       <p className="mt-2">
         Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus

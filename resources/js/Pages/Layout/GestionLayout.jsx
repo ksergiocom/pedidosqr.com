@@ -24,7 +24,7 @@ export default function GestionLayout(props) {
           <AutoBreadcrumb />
         </div>
 
-        <Separator className="my-8" />
+        <Separator className="my-5" />
 
         {/* Alert (opcional) */}
         {/* {flash.success && (
