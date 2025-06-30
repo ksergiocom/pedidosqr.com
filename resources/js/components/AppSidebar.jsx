@@ -31,6 +31,7 @@ import {
   Phone,
   ChartNoAxesCombined,
   PackageSearch,
+  History,
 } from "lucide-react";
 
 const sections = [
@@ -42,19 +43,19 @@ const sections = [
       { title: "Mesas", url: "/gestion/mesas", icon: QrCode },
     ],
   },
-  {
-    label: "Información",
-    items: [
-      { title: "Ayuda", url: "/info", icon: Info },
-      { title: "Sobre nosotros", url: "/info/sobre-nosotros", icon: EqualApproximately },
-      { title: "Contacto", url: "/info/contacto", icon: Phone },
-    ],
-  },
+  // {
+  //   label: "Información",
+  //   items: [
+  //     { title: "Ayuda", url: "/info", icon: Info },
+  //     { title: "Sobre nosotros", url: "/info/sobre-nosotros", icon: EqualApproximately },
+  //     { title: "Contacto", url: "/info/contacto", icon: Phone },
+  //   ],
+  // },
   {
     label: "Análisis",
     items: [
-      { title: "Pedidos", url: "/analisis/pedidos", icon: ChartNoAxesCombined },
-      { title: "Artículos", url: "/analisis/articulos", icon: PackageSearch },
+      { title: "Historial", url: "/analisis/pedidos", icon: History },
+      // { title: "Artículos", url: "/analisis/articulos", icon: PackageSearch },
     ],
   },
 ];
@@ -84,7 +85,12 @@ export default function AppSidebar() {
                   Perfil
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuSeparator/>
+              <DropdownMenuItem disabled asChild>
+                <Link className="w-full" href="#">
+                  Facturación
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link className="w-full" method="post" href="/auth/logout">
                   Cerrar sesión

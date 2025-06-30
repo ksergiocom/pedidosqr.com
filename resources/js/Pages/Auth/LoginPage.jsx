@@ -13,6 +13,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import AuthLayout from "../Layout/AuthLayout";
 
+const handleGoogleLogin = () => {
+    window.location.href = '/auth/google/redirect';
+  };
+
 const LoginPage = () => {
   const { data, setData, post, processing, errors } = useForm({
     email: "",
@@ -68,7 +72,7 @@ const LoginPage = () => {
           <Button disabled={processing} type="submit" className="w-full">
             Iniciar sesión
           </Button>
-          <Button disabled variant="outline" className="w-full">
+          <Button type="button" onClick={handleGoogleLogin} variant="outline" className="w-full">
             Iniciar sesión con Google
           </Button>
         </div>

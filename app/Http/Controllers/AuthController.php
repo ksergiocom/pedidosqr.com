@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -85,6 +87,31 @@ class AuthController extends Controller
         $user->save();
 
         return redirect()->route('perfil.mi-perfil')->with('success', 'La contraseña se ha actualizado correctamente.');
+    }
+
+
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback()
+    {
+        $googleUser = Socialite::driver('google')->stateless()->user();
+
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->getEmail()],
+            [
+                'name' => $googleUser->getName(),
+                'google_id' => $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'password' => Hash::make(Str::random(24)), // contraseña aleatoria segura
+            ]
+        );
+
+        Auth::login($user);
+
+        return redirect('/gestion/pedidos'); // o donde quieras redirigir
     }
 
 }

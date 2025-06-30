@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use Laravel\Socialite\Facades\Socialite;
+
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\AuthController;
@@ -11,8 +14,20 @@ use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 
+// ----- Lading -----------------------------------------------------------------------------------
 Route::view('/', 'home')->name('home');
+// ----- Inertia ----------------------------------------------------------------------------------
 
+
+// ----- OAuth ------------------------------------------------------------------------------------
+
+Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirect'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->name('auth.google.callback');
+
+// ------------------------------------------------------------------------------------------------
+
+
+// ----- Inertia ----------------------------------------------------------------------------------
 
 Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');

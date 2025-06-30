@@ -69,7 +69,7 @@ function IndexPage({ pedidos: initialPedidos }) {
   return (
     <div className="flex flex-col max-w-3xl">
       <h1 className="text-4xl font-semibold">Listado de pedidos</h1>
-      <p className="mt-2 mb-8 text-sm">
+      <p className="mt-2 mb-8">
         Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus
         clientes, organizados por mesa. Despliega cada uno para ver sus
         detalles. ¡Se actualizan en tiempo real!

@@ -31,6 +31,9 @@ Proyecto para mandar comandas por web sockets
     -> Ampliar detalle mesa y detalle articulos y detalle pedido (primero agregar estado a pedido)
 ## Todo
 
+-> TERMINAR HISTORIAL DE PEDIDOS Y PAGINACION
+-> AGregar Filtrados y Ordenaciones
+-> Terminar de Hacer estilos
 - Ajustar tiempo de espera para alerta en rojo en PERFIL
 - Seguridad; solo el pedido en mesa puede cancelaro o editarlo. <- Manejar con tokens en cada petición!
 - Reestructurar carpetas y archivos
