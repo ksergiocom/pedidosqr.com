@@ -4,6 +4,8 @@ import CustomInput from '@/components/CustomInput';
 import GestionLayout from '../Layout/GestionLayout';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 const MiPerfilPage = () => {
   const {
@@ -30,7 +32,31 @@ const MiPerfilPage = () => {
         Gestiona tu información y preferencias de cuenta desde aquí.
       </p>
 
-      <form className="mt-8" onSubmit={handleSubmit}>
+      <Separator className="my-10" />
+
+      <h2 className='text-2xl font-semibold'>Preferencias usuario</h2>
+      
+      <CustomInput
+        label="Tiempo alerta mesa"
+        className='mt-8'
+        type="number"
+        description='Minutos que deben pasar hasta que el pedido se marque con un aviso rojo'
+      ></CustomInput>
+
+      <div className="flex items-center space-x-2 mt-10">
+        <Switch id="enable-toast" />
+        <Label htmlFor="enable-toast">Activar mensajes</Label>
+      </div>
+      <p className='text-muted-foreground text-sm mt-2'>Los mensajes flotantes aparecen cuando se generan nuevos artículos, mesas o pedidos. También pueden avisar de eventos especiales</p>
+
+      <Button disabled={processing} className="mt-10 w-full" variant='outline'>
+        Cambiar preferencias
+      </Button>
+
+
+      <Separator className="my-10" />
+
+      <form className="" onSubmit={handleSubmit}>
         <CustomInput
           label="Contraseña antigua"
           description="Por seguridad debes ingresar la contraseña antigua para modificarla por otra"
@@ -60,6 +86,7 @@ const MiPerfilPage = () => {
         </Button>
 
         <Separator className="my-10" />
+
         <p className="text-sm text-muted-foreground">
           Si no te acuerdas de la contraseña puedes recuperarla usando tu email. Pulsa aquí para que te enviemos un link de recuperación.
         </p>

@@ -2,7 +2,12 @@
 
 Proyecto para mandar comandas por web sockets
 
-![preview](preview.png)
+<table>
+  <tr>
+    <td><img src="preview1.png" width="100%"/></td>
+    <td><img src="preview2.png" width="100%"/></td>
+  </tr>
+</table>
 
 ## En curso
 
@@ -46,6 +51,8 @@ Proyecto para mandar comandas por web sockets
 - El badge de pedidos del tiempo se actualiza de color al entrar nuevos?
 - En el perfil de usuroi activar/desactivar toast de nuevo pedido entrante (preferencias)
 - FUncoinan los eventos cuando se actualizan o se borran?
+- Link de recuperacion email
+- Mails de avisos
 
 ## ¿Que necesito?
 
