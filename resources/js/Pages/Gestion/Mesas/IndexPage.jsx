@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { openQrFullScreen } from "@/lib/utils";
 
+const baseUrl = import.meta.env.VITE_APP_URL;
+
 function MesasPage(props) {
   const [showConfirm, setShowConfirm] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
@@ -81,7 +83,7 @@ function MesasPage(props) {
                 <Card className="m-0 p-0 h-full w-full relative overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <QRCodeSVG
-                      value={`/${mesa.id}`}
+                      value={`${baseUrl}/${mesa.id}`}
                       className="w-3/5 h-3/5"
                       ref={(el) => (qrRefs.current[mesa.id] = el)}
                     />
