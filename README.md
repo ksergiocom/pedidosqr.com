@@ -1,6 +1,6 @@
 ## Laravel + React + WebSockets
 
-Proyecto para mandar comandas por web sockets
+Proyecto SaaS para mandar pedidos por web sockets
 
 <table>
   <tr>
@@ -10,6 +10,8 @@ Proyecto para mandar comandas por web sockets
 </table>
 
 ## En curso
+
+-> Deploy, estoy cansado jefe
 
 -> Detalle mesa salen los utimos 5 pedidos de esa mesa y estadisticas
 -> Detalle de pedido salen las estadisticas

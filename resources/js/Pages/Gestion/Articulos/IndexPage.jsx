@@ -36,7 +36,7 @@ function IndexPage({ articulos }) {
                 </Button>
             </Link>
 
-            <section className="mt-8 grid grid-cols-2 gap-5">
+            <section className="mt-8 grid xl:grid-cols-2 gap-5">
 
                 {/*                 
                     <Link href="/gestion/mesas/crear" className=" group block h-full w-full">

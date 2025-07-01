@@ -31,25 +31,25 @@ const CardArticulo = ({ art, confirmDelete, options = true, className = "", chil
     <Card className={`p-0 overflow-hidden h-full ${className}`}>
       <div className="flex flex-col sm:flex-row sm:h-full">
         <div className="sm:w-1/3 h-1/2 sm:h-full">
-        <Dialog>
-          <DialogTitle className="hidden">Descripcion imagen</DialogTitle>
-          <DialogTrigger asChild>
-            <img
-              className="w-full h-full object-cover"
-              src={art.image_url}
-              alt={art.nombre}
-            />
-          </DialogTrigger>
-          <DialogContent className='p-0 overflow-hidden'>
-                        <img
-              className="w-full h-full object-cover"
-              src={art.image_url}
-              alt={art.nombre}
-            />
-          </DialogContent>
-        </Dialog>
+          <Dialog>
+            <DialogTitle className="hidden">Descripcion imagen</DialogTitle>
+            <DialogTrigger asChild>
+              <img
+                className="w-full h-full object-cover"
+                src={art.image_url}
+                alt={art.nombre}
+              />
+            </DialogTrigger>
+            <DialogContent className='p-0 overflow-hidden'>
+              <img
+                className="w-full h-full object-cover"
+                src={art.image_url}
+                alt={art.nombre}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
-        <div className={`w-auto sm:w-2/3 flex flex-col justify-between ${options? 'py-4 px-5' :'p-4'}`}>
+        <div className={`relative w-auto sm:w-2/3 flex flex-col justify-between ${options ? 'py-4 px-5' : 'p-4'}`}>
           <div>
             <div className="flex justify-between">
               <h2 className="text-lg font-semibold">
@@ -63,11 +63,11 @@ const CardArticulo = ({ art, confirmDelete, options = true, className = "", chil
             {children}
           </div>
         </div>
-          {options && (
-            <div className="flex justify-start m-2">
-              <OptionsButton entity={art} actions={actions} />
-            </div>
-          )}
+        {options && (
+          <div className="flex justify-start m-2 absolute sm:relative bg-black sm:bg-transparent rounded-lg text-white sm:text-black">
+            <OptionsButton entity={art} actions={actions} />
+          </div>
+        )}
       </div>
     </Card>
   );

@@ -69,7 +69,7 @@ function IndexPage({ pedidos: initialPedidos }) {
   return (
     <div className="flex flex-col max-w-3xl">
       <h1 className="text-4xl font-semibold">Listado de pedidos</h1>
-      <p className="mt-2 mb-8">
+      <p className="text-xl mt-5 mb-10">
         Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus
         clientes, organizados por mesa. Despliega cada uno para ver sus
         detalles. ¡Se actualizan en tiempo real!
@@ -80,18 +80,20 @@ function IndexPage({ pedidos: initialPedidos }) {
       ) : (
         <Accordion type="single" collapsible className="w-full">
           {pedidos.map((pedido) => (
-            <Card key={pedido.id} className="w-3xl my-5 p-2">
+            <Card key={pedido.id} className="my-5 p-0 sm:p-2">
               <CardContent>
                 <AccordionItem value={pedido.id}>
                   <AccordionTrigger>
-                    <div className="flex justify-between w-full pr-4">
+                    <div className="flex flex-col gap-5 sm:flex-row justify-between w-full pr-4">
                       <span>
                         {pedido.mesa?.nombre}
                         {/* <span className="text-gray-500 text-xs ml-5 font-normal">{formatearFechaHora(pedido.updated_at)}h</span> */}
                         <Badge className='ml-5 text-xs' variant={minutosTranscurridos(pedido.updated_at) > 5 ? "destructive" : "secondary"}>{formatearFechaHora(pedido.updated_at)}h</Badge>
                       </span>
-                      <span>
-                        {pedido.detalles.length} artículo(s)
+                      {/* <Separator className='sm:hidden'></Separator> */}
+                      <span className="font-semibold">
+                        {pedido.detalles.length} 
+                        <span className="font-normal"> artículo(s)</span>
                       </span>
                     </div>
                   </AccordionTrigger>
@@ -101,7 +103,7 @@ function IndexPage({ pedidos: initialPedidos }) {
                       {pedido.detalles.map((detalle, idx) => (
                         <div
                           key={detalle.id}
-                          className={`flex justify-between items-center pb-2 ${idx !== pedido.detalles.length - 1 ? 'border-b' : ''
+                          className={`flex justify-between items-center pb-2 text-xs sm:text-base ${idx !== pedido.detalles.length - 1 ? 'border-b' : ''
                             }`}
                         >
                           {/* Imagen */}
@@ -137,7 +139,7 @@ function IndexPage({ pedidos: initialPedidos }) {
 
 
                       {/* Botón para eliminar */}
-                      <div className="mt-8 flex justify-between flex-1">
+                      <div className="mt-2 md:mt-8 flex flex-col-reverse gap-5 md:flex-row justify-between flex-1">
 
                         <div className="flex">
                           <div className="inline-flex rounded-md shadow-sm">
