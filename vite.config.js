@@ -10,7 +10,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                ],
+            ],
             refresh: true,
         }),
         tailwindcss(),
@@ -18,7 +18,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-        '@': path.resolve(__dirname, 'resources/js'),
+            '@': path.resolve(__dirname, 'resources/js'),
         },
     },
 });

@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import GestionLayout from "../../Layout/GestionLayout";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import { Trash, Edit, Eye, HandPlatter, QrCode } from "lucide-react";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import { Card } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import OptionsButton from "@/components/OptionsButton";
@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { openQrFullScreen } from "@/lib/utils";
 
-const baseUrl = import.meta.env.VITE_APP_URL;
-
 function MesasPage(props) {
+
+  const baseUrl = usePage().props.appUrl
+
   const [showConfirm, setShowConfirm] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
 
