@@ -67,6 +67,7 @@ Proyecto SaaS para mandar pedidos por web sockets
 - Agregar estado de pedido actualizado! que se vea reflejado en Gesiton/pedidos quizas Eventos y avisos y ordenar por el actualizado ultimo!
 - Cambiar de menus <-- 
 - Cambiar URLS uids por los nombres unicos de cada mesa / articulo
+- Servidor de mail PRopio y mandar correos!
 
 ## ¿Que necesito?
 

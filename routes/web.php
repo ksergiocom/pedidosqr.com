@@ -32,7 +32,7 @@ Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->
 Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login', [AuthController::class, 'autentificar']);
-    Route::get('/registrar', [AuthController::class, 'registrarView'])->name('registrar');
+    Route::get('/registrar', [AuthController::class, 'registrarView'])->name('registrar-view');
     Route::post('/registrar', [AuthController::class, 'registrar'])->name('registrar');
 });
 
