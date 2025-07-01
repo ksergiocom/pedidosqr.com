@@ -34,6 +34,7 @@ Proyecto para mandar comandas por web sockets
 -> TERMINAR HISTORIAL DE PEDIDOS Y PAGINACION
 -> AGregar Filtrados y Ordenaciones
 -> Terminar de Hacer estilos
+-> Borrado de foto no se hace!
 - Ajustar tiempo de espera para alerta en rojo en PERFIL
 - Seguridad; solo el pedido en mesa puede cancelaro o editarlo. <- Manejar con tokens en cada petición!
 - Reestructurar carpetas y archivos

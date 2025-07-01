@@ -70,8 +70,8 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
 });
 
 Route::prefix('analisis')->name('info.')->middleware('auth')->group(function(){
-    Route::redirect('/','/analisis/pedidos');
-    Route::get('pedidos', [AnalisisController::class, 'pedidos'])->name('pedidos');
+    Route::redirect('/','/analisis/historial');
+    Route::get('historial', [AnalisisController::class, 'historial'])->name('historial');
 });
 
 Route::prefix('info')->name('info.')->middleware('auth')->group(function(){
