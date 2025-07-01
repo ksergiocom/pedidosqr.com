@@ -96,6 +96,7 @@ function IndexPage({ pedidos: initialPedidos }) {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
+                    <Separator/>
                     <div className="flex flex-col gap-3 p-2 mb-5 mt-5">
                       {pedido.detalles.map((detalle, idx) => (
                         <div

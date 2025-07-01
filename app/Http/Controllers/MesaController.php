@@ -29,11 +29,11 @@ class MesaController extends Controller
 
     public function show(Mesa $mesa)
     {
-        // $articulos = $mesa->user->articulos;
+        $ultimosPedidos = $mesa->pedidos()->latest()->limit(5)->get();
 
         return inertia('Gestion/Mesas/ShowPage', [
             'mesa' => $mesa,
-            // 'articulos' => $articulos,
+            'ultimosPedidos' => $ultimosPedidos,
         ]);
     }
 

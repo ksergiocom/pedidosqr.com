@@ -40,4 +40,8 @@ class AnalisisController extends Controller
         ]);
     }
 
+    public function estadisticas(){
+        return inertia('Analisis/EstadisticasPage');
+    }
+
 }

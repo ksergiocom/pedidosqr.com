@@ -11,8 +11,10 @@ Proyecto para mandar comandas por web sockets
 
 ## En curso
 
-- Agregar estados de articulos
-- Agregar historial de pedidos y charts (seccion analisis)
+-> Detalle mesa salen los utimos 5 pedidos de esa mesa y estadisticas
+-> Detalle de pedido salen las estadisticas
+-> Agregar mas de una foto a un articulo
+-> Comprimir fotos subidas y resize
 
 - Estilizar
     -> Crear pagina perfil de usuario
@@ -31,7 +33,6 @@ Proyecto para mandar comandas por web sockets
     -> Ampliar detalle mesa y detalle articulos y detalle pedido (primero agregar estado a pedido)
 ## Todo
 
--> TERMINAR HISTORIAL DE PEDIDOS Y PAGINACION
 -> AGregar Filtrados y Ordenaciones
 -> Terminar de Hacer estilos
 -> Borrado de foto no se hace!
@@ -57,6 +58,13 @@ Proyecto para mandar comandas por web sockets
 - FUncoinan los eventos cuando se actualizan o se borran?
 - Link de recuperacion email
 - Mails de avisos
+- Agregar errores 404 y 401 y otros
+- Renombrar todo <--
+- Estructurar carpetas mejor <--
+- Componentes para uniformidad <--
+- Agregar estado de pedido actualizado! que se vea reflejado en Gesiton/pedidos quizas Eventos y avisos y ordenar por el actualizado ultimo!
+- Cambiar de menus <-- 
+- Cambiar URLS uids por los nombres unicos de cada mesa / articulo
 
 ## ¿Que necesito?
 

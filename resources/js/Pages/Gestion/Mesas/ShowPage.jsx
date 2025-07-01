@@ -12,9 +12,17 @@ const QrPage = (props) => {
         <p className="mt-2">Aquí puedes ver el historial de tu mesa y ver su código QR. Si lo deseas puedes verlo en versión para imprimir dando click aquí.</p>
         <QRCodeSVG size={256} className="mt-8" value={`/${props.mesa.id}`}></QRCodeSVG>
         <p className="mt-8">Está pendiente implementar un historial de los pedidos de cada mesa.</p>
+        <h2 className="text-3xl font-semibold">Listado ultimos pedidos</h2>
+        <ul>
+            {props.ultimosPedidos.map(pedido => (
+                <li>
+                    <Link className="text-blue-500 hover:text-blue-600 hover:underline" href={`/gestion/pedidos/${pedido.id}`}>{pedido.id}</Link> - {pedido.total}€
+                </li>
+            ))}
+        </ul>
     </div>
 }
 
 QrPage.layout = page => <GestionLayout children={page} title="Welcome" />
 
-export default  QrPage
+export default QrPage

@@ -55,7 +55,7 @@ const sections = [
     label: "Análisis",
     items: [
       { title: "Historial", url: "/analisis/historial", icon: History },
-      // { title: "Artículos", url: "/analisis/articulos", icon: PackageSearch },
+      // { title: "Estadisticas", url: "/analisis/estadisticas", icon: ChartNoAxesCombined },
     ],
   },
 ];

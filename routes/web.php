@@ -72,13 +72,14 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
 Route::prefix('analisis')->name('info.')->middleware('auth')->group(function(){
     Route::redirect('/','/analisis/historial');
     Route::get('historial', [AnalisisController::class, 'historial'])->name('historial');
+    // Route::get('estadisticas', [AnalisisController::class, 'estadisticas'])->name('estadisticas');
 });
 
-Route::prefix('info')->name('info.')->middleware('auth')->group(function(){
-    Route::get('', [InfoController::class, 'index'])->middleware('auth')->name('index');
-    Route::get('sobre-nosotros', [InfoController::class, 'about'])->middleware('auth')->name('about');
-    Route::get('contacto', [InfoController::class,'contacto'])->name('contacto');
-});
+// Route::prefix('info')->name('info.')->middleware('auth')->group(function(){
+//     Route::get('', [InfoController::class, 'index'])->middleware('auth')->name('index');
+//     Route::get('sobre-nosotros', [InfoController::class, 'about'])->middleware('auth')->name('about');
+//     Route::get('contacto', [InfoController::class,'contacto'])->name('contacto');
+// });
 
 Route::prefix('perfil')->name('perfil.')->middleware('auth')->group(function(){
     Route::get('', [UsuarioController::class,'miPerfil'])->name('mi-perfil');
