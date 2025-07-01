@@ -79,8 +79,8 @@ function MesasPage(props) {
           ];
 
           return (
-            <Link href={`/gestion/mesas/${mesa.id}`}>
-              <AspectRatio key={mesa.id} ratio={1 / 1}>
+            <Link key={mesa.id} href={`/gestion/mesas/${mesa.id}`}>
+              <AspectRatio  ratio={1 / 1}>
                 <Card className="m-0 p-0 h-full w-full relative overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <QRCodeSVG

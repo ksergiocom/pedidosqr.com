@@ -11,7 +11,14 @@ Proyecto SaaS para mandar pedidos por web sockets
 
 ## En curso
 
+
+
+
 -> Deploy, estoy cansado jefe
+
+-> FIX ERRORES TONTOS:
+  1. confirmDelete is not defined Detalle pedido boton eliminar
+
 
 -> Detalle mesa salen los utimos 5 pedidos de esa mesa y estadisticas
 -> Detalle de pedido salen las estadisticas
