@@ -57,6 +57,8 @@ class AuthController extends Controller
 
     public function registrar(Request $request)
     {
+        return "Lo siento no se puede registrar nadie todavía :(";
+
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:5|confirmed',
@@ -97,6 +99,8 @@ class AuthController extends Controller
 
     public function googleCallback()
     {
+        return "Lo siento no se puede registrar nadie todavía :(";
+
         $googleUser = Socialite::driver('google')->stateless()->user();
 
         $user = User::firstOrCreate(
