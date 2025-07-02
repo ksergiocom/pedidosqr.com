@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ArrowUp, CheckCircle } from 'lucide-react';
-import { router } from '@inertiajs/react';
+import { router, Link } from '@inertiajs/react';
 import CardArticulo from '@/components/CardArticulo';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -15,7 +15,7 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Link } from '@inertiajs/react';
+import Title from '@/components/Title';
 
 const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
   const [cantidades, setCantidades] = useState(() => {
@@ -69,55 +69,56 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
 
   return (
     <>
-      <main className="p-5 mx-auto max-w-7xl">
-        <h1 className="text-4xl font-bold text-center">Editar pedido</h1>
+      <main className="p-5 w-full max-w-7xl mx-auto">
+        <Title className="text-center">Editar pedido</Title>
         <p className="text-xl mt-5 text-center">
           Modifica las cantidades y pulsa <strong>“Actualizar pedido”</strong>.
         </p>
 
-        <div className="grid grido-cols-1 xl:grid-cols-2 gap-10 mt-10">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-7 sm:mt-10">
           {articulos.map((articulo) => (
             <div className="flex items-center gap-5" key={articulo.id}>
               <CardArticulo
                 art={articulo}
                 options={false}
                 className={`h-max sm:h-full transition ${
-                  cantidades[articulo.id] > 0 ? 'shadow-xl/10 scale-103' : ''
-                }`}
-              >
-                <div className="flex mt-5 items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => aumentar(articulo.id)}
-                  >
-                    <ArrowUp />
-                  </Button>
+                  cantidades[articulo.id] > 0 ? 'shadow-xl/10 scale-101' : ''
+                }`}>
 
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => disminuir(articulo.id)}
-                    className={`transition ${
-                      cantidades[articulo.id] < 1 ? 'opacity-0' : 'opacity-100'
-                    }`}
-                  >
-                    <ArrowDown />
-                  </Button>
+                  <div className="flex mt-5 items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => aumentar(articulo.id)}
+                    >
+                      <ArrowUp />
+                    </Button>
 
-                  <span
-                    className={`ml-3 transition-opacity duration-300 ${
-                      cantidades[articulo.id] > 0
-                        ? 'opacity-100 text-black'
-                        : 'opacity-0'
-                    }`}
-                  >
-                    <Badge className="text-md font-semibold mr-2 bg-green-500">
-                      <CheckCircle className="mr-2" />
-                      {cantidades[articulo.id]} <span>Pedidos</span>
-                    </Badge>
-                  </span>
-                </div>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => disminuir(articulo.id)}
+                      className={`transition ${
+                        cantidades[articulo.id] < 1 ? 'opacity-0' : 'opacity-100'
+                      }`}
+                    >
+                      <ArrowDown />
+                    </Button>
+
+                    <span
+                      className={`ml-3 transition-opacity duration-300 ${
+                        cantidades[articulo.id] > 0
+                          ? 'opacity-100 text-black'
+                          : 'opacity-0'
+                      }`}
+                    >
+                      <Badge className="text-md font-semibold mr-2 bg-green-500">
+                        <CheckCircle className="mr-2" />
+                        {cantidades[articulo.id]} <span>Pedidos</span>
+                      </Badge>
+                    </span>
+                  </div>
+                
               </CardArticulo>
             </div>
           ))}
@@ -128,35 +129,48 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
         </p>
       </main>
 
-      <footer className="mx-auto sticky bottom-0 bg-white border-t p-5">
-        <div className="max-w-lg mx-auto flex gap-4">
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button className="flex-1">Actualizar pedido</Button>
-            </AlertDialogTrigger>
+      <footer className="mx-auto sticky bottom-0 bg-white border-t px-5 p-3 sm:p-5">
+        <div className="max-w-lg mx-auto">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-muted-foreground font-thin">
+              Articulo(s):{' '}
+              <strong className="text-black font-bold">{cantidadTotal}</strong>
+            </p>
+            <p className="text-sm text-muted-foreground font-thin">
+              Total:{' '}
+              <strong className="text-black font-bold">
+                {importeTotal.toFixed(2)}€
+              </strong>
+            </p>
+          </div>
+          <div className="flex gap-4 mt-2 sm:mt-4 mb-2">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="flex-1 w-1/2">Actualizar</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>¿Confirmar actualización?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Estás a punto de actualizar tu pedido. Puedes editar o
+                    cancelar tu pedido en cualquier momento.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction onClick={actualizarPedido}>
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
 
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>¿Confirmar actualización?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Estás a punto de actualizar tu pedido. Puedes editar o cancelar
-                  tu pedido en cualquier momento.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction onClick={actualizarPedido}>
-                  Confirmar
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <Link href={`/${mesa.id}/${pedido.id}`} className="flex-1">
-            <Button variant="outline" className="w-full">
-              Volver al pedido
-            </Button>
-          </Link>
+            <Link href={`/${mesa.id}/${pedido.id}`} className="w-1/2">
+              <Button variant="outline" className="w-full">
+                Volver
+              </Button>
+            </Link>
+          </div>
         </div>
       </footer>
     </>

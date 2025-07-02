@@ -14,6 +14,7 @@ import {
   TableCell,
   TableHead,
 } from '@/components/ui/table';
+import Title from '@/components/Title';
 
 
 const PedidoEnMesa = ({ articulos, mesa }) => {
@@ -73,16 +74,16 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
     return (
         <>
             <main className="p-5 mx-auto max-w-7xl">
-                <h1 className='text-4xl font-bold text-center'>¡Haz tu pedido!</h1>
-                <p className="text-xl mt-5 text-center">Elige lo que quieres tomar y pulsa <strong>“Hacer pedido”</strong>.</p>
-                <p className="text-xl mt-2 text-center">¡Te atenderemos al instante!</p>
+                <Title className='text-center'>¡Haz tu pedido!</Title>
+                {/* <p className="text-xl mt-5 text-center">Elige lo que quieres tomar y pulsa <strong>“Hacer pedido”</strong>.</p>
+                <p className="text-xl mt-2 text-center">¡Te atenderemos al instante!</p> */}
 
-
-                <div className='grid grido-cols-1 xl:grid-cols-2 gap-10 mt-10'>
+ 
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-7 sm:mt-10 place-items-start items-stretch">
 
                     {articulos.map(articulo => (
-                        <div className='flex items-center gap-5' key={articulo.id}>
-                            <CardArticulo art={articulo} options={false} className={`h-max sm:h-full transition ${cantidades[articulo.id] > 0 ? 'shadow-xl/10 scale-103' : ''
+                        <div className='flex w-full items-center gap-5' key={articulo.id}>
+                            <CardArticulo art={articulo} options={false} className={`h-max w-full sm:h-full transition ${cantidades[articulo.id] > 0 ? 'shadow-xl/10' : ''
                                 }`}>
                                 <div className="flex mt-5 items-center gap-2">
                                     <Button
@@ -126,7 +127,7 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
                 </p>
 
             </main>
-            <footer className='mx-auto sticky bottom-0 bg-white border-t p-5'>
+            <footer className='mx-auto sticky bottom-0 bg-white border-t px-5 p-3 sm:p-5'>
                 <div className='max-w-lg mx-auto'>
 
                     <div className="flex justify-between items-center">
@@ -135,7 +136,7 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
                     </div>
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button className='w-full mt-5 mb-2'>Hacer pedido</Button>
+                            <Button className='w-full mt-2 sm:mt-4 mb-2'>Hacer pedido</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>

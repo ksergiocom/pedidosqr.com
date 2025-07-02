@@ -181,12 +181,12 @@ server {
 
 ### En proceso
 
-- Ajustar diseño de pedir en mesa
-- Ajustar Auth layout
+- Algunos Cards articulo en tamaño pequeño no se ve. Se tiene que poder pulsar sobre el card para ver el detalle completo
 
 - Si el menu esta vacio mostrar un aviso de que no hay ARITCULOS todavía!
 - Agregar mensajes no hay cosas cuando no haya recurso
 - Numero de artículos debe er cantidad no diferentes tipos de articulos
+- Crear seeders con tamaño
 
 ### Fix errores tontos
 
@@ -222,6 +222,7 @@ server {
 - Servidor de correo propio y notificaciones por mail  
 - Docker para despliegue
 - Crear unos seeders con imagenes y muchos pedidos historial para ver estadisticas.
+- Extraer componente CardPedido para reutilizar
 
 ---
 

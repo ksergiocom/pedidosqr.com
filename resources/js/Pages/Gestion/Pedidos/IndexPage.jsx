@@ -72,9 +72,7 @@ function IndexPage({ pedidos: initialPedidos }) {
     <div className="flex flex-col max-w-3xl">
       <Title>Listado de pedidos</Title>
       <TitleDescription className="mt-2 sm:mt-5 mb-3">
-        Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus
-        clientes, organizados por mesa. Despliega cada uno para ver sus
-        detalles. ¡Se actualizan en tiempo real!
+        Marcar el pedido como terminado lo oculta en el panel de gestión. Puedes volver a marcarlo como pendiente en el historial de pedidos. Eliminar el pedido lo destruye permanentemente y no se registrarán los datos para análisis
       </TitleDescription>
 
       {pedidos.length === 0 ? (
@@ -135,8 +133,8 @@ function IndexPage({ pedidos: initialPedidos }) {
                         </div>
                       ))}
 
-                      <p className="text-muted-foreground text-xs mt-5">*Marcar el pedido como terminado lo oculta en el panel de gestión. Puedes volver a marcarlo como pendiente en el historial de pedidos. Eliminar el pedido lo destruye permanentemente y no se registrarán los datos para análisis.</p>
-                      <Separator className='mt-2' />
+    
+                      <Separator className='mt-2 sm:mb-3' />
 
 
                       {/* Footer del pedido */}

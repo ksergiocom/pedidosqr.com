@@ -60,6 +60,7 @@ const LoginPage = () => {
             type="password"
             required
             value={data.password}
+            placeholder='*******'
             onChange={(e) => setData("password", e.target.value)}
           />
           {errors.password && (

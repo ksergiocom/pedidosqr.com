@@ -49,6 +49,7 @@ const RegistrarPage = () => {
             type="password"
             required
             value={data.password}
+            placeholder='*******'
             onChange={(e) => setData("password", e.target.value)}
           />
           {errors.password && (
@@ -64,6 +65,7 @@ const RegistrarPage = () => {
             type="password"
             required
             value={data.password_confirmation}
+            placeholder='*******'
             onChange={(e) =>
               setData("password_confirmation", e.target.value)
             }
