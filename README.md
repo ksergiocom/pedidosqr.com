@@ -223,6 +223,8 @@ server {
 - Docker para despliegue
 - Crear unos seeders con imagenes y muchos pedidos historial para ver estadisticas.
 - Extraer componente CardPedido para reutilizar
+- No permitir subida de archivos raros en fotos.
+- No permitir subir igamenes demasiado pesadas
 
 ---
 

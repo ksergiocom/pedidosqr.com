@@ -37,9 +37,9 @@ const CardArticulo = ({
 
   return (
     <Card className={`p-0 overflow-hidden h-full ${className}`}>
-      <div className="flex flex-col sm:flex-row h-full min-h-0">
+      <div className="flex flex-col sm:flex-row h-full min-h-0 h-full">
         {/* IMAGEN: siempre full height */}
-        <div className="w-full sm:w-1/3 h-full">
+        <div className="w-full h-full sm:w-1/3 h-full sm:aspect-square sm:overflow-hidden">
           <Dialog>
             <DialogTitle className="hidden">Descripción imagen</DialogTitle>
             <DialogTrigger asChild>
@@ -55,7 +55,7 @@ const CardArticulo = ({
                 alt={art.nombre}
                 className="w-full h-auto object-cover"
               />
-              <p className="p-4">{art.descripcion}</p>
+              {/* <p className="p-4">{art.descripcion}</p> */}
             </DialogContent>
           </Dialog>
         </div>
