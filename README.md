@@ -181,10 +181,12 @@ server {
 
 ### En proceso
 
+- Seeder con imagenes coherentes
 - Si el menu esta vacio mostrar un aviso de que no hay ARITCULOS todavía!
 - Agregar mensajes no hay cosas cuando no haya recurso
 - Numero de artículos debe er cantidad no diferentes tipos de articulos
 - Crear seeders con tamaño
+- Si no hay imagen que salga un placeholder
 
 ### Fix errores tontos
 

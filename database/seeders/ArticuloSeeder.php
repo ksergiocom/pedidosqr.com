@@ -103,7 +103,7 @@ class ArticuloSeeder extends Seeder
 
         foreach ($productosSinImagen as $producto) {
             $imagenAleatoria = $imagenes[array_rand($imagenes)];
-            $producto['image_url'] = asset('storage/articulos/' . $imagenAleatoria);
+            $producto['image_url'] = '/storage/articulos/' . $imagenAleatoria;
             $productos[] = $producto;
         }
 
