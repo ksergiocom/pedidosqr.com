@@ -13,18 +13,16 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Usuario fijo para pruebas
+        // Usuario para demos
         User::factory()->create([
-            'email' => 'sergio@ksergio.com',
-            'password' => Hash::make('asdasd'),
+            'email'=> 'demo@pedidosqr.com',
+            'password'=> Hash::make('prueba'),
         ]);
 
-        // Usuarios aleatorios
-        for ($i = 0; $i < 10; $i++) {
-            User::factory()->create([
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'),
-            ]);
-        }
+        User::factory()->create([
+            'email'=> 'sergio@ksergio.com',
+            'password'=> Hash::make('hola_a_todos'),
+        ]);
+
     }
 }
