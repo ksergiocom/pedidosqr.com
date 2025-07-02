@@ -69,13 +69,10 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
 
   return (
     <>
-      <main className="p-5 w-full max-w-7xl mx-auto">
+      <main className="p-5 w-full max-w-2xl mx-auto">
         <Title className="text-center">Editar pedido</Title>
-        <p className="text-xl mt-5 text-center">
-          Modifica las cantidades y pulsa <strong>“Actualizar pedido”</strong>.
-        </p>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-7 sm:mt-10">
+        <div className="grid grid-cols-1 gap-10 mt-7 sm:mt-10">
           {articulos.map((articulo) => (
             <div className="flex items-center gap-5" key={articulo.id}>
               <CardArticulo

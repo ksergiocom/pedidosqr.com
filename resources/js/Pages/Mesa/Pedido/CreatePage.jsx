@@ -73,17 +73,17 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
 
     return (
         <>
-            <main className="p-5 mx-auto max-w-7xl">
+            <main className="p-5 mx-auto max-w-2xl">
                 <Title className='text-center'>¡Haz tu pedido!</Title>
                 {/* <p className="text-xl mt-5 text-center">Elige lo que quieres tomar y pulsa <strong>“Hacer pedido”</strong>.</p>
                 <p className="text-xl mt-2 text-center">¡Te atenderemos al instante!</p> */}
 
  
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-7 sm:mt-10 place-items-start items-stretch">
+                <div className="grid grid-cols-1 gap-10 mt-7 sm:mt-10 place-items-start items-stretch">
 
                     {articulos.map(articulo => (
                         <div className='flex w-full items-center gap-5' key={articulo.id}>
-                            <CardArticulo art={articulo} options={false} className={`h-max w-full sm:h-full transition ${cantidades[articulo.id] > 0 ? 'shadow-xl/10' : ''
+                            <CardArticulo art={articulo} options={false} className={` w-full sm:h-full transition ${cantidades[articulo.id] > 0 ? 'shadow-xl/10' : ''
                                 }`}>
                                 <div className="flex mt-5 items-center gap-2">
                                     <Button

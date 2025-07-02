@@ -181,8 +181,6 @@ server {
 
 ### En proceso
 
-- Algunos Cards articulo en tamaño pequeño no se ve. Se tiene que poder pulsar sobre el card para ver el detalle completo
-
 - Si el menu esta vacio mostrar un aviso de que no hay ARITCULOS todavía!
 - Agregar mensajes no hay cosas cuando no haya recurso
 - Numero de artículos debe er cantidad no diferentes tipos de articulos

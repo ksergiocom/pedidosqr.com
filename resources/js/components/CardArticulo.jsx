@@ -31,13 +31,13 @@ const CardArticulo = ({
     },
   ];
 
-  const limite = 150;
+  const limite = 200;
   const estaTruncada = art.descripcion.length > limite;
   const descTrunc = truncarTexto(art.descripcion, limite);
 
   return (
-    <Card className={`p-0 overflow-hidden h-full ${className}`}>
-      <div className="flex flex-col sm:flex-row h-full min-h-0 h-full">
+    <Card className={`p-0 overflow-hidden ${className}`}>
+      <div className="flex flex-col sm:flex-row h-full">
         {/* IMAGEN: siempre full height */}
         <div className="w-full h-full sm:w-1/3 h-full sm:aspect-square sm:overflow-hidden">
           <Dialog>

@@ -30,7 +30,7 @@ const CardPedido = ({ pedido, mesa, className = "" }) => {
 
                 <Separator className="mt-4" />
 
-                <div className="flex flex-col gap-3 p-2 mb-5 mt-2">
+                <div className="flex flex-col gap-3 p-2 mb-5 mt-7">
                     {pedido.detalles.map((detalle, idx) => (
                         <div
                             key={detalle.id}
