@@ -9,6 +9,8 @@ import OptionsButton from "@/components/OptionsButton";
 import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 import { openQrFullScreen } from "@/lib/utils";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 function MesasPage(props) {
 
@@ -34,14 +36,21 @@ function MesasPage(props) {
   };
 
   return (
-    <div className="flex flex-col w-3xl">
-      <h1 className="text-4xl font-semibold">Listado de mesas</h1>
-      <p className="mt-2">
+    <div className="flex flex-col max-w-3xl">
+      <Title>Listado de mesas</Title>
+      <TitleDescription className="mt-2 sm:mt-5">
         Aquí se pueden gestionar las mesas disponibles; agregar, eliminar y ver
         el código QR asignado a cada mesa.
-      </p>
+      </TitleDescription>
 
-      <div className="mt-8 grid grid-cols-3 gap-5">
+      <Link className="mt-8" href="/gestion/mesas/crear">
+          <Button variant='outline' className="sm:w-fit w-full">
+              {/* <CirclePlus /> */}
+              <span>Agregar mesa</span>
+          </Button>
+      </Link>
+
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {props.mesas.map((mesa) => {
           // Guardamos el ref para cada QR
           if (!qrRefs.current[mesa.id]) {
@@ -85,14 +94,14 @@ function MesasPage(props) {
                   <div className="absolute inset-0 flex items-center justify-center">
                     <QRCodeSVG
                       value={`${baseUrl}/${mesa.id}`}
-                      className="w-3/5 h-3/5"
+                      className="w-4/6 h-4/6"
                       ref={(el) => (qrRefs.current[mesa.id] = el)}
                     />
                   </div>
                   <div className="absolute flex items-center top-1 right-1 z-10">
                     <OptionsButton entity={mesa} actions={actions} />
                   </div>
-                  <h2 className="absolute bottom-4 inset-x-0 z-10 opacity-70 text-sm text-muted-foreground text-center">{mesa.nombre}</h2>
+                  <h2 className="absolute bottom-3 inset-x-0 z-10 opacity-70 text-sm text-muted-foreground text-center">{mesa.nombre}</h2>
                 </Card>
               </AspectRatio>
             </Link>

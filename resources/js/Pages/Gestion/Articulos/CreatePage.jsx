@@ -14,6 +14,8 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardAction, 
 import { MoveLeft } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
+import TitleDescription from "@/components/TitleDescription";
+import Title from "@/components/Title";
 
 function CreatePage(props) {
     const { data, setData, post, processing, errors } = useForm({
@@ -29,9 +31,9 @@ function CreatePage(props) {
     }
 
     return (
-        <div className="flex flex-col w-xl">
-            <h1 className="text-4xl font-semibold">Crear Artículo</h1>
-            <p className="mt-2">Crear un nuevo artículo para mostrar en los menús</p>
+        <div className="flex flex-col max-w-xl">
+            <Title>Crear Artículo</Title>
+            <TitleDescription className="mt-2">Crear un nuevo artículo para mostrar en los menús</TitleDescription>
             <form onSubmit={submit} className="mt-8 max-w-sm">
                 <div className="grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor="nombre">Nombre</Label>
@@ -87,7 +89,7 @@ function CreatePage(props) {
                 </div>
 
 
-                <Button disabled={processing} className="w-full mt-10">
+                <Button disabled={processing} className="w-full mt-15 mb-5">
                     Guardar
                 </Button>
 

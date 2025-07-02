@@ -32,9 +32,9 @@ export default function GestionLayout(props) {
   }, [flash]);
 
   return (
-    <SidebarProvider className="min-h-screen flex">
+    <SidebarProvider className=" flex">
       <AppSidebar />
-      <div className="flex flex-col flex-1 p-12 py-5">
+      <div className="min-h-screen flex flex-col flex-1 p-5 sm:px-10 py-5">
         {/* Header con Breadcrumb y Trigger */}
         <div className="flex space-x-4 items-center h-6">
           <SidebarTrigger />
@@ -44,23 +44,16 @@ export default function GestionLayout(props) {
 
         <Separator className="my-5" />
 
-        {/* Alert (opcional) */}
-        {/* {flash.success && (
-          <Alert className="mb-7">
-            <CircleCheck />
-            <AlertTitle>{flash.success}</AlertTitle>
-          </Alert>
-        )} */}
          <Toaster />
         
 
         {/* Main content */}
-        <main className="flex-1 pb-8">
+        <main className="flex-1">
           {props.children}
         </main>
 
         {/* Footer al final */}
-        <CustomFooter/>
+        <CustomFooter className="text-center sm:text-left"/>
 
       </div>
     </SidebarProvider>

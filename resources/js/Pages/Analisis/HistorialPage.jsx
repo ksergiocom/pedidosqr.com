@@ -40,6 +40,10 @@ import { Card } from "@/components/ui/card";
 import CustomInput from "@/components/CustomInput";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
+import { Separator } from "@/components/ui/separator";
+import { Label } from "@/components/ui/label";
 
 // Funciones para manejar acciones
 const irADetalles = (id) => {
@@ -80,15 +84,16 @@ const HistorialPage = ({ pedidos, filtros }) => {
 
     return (
         <div className="flex flex-col">
-            <h1 className="mb-4 text-2xl font-bold">Historial pedidos</h1>
+            <Title>Historial pedidos</Title>
+            <TitleDescription>Registro de todos los pedidos a modo historico. Si fuese necesario se puede alterar el pedido desde aquí.</TitleDescription>
 
             {/* Formulario de filtros */}
-            <form onSubmit={aplicarFiltros} className="flex gap-4 items-center mt-8">
-                <div>
+            <form onSubmit={aplicarFiltros} className="flex flex-col sm:flex-row items-start gap-4 items-center mt-8">
+                <div className="w-full">
                     <CustomInput
+                        className=" sm:w-auto"
                         placeholder='desde'
                         type='date'
-                        // label='Desde'
                         value={data.desde}
                         onChange={(e) => {
                             setData('desde', e.target.value);
@@ -96,11 +101,10 @@ const HistorialPage = ({ pedidos, filtros }) => {
                         }}
                     />
                 </div>
-                <span>-</span>
-                <div>
+                <div className="w-full">
                     <CustomInput
+                        className="sm:w-auto"
                         type='date'
-                        // label='Hasta'
                         value={data.hasta}
                         onChange={(e) => {
                             setData('hasta', e.target.value);
@@ -108,12 +112,13 @@ const HistorialPage = ({ pedidos, filtros }) => {
                         }}
                     />
                 </div>
-                <div>
+                <div className="w-full">
                     <Select
+                        className="w-full sm:w-auto"
                         value={data.estado}
                         onValueChange={(value) => setData('estado', value)}
                     >
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="w-full sm:w-[180px]">
                             <SelectValue placeholder="Estado" />
                         </SelectTrigger>
                         <SelectContent>
@@ -126,7 +131,7 @@ const HistorialPage = ({ pedidos, filtros }) => {
                         </SelectContent>
                     </Select>
                 </div>
-                <Button variant='outline' type="submit">Filtrar</Button>
+                <Button className="w-full sm:w-auto" variant='outline' type="submit">Filtrar</Button>
             </form>
 
 
@@ -146,9 +151,9 @@ const HistorialPage = ({ pedidos, filtros }) => {
                     <TableBody>
                         {pedidos.data.map((pedido) => (
                             <TableRow key={pedido.id}>
-                                <TableCell className="font-medium">{pedido.id}</TableCell>
-                                <TableCell>{new Date(pedido.created_at).toLocaleString()}</TableCell>
-                                <TableCell>
+                                <TableCell className="hidden sm:block font-medium">{pedido.id}</TableCell>
+                                <TableCell className="hidden sm:block font-medium">{new Date(pedido.created_at).toLocaleString()}</TableCell>
+                                <TableCell className='pl-6 sm:pl-auto'>
                                     <Badge variant={pedido.estado == 'pendiente' ? 'destructive' : 'secondary'}>
                                         {pedido.estado ?? "Sin estado"}
                                     </Badge>

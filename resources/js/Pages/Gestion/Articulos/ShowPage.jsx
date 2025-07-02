@@ -1,24 +1,14 @@
 import React from "react";
 
 import GestionLayout from "@/Pages/Layout/GestionLayout";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 const ShowPage = (props) => {
-    return <div className="flex flex-col w-xl">
-        <h1 className="text-4xl font-semibold">Detalles del artículo</h1>
-        <p className="mt-2">Pendiente de implementar, pero aquí iría una especie de historial. Alguna gŕafica divertida para ver cuanto se ha venidod respecto a otros productos, etc.</p>
-        <h2 className="text-3xl font-semibold">{props.articulo.nombre}</h2>
-        <p className="text-lg">Precio: {props.articulo.precio}€</p>
-        <ul>
-            <li>Pendiente agregar Botones options a la derecha arriba</li>
-            <li>Estadisticas de vendidos por mes+año</li>
-            <li>Estadisticas de vendidos en cada QR</li>
-        </ul>
-        {/* <h2 className="text-3xl font-semibold">Listado ultimos pedidos</h2>
-        <ul>
-            {props.ultimosPedidos.map(pedido => (
-                <li>{pedido.id}</li>
-            ))}
-        </ul> */}
+    return <div className="flex flex-col max-w-xl">
+        <Title>{props.articulo.nombre} ¡PENDIENTE!</Title>
+        <TitleDescription className='mt-2'>Aquí irán estadisticas de ventas por mesa/año y distribución de por que QR se han vendido más.</TitleDescription>
+        <TitleDescription className='mt-2'>¡PENDIENTE! Está pendiente crear un seeder con datos para mostrar las estadísticas.</TitleDescription>
     </div>
 }
 

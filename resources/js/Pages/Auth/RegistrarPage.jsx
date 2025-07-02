@@ -18,8 +18,8 @@ const RegistrarPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6 w-full max-w-md mx-auto">
-      <h1 className="text-3xl font-semibold">Regístrate en tu cuenta</h1>
+    <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
+      <h1 className="text-3xl font-semibold">Regístrate</h1>
       <p className="text-muted-foreground">
         Introduce tu correo electrónico y contraseña para crear tu cuenta
       </p>
@@ -80,7 +80,7 @@ const RegistrarPage = () => {
           <Button disabled={processing} type="submit" className="w-full">
             Registrarse
           </Button>
-          <Button variant="outline" disabled className="w-full">
+          <Button variant="outline" className="w-full">
             Registrarse con Google
           </Button>
         </div>

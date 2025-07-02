@@ -7,6 +7,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
+  BreadcrumbEllipsis,
 } from "@/components/ui/breadcrumb";
 
 export default function AutoBreadcrumb() {
@@ -21,26 +22,48 @@ export default function AutoBreadcrumb() {
   });
 
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        {crumbs.map((crumb, idx) => {
-          const isLast = idx === crumbs.length - 1;
-          return (
-            <React.Fragment key={crumb.href}>
-              <BreadcrumbItem>
-                {isLast ? (
-                  <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild>
-                    <Link href={crumb.href}>{crumb.label}</Link>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-              {!isLast && <BreadcrumbSeparator />}
-            </React.Fragment>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
+    <>
+      {/* Versión simplificada para pantallas pequeñas */}
+      <Breadcrumb className="sm:hidden">
+        <BreadcrumbList>
+          {crumbs.length > 0 && (
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={crumbs[0].href}>{crumbs[0].label}</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          )}
+          {crumbs.length > 1 && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbEllipsis />
+            </>
+          )}
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      {/* Versión completa para sm y mayores */}
+      <Breadcrumb className="hidden sm:block">
+        <BreadcrumbList>
+          {crumbs.map((crumb, idx) => {
+            const isLast = idx === crumbs.length - 1;
+            return (
+              <React.Fragment key={crumb.href}>
+                <BreadcrumbItem>
+                  {isLast ? (
+                    <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <Link href={crumb.href}>{crumb.label}</Link>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+                {!isLast && <BreadcrumbSeparator />}
+              </React.Fragment>
+            );
+          })}
+        </BreadcrumbList>
+      </Breadcrumb>
+    </>
   );
 }

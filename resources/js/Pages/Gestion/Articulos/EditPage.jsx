@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Trash } from "lucide-react";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 export default function EditPage({ articulo }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -33,9 +35,9 @@ export default function EditPage({ articulo }) {
   }
 
   return (
-    <div className="flex flex-col w-xl">
-      <h1 className="text-4xl font-semibold">Editar Artículo</h1>
-      <p className="mt-2">Modifica los datos de tu artículo existente</p>
+    <div className="flex flex-col max-w-xl">
+      <Title>Editar Artículo</Title>
+      <TitleDescription className="mt-2">Modifica los datos de tu artículo existente</TitleDescription>
 
       <form
         onSubmit={submit}
@@ -142,11 +144,9 @@ export default function EditPage({ articulo }) {
         </div>
 
         {/* Botón Guardar */}
-        <div className="flex flex-col gap-3 mt-10">
-          <Button disabled={processing} type="submit" className="w-full">
-            Guardar cambios
+          <Button disabled={processing} type="submit" className="w-full mt-9 mb-6">
+            Actualizar
           </Button>
-        </div>
       </form>
     </div>
   );

@@ -5,14 +5,16 @@ import { QRCodeSVG } from "qrcode.react";
 import { MoveLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, usePage } from "@inertiajs/react";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 const QrPage = (props) => {
 
     const baseUrl = usePage().props.appUrl
 
     return <div className="flex flex-col max-w-3xl">
-        <h1 className="text-4xl font-semibold">Detalle de mesa</h1>
-        <p className="mt-2">Aquí puedes ver el historial de tu mesa y ver su código QR. Si lo deseas puedes verlo en versión para imprimir dando click aquí.</p>
+        <Title>Detalle de mesa ¡PENDIENTE!</Title>
+        <TitleDescription className="mt-2">Aquí puedes ver el historial de tu mesa y ver su código QR. Si lo deseas puedes verlo en versión para imprimir dando click aquí.</TitleDescription>
         <QRCodeSVG size={256} className="mt-8" value={`${baseUrl}/${props.mesa.id}`}></QRCodeSVG>
         <p className="mt-8">Está pendiente implementar un historial de los pedidos de cada mesa.</p>
         <h2 className="text-3xl font-semibold">Listado ultimos pedidos</h2>

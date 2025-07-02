@@ -179,10 +179,17 @@ server {
 
 ## Estado actual y tareas pendientes
 
+### En proceso
+
+- Responsive móvil
+- Agregar mensajes no hay cosas cuando no haya recurso
+- Numero de artículos debe er cantidad no diferentes tipos de articulos
+
 ### Fix errores tontos
 
 1. `confirmDelete is not defined` (Detalle pedido botón eliminar)  
 2. Quitar `console.log` en eventos
+3. Falta favicon
 
 ### En desarrollo
 
@@ -211,6 +218,7 @@ server {
 - Mejorar URLs y renombrar recursos  
 - Servidor de correo propio y notificaciones por mail  
 - Docker para despliegue
+- Crear unos seeders con imagenes y muchos pedidos historial para ver estadisticas.
 
 ---
 

@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import Title from '@/components/Title';
+import TitleDescription from '@/components/TitleDescription';
 
 const MiPerfilPage = () => {
   const {
@@ -26,15 +28,15 @@ const MiPerfilPage = () => {
   };
 
   return (
-    <div className="flex flex-col w-sm">
-      <h1 className="text-4xl font-semibold">Mi perfil</h1>
-      <p className="mt-2">
+    <div className="flex flex-col max-w-sm">
+      <Title className="text-4xl font-semibold">Mi perfil</Title>
+      <TitleDescription className="mt-2">
         Gestiona tu información y preferencias de cuenta desde aquí.
-      </p>
+      </TitleDescription>
 
-      <Separator className="my-10" />
+      <Separator className="mt-8 mb-5" />
 
-      <h2 className='text-2xl font-semibold'>Preferencias usuario</h2>
+      <h2 className='text-xl font-semibold'>Preferencias usuario</h2>
       
       <CustomInput
         label="Tiempo alerta mesa"
@@ -49,14 +51,18 @@ const MiPerfilPage = () => {
       </div>
       <p className='text-muted-foreground text-sm mt-2'>Los mensajes flotantes aparecen cuando se generan nuevos artículos, mesas o pedidos. También pueden avisar de eventos especiales</p>
 
-      <Button disabled={processing} className="mt-10 w-full" variant='outline'>
+      <Button disabled={processing} className="mt-10 mb-5 w-full" variant='outline'>
         Cambiar preferencias
       </Button>
 
 
-      <Separator className="my-10" />
+      
+      <Separator className="mt-8 mb-5" />
 
-      <form className="" onSubmit={handleSubmit}>
+      <h2 className='text-xl font-semibold'>Recuperar contraseña</h2>
+
+
+      <form className="mt-8" onSubmit={handleSubmit}>
         <CustomInput
           label="Contraseña antigua"
           description="Por seguridad debes ingresar la contraseña antigua para modificarla por otra"
@@ -81,14 +87,12 @@ const MiPerfilPage = () => {
           error={errors.password_nuevo_confirmation}
           type="password"
         />
-        <Button disabled={processing} className="mt-10 w-full">
+        <Button disabled={processing} className="mt-10 mb-8 w-full">
           Cambiar contraseña
         </Button>
 
-        <Separator className="my-10" />
-
-        <p className="text-sm text-muted-foreground">
-          Si no te acuerdas de la contraseña puedes recuperarla usando tu email. Pulsa aquí para que te enviemos un link de recuperación.
+        <p className="text-sm text-muted-foreground mb-10">
+          Si no te acuerdas de la contraseña puedes recuperarla usando tu email. Pulsa <a className='font-semibold hover:underline underline-offset-4' href='/'>aquí</a> para que te enviemos un link de recuperación.
         </p>
       </form>
     </div>

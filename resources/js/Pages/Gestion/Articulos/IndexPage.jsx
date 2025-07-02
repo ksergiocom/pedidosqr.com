@@ -6,6 +6,8 @@ import { Link, router } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import CardArticulo from "@/components/CardArticulo";
 import { Card } from "@/components/ui/card";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 function IndexPage({ articulos }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -22,21 +24,21 @@ function IndexPage({ articulos }) {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-5">
 
-            <h1 className="text-4xl font-semibold">Listado de artículos</h1>
-            <p className="mt-2">
-                Crea aquí los artículos que quieres que <strong>aparezcan</strong> en tu menú QR.
-            </p>
+            <Title>Listado de artículos</Title>
+            <TitleDescription className="mt-2 sm:mt-5">
+                Crea aquí los artículos que quieres que <strong>aparezcan</strong> en el listado a pedir.
+            </TitleDescription>
 
-            <Link className="w-fit mt-8" href="/gestion/articulos/crear">
-                <Button variant='outline' className="w-fit">
+            <Link className="mt-8" href="/gestion/articulos/crear">
+                <Button variant='outline' className="sm:w-fit w-full">
                     {/* <CirclePlus /> */}
                     <span>Agregar artículo</span>
                 </Button>
             </Link>
 
-            <section className="mt-8 grid xl:grid-cols-2 gap-5">
+            <section className="mt-8 grid xl:grid-cols-2 gap-10">
 
                 {/*                 
                     <Link href="/gestion/mesas/crear" className=" group block h-full w-full">

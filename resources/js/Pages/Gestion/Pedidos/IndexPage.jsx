@@ -19,6 +19,8 @@ import { formatearFechaHora, minutosTranscurridos } from "@/lib/formatear-fecha"
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 function IndexPage({ pedidos: initialPedidos }) {
   // El user hay que sacarlo explicitamente
@@ -68,12 +70,12 @@ function IndexPage({ pedidos: initialPedidos }) {
 
   return (
     <div className="flex flex-col max-w-3xl">
-      <h1 className="text-4xl font-semibold">Listado de pedidos</h1>
-      <p className="text-xl mt-5 mb-10">
+      <Title>Listado de pedidos</Title>
+      <TitleDescription className="mt-2 sm:mt-5 mb-3">
         Aquí puedes ver todos los <strong>pedidos realizados</strong> por tus
         clientes, organizados por mesa. Despliega cada uno para ver sus
         detalles. ¡Se actualizan en tiempo real!
-      </p>
+      </TitleDescription>
 
       {pedidos.length === 0 ? (
         <p className="text-muted-foreground">No hay pedidos registrados.</p>
@@ -84,21 +86,20 @@ function IndexPage({ pedidos: initialPedidos }) {
               <CardContent>
                 <AccordionItem value={pedido.id}>
                   <AccordionTrigger>
-                    <div className="flex flex-col gap-5 sm:flex-row justify-between w-full pr-4">
+                    <div className="flex gap-5 flex-row text-xs sm:text-base justify-between w-full">
                       <span>
                         {pedido.mesa?.nombre}
                         {/* <span className="text-gray-500 text-xs ml-5 font-normal">{formatearFechaHora(pedido.updated_at)}h</span> */}
                         <Badge className='ml-5 text-xs' variant={minutosTranscurridos(pedido.updated_at) > 5 ? "destructive" : "secondary"}>{formatearFechaHora(pedido.updated_at)}h</Badge>
                       </span>
                       {/* <Separator className='sm:hidden'></Separator> */}
-                      <span className="font-semibold">
-                        {pedido.detalles.length} 
-                        <span className="font-normal"> artículo(s)</span>
+                      <span className="font-semibold hidden sm:inline">
+                        {pedido.detalles.length} <span className="font-normal text-xs sm:text-sm"> artículo(s)</span>
                       </span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent>
-                    <Separator/>
+                  <AccordionContent className='p-0'>
+                    <Separator />
                     <div className="flex flex-col gap-3 p-2 mb-5 mt-5">
                       {pedido.detalles.map((detalle, idx) => (
                         <div
@@ -138,60 +139,60 @@ function IndexPage({ pedidos: initialPedidos }) {
                       <Separator className='mt-2' />
 
 
-                      {/* Botón para eliminar */}
-                      <div className="mt-2 md:mt-8 flex flex-col-reverse gap-5 md:flex-row justify-between flex-1">
+                      {/* Footer del pedido */}
+                      <div
+                        className="
+                              mt-2 md:mt-5
+                              flex flex-col-reverse sm:flex-row
+                              gap-5 sm:justify-between
+                              w-full
+                            "
+                      >
+                        {/* BLOQUE DE ACCIONES */}
+                        <div className="flex-1 sm:flex-none flex gap-2">
+                          <Button
+                            variant="outline"
+                            className="flex-1 sm:flex-none"
+                            onClick={() => confirmTerminar(pedido.id)}
+                          >
+                            Terminar pedido
+                          </Button>
 
-                        <div className="flex">
-                          <div className="inline-flex rounded-md shadow-sm">
-                            <Button
-                              variant="outline"
-                              className="rounded-l-md rounded-r-none"
-                              onClick={() => {
-                                // Acción de terminar pedido
-                                confirmTerminar(pedido.id);
-                              }}
-                            >
-                              Terminar pedido
-                            </Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                aria-label="Abrir menú de acciones"
+                              >
+                                <EllipsisVertical className="w-5 h-5" />
+                              </Button>
+                            </DropdownMenuTrigger>
 
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button
-                                  variant="outline"
-                                  size="icon"
-                                  className="rounded-r-md rounded-l-none border-l-0"
-                                  aria-label="Abrir menú de acciones"
-                                >
-                                  <EllipsisVertical className="w-5 h-5" />
-                                </Button>
-                              </DropdownMenuTrigger>
-
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem asChild>
-                                  <Link href={`/gestion/pedidos/${pedido.id}`}>
-                                    <Eye className="w-4 h-4 mr-2" />
-                                    Ver detalles
-                                  </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator/>
-
-                                {/* Más items aquí */}
-                                <DropdownMenuItem
-                                  onClick={() => confirmDelete(pedido.id)}
-                                  className="text-destructive"
-                                >
-                                  <Trash className="w-4 h-4 mr-2 text-destructive" />
-                                  Eliminar
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
-
-
-
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem asChild>
+                                <Link href={`/gestion/pedidos/${pedido.id}`}>
+                                  <Eye className="w-4 h-4 mr-2" />
+                                  Ver detalles
+                                </Link>
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem
+                                onClick={() => confirmDelete(pedido.id)}
+                                className="text-destructive"
+                              >
+                                <Trash className="w-4 h-4 mr-2 text-destructive" />
+                                Eliminar
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </div>
-                        <div>
-                          <p className="text-2xl font-bold">Total: {calcularTotalPedido(pedido.detalles).toFixed(2)}€</p>
+
+                        {/* BLOQUE DEL TOTAL */}
+                        <div className="flex-1 sm:flex-none flex items-center justify-end">
+                          <p className="text-2xl font-bold text-center sm:text-right w-full sm:w-auto">
+                            Total: {calcularTotalPedido(pedido.detalles).toFixed(2)}€
+                          </p>
                         </div>
                       </div>
                     </div>

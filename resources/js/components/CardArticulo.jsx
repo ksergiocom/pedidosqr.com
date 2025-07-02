@@ -6,7 +6,7 @@ import OptionsButton from "./OptionsButton";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
-const CardArticulo = ({ art, confirmDelete, options = true, className = "", children }) => {
+const CardArticulo = ({ art, confirmDelete, options = true, className = "" , children }) => {
   const actions = [
     {
       label: "Ver",
@@ -49,22 +49,38 @@ const CardArticulo = ({ art, confirmDelete, options = true, className = "", chil
             </DialogContent>
           </Dialog>
         </div>
+
         <div className={`relative w-auto sm:w-2/3 flex flex-col justify-between ${options ? 'py-4 px-5' : 'p-4'}`}>
           <div>
-            <div className="flex justify-between">
-              <h2 className="text-lg font-semibold">
-                <span className="text-2xl mr-3">{art.nombre}</span>
+            {/* Contenedor título, precio y botón para pantallas pequeñas */}
+<div className="flex justify-between items-center sm:hidden w-full">
+  <h2 className="text-lg font-semibold flex items-center gap-3 max-w-[calc(100%-120px)] overflow-hidden whitespace-nowrap text-ellipsis">
+    <span className="text-2xl truncate">{art.nombre}</span>
+    <span className="font-normal flex-shrink-0">{art.precio}€</span>
+  </h2>
+  {options && (
+    <OptionsButton entity={art} actions={actions} />
+  )}
+</div>
+
+            {/* Contenedor título y precio para pantallas sm+ */}
+            <div className="hidden sm:flex justify-start items-center gap-3">
+              <h2 className="text-lg font-semibold flex items-center gap-3">
+                <span className="text-2xl">{art.nombre}</span>
                 <span className="font-normal">{art.precio}€</span>
               </h2>
             </div>
-            <p className={`text-muted-foreground text-sm mt-2`}>
+
+            <p className="text-muted-foreground text-sm mt-2">
               {truncarTexto(art.descripcion, 150)}
             </p>
             {children}
           </div>
         </div>
+
+        {/* Botón opciones para pantallas sm+ */}
         {options && (
-          <div className="flex justify-start m-2 absolute sm:relative bg-black sm:bg-transparent rounded-lg text-white sm:text-black">
+          <div className="hidden sm:flex justify-start m-2 sm:relative sm:bg-transparent rounded-lg">
             <OptionsButton entity={art} actions={actions} />
           </div>
         )}

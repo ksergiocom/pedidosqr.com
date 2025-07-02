@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MoveLeft } from "lucide-react";
+import Title from "@/components/Title";
+import TitleDescription from "@/components/TitleDescription";
 
 function CreatePage(props) {
   const { data, setData, post, processing, errors } = useForm({
@@ -17,11 +19,11 @@ function CreatePage(props) {
   }
 
   return (
-    <div className="flex flex-col w-sm">
-        <h1 className="text-4xl font-semibold">Crear Mesa</h1>
-      <p className="mt-2">
+    <div className="flex flex-col max-w-xl">
+        <Title>Crear Mesa</Title>
+      <TitleDescription className="mt-2">
         Crear nueva mesa a tu grupo de mesas. También se le asocia directamente un código QR.
-      </p>
+      </TitleDescription>
 
       <form onSubmit={submit} className="mt-8 max-w-sm">
         <div className="grid w-full max-w-sm items-center gap-3">
@@ -39,7 +41,7 @@ function CreatePage(props) {
           </p>
         </div>
 
-        <Button disabled={processing} className="w-full mt-10">
+        <Button disabled={processing} className="w-full mt-15 mb-5">
           Crear
         </Button>
       </form>

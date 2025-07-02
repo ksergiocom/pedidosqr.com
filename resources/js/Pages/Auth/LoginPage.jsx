@@ -29,8 +29,8 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6 w-full max-w-md mx-auto">
-      <h1 className="text-3xl font-semibold">Inicia sesión en tu cuenta</h1>
+    <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
+      <h1 className="text-3xl font-semibold">Inicia sesión</h1>
       <p className="text-muted-foreground">
         Introduce tu correo electrónico para acceder a tu cuenta
       </p>
