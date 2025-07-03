@@ -85,7 +85,7 @@ const HistorialPage = ({ pedidos, filtros }) => {
     return (
         <div className="flex flex-col">
             <Title>Historial pedidos</Title>
-            <TitleDescription>Registro de todos los pedidos a modo historico. Si fuese necesario se puede alterar el pedido desde aquí.</TitleDescription>
+            <TitleDescription className='mt-2 sm:mt-5'>Registro de todos los pedidos a modo historico. Si fuese necesario se puede alterar el pedido desde aquí.</TitleDescription>
 
             {/* Formulario de filtros */}
             <form onSubmit={aplicarFiltros} className="flex flex-col sm:flex-row items-start gap-4 items-center mt-8">
@@ -149,6 +149,13 @@ const HistorialPage = ({ pedidos, filtros }) => {
                         </TableRow>
                     </TableHeader> */}
                     <TableBody>
+                        {pedidos.data.length === 0 ?
+                            <TableRow>
+                                <TableCell colSpan={5} className="text-center text-muted-foreground p-4">
+                                    No hay pedidos registrados.
+                                </TableCell>
+                            </TableRow>
+                            : null}
                         {pedidos.data.map((pedido) => (
                             <TableRow key={pedido.id}>
                                 <TableCell className="hidden sm:block font-medium">{pedido.id}</TableCell>

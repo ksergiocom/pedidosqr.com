@@ -111,18 +111,7 @@ export default function AppSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   {section.items.map((item) => {
-                    const isGestion = section.label === "Gestión";
-
-                    // Si es Ayuda exactamente
-                    const isAyuda = item.url === "/info" && url === "/info";
-
-                    // Si es otra info (requiere coincidencia exacta)
-                    const isInfo = section.label === "Información" && item.url !== "/info" && url === item.url;
-
-                    // Gestión: coincidencia parcial
-                    const isGestionActive = isGestion && url.startsWith(item.url);
-
-                    const isActive = isAyuda || isInfo || isGestionActive;
+                   const isActive = url.startsWith(item.url);
 
                     return (
                       <SidebarMenuItem key={item.title}>

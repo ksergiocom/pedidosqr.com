@@ -12,15 +12,14 @@ class MesaSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
-        $users = User::all();
+        $user = User::where('email', 'demo@pedidosqr.com')->first();
 
-        foreach ($users as $user) {
-            for ($i = 0; $i < 7; $i++) {
-                Mesa::create([
-                    'nombre' => "Mesa " . strtoupper($faker->bothify('??-##')),
-                    'user_id' => $user->id,
-                ]);
-            }
+
+        for ($i = 0; $i < 7; $i++) {
+            Mesa::create([
+                'nombre' => "Mesa " . strtoupper($faker->bothify('??-##')),
+                'user_id' => $user->id,
+            ]);
         }
     }
 }

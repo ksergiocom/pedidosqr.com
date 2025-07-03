@@ -181,8 +181,6 @@ server {
 
 ### En proceso
 
-- Si el menu esta vacio mostrar un aviso de que no hay ARITCULOS todavía!
-- Agregar mensajes no hay cosas cuando no haya recurso
 - Numero de artículos debe er cantidad no diferentes tipos de articulos
 - Crear seeders con tamaño
 - Si no hay imagen que salga un placeholder
@@ -192,6 +190,7 @@ server {
 - Alertas en Historial confirmacion (a travez del componente!)
 - Filtros historial sin boton
 - Sockets en Historial también
+- Mesas si no se da nombre, genrar random
  
 ### Fix errores tontos
 

@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { calcularTotalPedido,  formatearFechaHora, minutosTranscurridos  } from "@/lib/utils";
+import { calcularTotalPedido, formatearFechaHora, minutosTranscurridos } from "@/lib/utils";
 
 const CardPedido = ({ pedido, mesa, className = "" }) => {
+
+    const totalObjetos = useMemo(() => {
+        return pedido.detalles.reduce((acc, detalle) => acc + detalle.cantidad, 0);
+    }, [pedido.detalles]);
+
     return (
         <Card key={pedido.id} className={`my-5 p-2 ${className}`}>
             <CardContent>
@@ -23,7 +28,7 @@ const CardPedido = ({ pedido, mesa, className = "" }) => {
                         </Badge>
                     </span>
                     <span className="font-semibold hidden sm:inline text-base">
-                        {pedido.detalles.length} <span className="font-normal text-xs sm:text-sm"> artículo(s)</span>
+                        {totalObjetos} <span className="font-normal text-xs sm:text-sm"> artículo(s)</span>
                     </span>
                 </div>
 
@@ -65,7 +70,7 @@ const CardPedido = ({ pedido, mesa, className = "" }) => {
                     ))}
 
                     <Separator className="mt-3 sm:mt-5 mb-5" />
-                    
+
                     <div className="flex-1 sm:flex-none flex items-center justify-end">
                         <p className="text-2xl font-bold text-center sm:text-right w-full sm:w-auto">
                             Total: {calcularTotalPedido(pedido.detalles).toFixed(2)}€

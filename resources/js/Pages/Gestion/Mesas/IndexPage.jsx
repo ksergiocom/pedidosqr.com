@@ -107,7 +107,11 @@ function MesasPage(props) {
             </Link>
           );
         })}
+
+
       </div>
+              {props.mesas.length < 1 ?
+        <p className="text-lg opacity-30 tracking-tighter mt-5 w-full">No hay códigos QR registrados</p>:''}
 
       <ConfirmDialog
         title="¿Estás seguro?"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useEcho } from "@laravel/echo-react";
 import GestionLayout from "@/Pages/Layout/GestionLayout";
 import ConfirmDialog from "@/components/ConfirmDialog";
@@ -75,129 +75,134 @@ function IndexPage({ pedidos: initialPedidos }) {
       </TitleDescription>
 
       {pedidos.length === 0 ? (
-        <p className="text-muted-foreground">No hay pedidos registrados.</p>
+       <p className="text-lg opacity-30 tracking-tighter mt-5">No hay pedidos registrados</p>
+
       ) : (
         <Accordion type="single" collapsible className="w-full">
-          {pedidos.map((pedido) => (
-            <Card key={pedido.id} className="my-5 p-0 sm:p-2">
-              <CardContent>
-                <AccordionItem value={pedido.id}>
-                  <AccordionTrigger>
-                    <div className="flex gap-5 flex-row text-xs sm:text-base justify-between w-full">
-                      <span>
-                        {pedido.mesa?.nombre}
-                        {/* <span className="text-gray-500 text-xs ml-5 font-normal">{formatearFechaHora(pedido.updated_at)}h</span> */}
-                        <Badge className='ml-5 text-xs' variant={minutosTranscurridos(pedido.updated_at) > 5 ? "destructive" : "secondary"}>{formatearFechaHora(pedido.updated_at)}h</Badge>
-                      </span>
-                      {/* <Separator className='sm:hidden'></Separator> */}
-                      <span className="font-semibold hidden sm:inline">
-                        {pedido.detalles.length} <span className="font-normal text-xs sm:text-sm"> artículo(s)</span>
-                      </span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className='p-0'>
-                    <Separator />
-                    <div className="flex flex-col gap-3 p-2 mb-5 mt-5">
-                      {pedido.detalles.map((detalle, idx) => (
-                        <div
-                          key={detalle.id}
-                          className={`flex justify-between items-center pb-2 text-xs sm:text-base ${idx !== pedido.detalles.length - 1 ? 'border-b' : ''
-                            }`}
-                        >
-                          {/* Imagen */}
-                          <div className="flex items-center gap-3">
-                            {detalle.articulo.image_url ? (
-                              <img
-                                src={detalle.articulo.image_url}
-                                alt={detalle.articulo.nombre}
-                                className="w-12 h-12 object-cover rounded"
-                              />
-                            ) : (
-                              <div className="w-12 h-12 bg-muted text-xs flex items-center justify-center rounded text-muted-foreground">
-                                Sin imagen
-                              </div>
-                            )}
-                            <div className="font-medium">{detalle.cantidad} x {detalle.articulo.nombre}</div>
-                          </div>
+          {pedidos.map((pedido) => {
+  // Memo para total de objetos
+  const totalObjetos = useMemo(() => {
+    return pedido.detalles.reduce((acc, detalle) => acc + detalle.cantidad, 0);
+  }, [pedido.detalles]);
 
-                          {/* Precio */}
-                          <div className="text-right">
-                            <div>
-                              {detalle.cantidad} × {detalle.articulo.precio}€
-                            </div>
-                            <div className="font-semibold">
-                              {(detalle.cantidad * detalle.articulo.precio).toFixed(2)}€
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+  return (
+    <Card key={pedido.id} className="my-5 p-0 sm:p-2">
+      <CardContent>
+        <AccordionItem value={pedido.id}>
+          <AccordionTrigger>
+            <div className="flex gap-5 flex-row text-xs sm:text-base justify-between w-full">
+              <span>
+                {pedido.mesa?.nombre}
+                <Badge
+                  className="ml-5 text-xs"
+                  variant={minutosTranscurridos(pedido.updated_at) > 5 ? "destructive" : "secondary"}
+                >
+                  {formatearFechaHora(pedido.updated_at)}h
+                </Badge>
+              </span>
+              <span className="font-semibold hidden sm:inline">
+                {totalObjetos} <span className="font-normal text-xs sm:text-sm"> artículo(s)</span>
+              </span>
+            </div>
+          </AccordionTrigger>
+          <AccordionContent className="p-0">
+            <Separator className="mt-4" />
 
-    
-                      <Separator className='mt-2 sm:mb-3' />
-
-
-                      {/* Footer del pedido */}
-                      <div
-                        className="
-                              mt-2 md:mt-5
-                              flex flex-col-reverse sm:flex-row
-                              gap-5 sm:justify-between
-                              w-full
-                            "
-                      >
-                        {/* BLOQUE DE ACCIONES */}
-                        <div className="flex-1 sm:flex-none flex gap-2">
-                          <Button
-                            variant="outline"
-                            className="flex-1 sm:flex-none"
-                            onClick={() => confirmTerminar(pedido.id)}
-                          >
-                            Terminar pedido
-                          </Button>
-
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                aria-label="Abrir menú de acciones"
-                              >
-                                <EllipsisVertical className="w-5 h-5" />
-                              </Button>
-                            </DropdownMenuTrigger>
-
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem asChild>
-                                <Link href={`/gestion/pedidos/${pedido.id}`}>
-                                  <Eye className="w-4 h-4 mr-2" />
-                                  Ver detalles
-                                </Link>
-                              </DropdownMenuItem>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem
-                                onClick={() => confirmDelete(pedido.id)}
-                                className="text-destructive"
-                              >
-                                <Trash className="w-4 h-4 mr-2 text-destructive" />
-                                Eliminar
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
-
-                        {/* BLOQUE DEL TOTAL */}
-                        <div className="flex-1 sm:flex-none flex items-center justify-end">
-                          <p className="text-2xl font-bold text-center sm:text-right w-full sm:w-auto">
-                            Total: {calcularTotalPedido(pedido.detalles).toFixed(2)}€
-                          </p>
-                        </div>
+            <div className="flex flex-col gap-3 p-2 mb-5 mt-7">
+              {pedido.detalles.map((detalle, idx) => (
+                <div
+                  key={detalle.id}
+                  className={`flex justify-between items-center pb-2 ${
+                    idx !== pedido.detalles.length - 1 ? "border-b" : ""
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    {detalle.articulo.image_url ? (
+                      <img
+                        src={detalle.articulo.image_url}
+                        alt={detalle.articulo.nombre}
+                        className="w-12 h-12 object-cover rounded"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-muted text-xs flex items-center justify-center rounded text-muted-foreground">
+                        Sin imagen
                       </div>
+                    )}
+                    <div className="text-xs sm:text-base font-medium">
+                      {detalle.cantidad} x {detalle.articulo.nombre}
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </CardContent>
-            </Card>
-          ))}
+                  </div>
+
+                  <div className="text-right text-xs sm:text-base">
+                    <div>
+                      {detalle.cantidad} × {detalle.articulo.precio}€
+                    </div>
+                    <div className="font-semibold">
+                      {(detalle.cantidad * detalle.articulo.precio).toFixed(2)}€
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+            </div>
+
+            {/* Aquí abajo pones los botones y dropdowns */}
+            <div
+              className="
+                    mt-2 md:mt-5 mb-5
+                    flex flex-col-reverse sm:flex-row
+                    gap-5 sm:justify-between
+                    w-full
+                  "
+            >
+              <div className="flex-1 sm:flex-none flex gap-2">
+                <Button
+                  variant="outline"
+                  className="flex-1 sm:flex-none"
+                  onClick={() => confirmTerminar(pedido.id)}
+                >
+                  Terminar pedido
+                </Button>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon" aria-label="Abrir menú de acciones">
+                      <EllipsisVertical className="w-5 h-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem asChild>
+                      <Link href={`/gestion/pedidos/${pedido.id}`}>
+                        <Eye className="w-4 h-4 mr-2" />
+                        Ver detalles
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => confirmDelete(pedido.id)}
+                      className="text-destructive"
+                    >
+                      <Trash className="w-4 h-4 mr-2 text-destructive" />
+                      Eliminar
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
+              <div className="flex-1 sm:flex-none flex items-center justify-end">
+                <p className="text-2xl font-bold text-center sm:text-right w-full sm:w-auto">
+                  Total: {calcularTotalPedido(pedido.detalles).toFixed(2)}€
+                </p>
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </CardContent>
+    </Card>
+  );
+})}
+
         </Accordion>
       )}
 

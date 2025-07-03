@@ -6,16 +6,24 @@ use App\Models\Pedido;
 use App\Models\PedidoDetalle;
 use App\Models\Mesa;
 use App\Models\Articulo;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class PedidoSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
 
-        $mesas = Mesa::all();
+        // Obtener el usuario demo
+        $user = User::where('email', 'demo@pedidosqr.com')->first();
+
+        if (!$user) {
+            $this->command->warn('Usuario demo@pedidosqr.com no encontrado. No se crearán pedidos.');
+            return;
+        }
+
+        // Obtener solo las mesas asociadas a ese usuario
+        $mesas = Mesa::where('user_id', $user->id)->get();
 
         foreach ($mesas as $mesa) {
             // Cada mesa tendrá de 1 a 5 pedidos
@@ -25,7 +33,7 @@ class PedidoSeeder extends Seeder
                 ]);
 
                 // Obtener artículos del mismo usuario
-                $articulos = Articulo::where('user_id', $mesa->user_id)->inRandomOrder()->take(rand(2, 6))->get();
+                $articulos = Articulo::where('user_id', $user->id)->inRandomOrder()->take(rand(2, 6))->get();
 
                 foreach ($articulos as $articulo) {
                     PedidoDetalle::create([

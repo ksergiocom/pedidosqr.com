@@ -49,7 +49,7 @@ function IndexPage({ articulos }) {
 
 
                 {articulos.length === 0 ? (
-                    <p className="text-muted-foreground">No hay artículos disponibles.</p>
+                    <p className="text-lg opacity-30 tracking-tighter mt-5">No hay artículos registrados</p>
                 ) : (
                     articulos.map((art) => (
                         <CardArticulo
