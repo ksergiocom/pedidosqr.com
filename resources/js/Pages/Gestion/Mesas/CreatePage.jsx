@@ -32,12 +32,13 @@ function CreatePage(props) {
             type="text"
             id="nombre"
             name="nombre"
+            placeholder="*Opcional"
             value={data.nombre}
             onChange={(e) => setData("nombre", e.target.value)}
           />
           {errors.nombre && <small className="text-red-500">{errors.nombre}</small>}
           <p className="text-sm text-muted-foreground">
-            Este nombre es para uso interno. Se mostrará en la sección de pedidos para identificar de qué mesa proviene cada pedido.
+            Si no se proporciona un nombre se generará uno automáticamente. Se mostrará en la sección de pedidos para identificar de donde proviene cada pedido.
           </p>
         </div>
 
