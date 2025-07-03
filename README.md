@@ -181,9 +181,6 @@ server {
 
 ### En proceso
 
-- Seeder con imagenes! No carga en produccion!
-- No sale el precio en movil!
-- Cantidades en calcular pedido y mover todas las funciones a util.js
 - Si el menu esta vacio mostrar un aviso de que no hay ARITCULOS todavía!
 - Agregar mensajes no hay cosas cuando no haya recurso
 - Numero de artículos debe er cantidad no diferentes tipos de articulos
@@ -193,6 +190,8 @@ server {
 - Auth inicio y registro siempre debe guardar el input de pass en minusculas (case insensitive)
 - Alertas en Borrar imagen en editarArticulo pide confirmación!
 - Alertas en Historial confirmacion (a travez del componente!)
+- Filtros historial sin boton
+- Sockets en Historial también
  
 ### Fix errores tontos
 

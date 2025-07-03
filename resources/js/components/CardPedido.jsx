@@ -2,8 +2,7 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { calcularTotalPedido } from "@/lib/calcular-pedido";
-import { formatearFechaHora, minutosTranscurridos } from "@/lib/formatear-fecha";
+import { calcularTotalPedido,  formatearFechaHora, minutosTranscurridos  } from "@/lib/utils";
 
 const CardPedido = ({ pedido, mesa, className = "" }) => {
     return (

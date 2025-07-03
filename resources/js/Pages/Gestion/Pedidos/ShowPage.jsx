@@ -1,11 +1,9 @@
 import React from "react";
 
 import GestionLayout from "@/Pages/Layout/GestionLayout";
-import { calcularTotalPedido } from "@/lib/calcular-pedido";
+import { calcularTotalPedido, formatearFechaHora, minutosTranscurridos } from '@/lib/utils';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { formatearFechaHora } from "@/lib/formatear-fecha";
-import { minutosTranscurridos } from "@/lib/formatear-fecha";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";

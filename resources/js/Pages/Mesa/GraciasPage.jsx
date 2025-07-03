@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "@inertiajs/react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatearFechaHora, minutosTranscurridos } from "@/lib/formatear-fecha";
-import { calcularTotalPedido } from "@/lib/calcular-pedido";
+import { formatearFechaHora, minutosTranscurridos, calcularTotalPedido } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import {
   AlertDialog,

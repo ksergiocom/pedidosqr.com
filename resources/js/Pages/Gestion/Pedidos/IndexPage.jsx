@@ -14,8 +14,7 @@ import { Ban, Check, Cross, Edit, EllipsisVertical, Eye, Trash } from "lucide-re
 import { Link, router, usePage } from "@inertiajs/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-import { calcularTotalPedido } from "@/lib/calcular-pedido";
-import { formatearFechaHora, minutosTranscurridos } from "@/lib/formatear-fecha";
+import { calcularTotalPedido, formatearFechaHora, minutosTranscurridos } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
