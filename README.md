@@ -180,12 +180,10 @@ server {
 ## Estado actual y tareas pendientes
 
 ### En proceso
-
-- Alertas en Borrar imagen en editarArticulo pide confirmación!
-- Alertas en Historial confirmacion (a travez del componente!)
-- Filtros historial sin boton
 - Sockets en Historial también
 - Mesas si no se da nombre, genrar random
+- Animaciones entrada y salida de pedidos (y otros recursos)
+- View Transition entr distintas paginas
 - Crear seeders con tamaño
  
 ### Fix errores tontos

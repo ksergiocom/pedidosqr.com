@@ -88,23 +88,25 @@ function MesasPage(props) {
           ];
 
           return (
-            <Link key={mesa.id} href={`/gestion/mesas/${mesa.id}`}>
-              <AspectRatio  ratio={1 / 1}>
+              <AspectRatio key={mesa.id}  ratio={1 / 1}>
                 <Card className="m-0 p-0 h-full w-full relative overflow-hidden">
+            <Link  href={`/gestion/mesas/${mesa.id}`}>
                   <div className="absolute inset-0 flex items-center justify-center">
+
                     <QRCodeSVG
                       value={`${baseUrl}/${mesa.id}`}
                       className="w-4/6 h-4/6"
                       ref={(el) => (qrRefs.current[mesa.id] = el)}
                     />
                   </div>
+                                </Link>
                   <div className="absolute flex items-center top-1 right-1 z-10">
                     <OptionsButton entity={mesa} actions={actions} />
                   </div>
                   <h2 className="absolute bottom-3 inset-x-0 z-10 opacity-70 text-sm text-muted-foreground text-center">{mesa.nombre}</h2>
                 </Card>
               </AspectRatio>
-            </Link>
+
           );
         })}
 

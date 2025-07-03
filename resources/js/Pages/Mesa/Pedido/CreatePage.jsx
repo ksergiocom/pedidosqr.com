@@ -136,7 +136,7 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
                     </div>
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button className='w-full mt-2 sm:mt-4 mb-2'>Hacer pedido</Button>
+                            <Button disabled={cantidadTotal<1} className='w-full mt-2 sm:mt-4 mb-2'>Hacer pedido</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PedidoCreado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -11,7 +10,9 @@ use App\Models\Pedido;
 use App\Models\PedidoDetalle;
 use App\Models\Mesa;
 
-use App\Events\PedidoRealizado;
+use App\Events\PedidoCreado;
+use App\Events\PedidoCancelado;
+use App\Events\PedidoActualizado;
 
 class PedidoController extends Controller
 {
@@ -100,6 +101,12 @@ class PedidoController extends Controller
             }
         });
 
+        // Emitir después de commit
+        DB::afterCommit(function () use ($pedido) {
+            $pedido->load(['mesa', 'detalles.articulo']);
+            broadcast(new PedidoActualizado($pedido));
+        });
+
         // O puedes emitir un evento de actualización si lo necesitas
         return redirect()->route('pedidoEnMesa.gracias', [
             'mesa' => $mesa,
@@ -109,30 +116,39 @@ class PedidoController extends Controller
 
     public function destroy(Pedido $pedido)
     {
-        // Puedes validar si el usuario es dueño del pedido a través de la mesa
         if ($pedido->mesa->user_id !== auth()->id()) {
             abort(403, 'No tienes permiso para eliminar este pedido.');
         }
 
-        $pedido->detalles()->delete(); // Eliminar detalles primero si no hay cascade
+        $userId = $pedido->mesa->user_id;
+        $pedidoId = $pedido->id;
+
+        $pedido->detalles()->delete();
         $pedido->delete();
+
+        // Emitir evento broadcast de cancelación
+        broadcast(new PedidoCancelado($pedidoId, $userId));
 
         return back()->with('success', 'Se ha eliminado el pedido correctamente');
     }
 
     public function cancelar(Mesa $mesa, Pedido $pedido)
     {
-        // Puedes validar si el usuario es dueño del pedido a través de la mesa
         if ($pedido->mesa->id != $mesa->id) {
             abort(403, 'No tienes permiso para eliminar este pedido.');
         }
 
-        $pedido->detalles()->delete(); // Eliminar detalles primero si no hay cascade
+        $userId = $pedido->mesa->user_id;
+        $pedidoId = $pedido->id;
+
+        $pedido->detalles()->delete();
         $pedido->delete();
+
+        // Emitir evento broadcast de cancelación
+        broadcast(new PedidoCancelado($pedidoId, $userId));
 
         return redirect()->route('pedidoEnMesa.show', ['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
     }
-
 
     public function show(Pedido $pedido)
     {

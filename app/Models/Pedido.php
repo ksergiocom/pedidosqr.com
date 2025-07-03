@@ -23,13 +23,6 @@ class Pedido extends Model
     protected $with = ['detalles.articulo'];
     protected $appends = ['total'];
 
-    protected static function booted()
-    {
-        static::created(function ($pedido) {
-            Log::info("Pedido creado: Emisión de evento broadcast para Pedido ID {$pedido->id}");
-        });
-    }
-
     /**
      * Suma del importe total del pedido
      */

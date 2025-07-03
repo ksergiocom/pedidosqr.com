@@ -143,7 +143,7 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
           <div className="flex gap-4 mt-2 sm:mt-4 mb-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button className="flex-1 w-1/2">Actualizar</Button>
+                <Button disabled={cantidadTotal<1} className="flex-1 w-1/2">Actualizar</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
