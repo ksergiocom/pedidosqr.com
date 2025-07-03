@@ -24,7 +24,7 @@ function IndexPage({ articulos }) {
     };
 
     return (
-        <div className="flex flex-col mb-5">
+        <div className="flex flex-col mb-5 max-w-3xl">
 
             <Title>Listado de artículos</Title>
             <TitleDescription className="mt-2 sm:mt-5">
@@ -38,7 +38,7 @@ function IndexPage({ articulos }) {
                 </Button>
             </Link>
 
-            <section className="mt-8 grid xl:grid-cols-2 gap-10">
+            <section className="mt-8 grid grid-cols-1 gap-10">
 
                 {/*                 
                     <Link href="/gestion/mesas/crear" className=" group block h-full w-full">

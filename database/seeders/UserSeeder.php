@@ -16,12 +16,7 @@ class UserSeeder extends Seeder
         // Usuario para demos
         User::factory()->create([
             'email'=> 'demo@pedidosqr.com',
-            'password'=> Hash::make('prueba'),
-        ]);
-
-        User::factory()->create([
-            'email'=> 'sergio@ksergio.com',
-            'password'=> Hash::make('hola_a_todos'),
+            'password'=> Hash::make('prueba$'),
         ]);
 
     }

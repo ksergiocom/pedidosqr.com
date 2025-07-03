@@ -5,11 +5,11 @@ import { EllipsisVertical } from "lucide-react";
 import { Link } from "@inertiajs/react";
 
 
-const OptionsButton = ({ entity, actions }) => {
+const OptionsButton = ({ entity, actions, className }) => {
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Menu opciones">
+        <Button variant="ghost" size="icon" aria-label="Menu opciones" className={className}>
             <EllipsisVertical/>
         </Button>
       </DropdownMenuTrigger>

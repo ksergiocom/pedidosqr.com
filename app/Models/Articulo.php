@@ -20,6 +20,12 @@ class Articulo extends Model
         'image_url', 
     ];
 
+    // --- Accesor para precio con dos decimales ---
+    public function getPrecioAttribute($value)
+    {
+        return number_format($value, 2, '.', '');
+    }
+
     // --- Relaciones -------------------------------------
 
     public function user(): BelongsTo
