@@ -59,7 +59,7 @@ function CreatePage(props) {
                     />
                     {errors.precio && <small className="text-red-500">{errors.precio}</small>}
                     <p className="text-sm text-muted-foreground">Este será el precio mostrado en el menú al cliente. Se guardará siempre con 2 decimales.</p>
-                    
+
                 </div>
                 <div className="grid w-full max-w-sm items-center gap-3 mt-7">
                     <Label htmlFor="descripcion">Descripción</Label>
@@ -71,21 +71,25 @@ function CreatePage(props) {
                         onChange={e => setData('descripcion', e.target.value)}
                     />
                     {errors.descripcion && <small className="text-red-500">{errors.descripcion}</small>}
-                    <p className="text-sm text-muted-foreground">La descripción es opcional pero recomendable. En el menú se manteiene oculto dentro de la sección desplegable hasta que lo selecciona el cliente.</p>
+                    <p className="text-sm text-muted-foreground">La descripción es opcional, pero muy recomendable. Aunque ya no aparece en un menú desplegable, sigue siendo muy importante escribir una descripción atractiva y bien cuidada: ayuda a informar mejor al cliente y aumenta las posibilidades de concretar la venta.</p>
 
                 </div>
                 <div className="grid w-full max-w-sm items-center gap-3 mt-7">
-                    <Label htmlFor="image">Imagen (opcional)</Label>
-                    <Input
-                        type="file"
-                        id="image"
+                    <Label htmlFor="image">
+                        Imagen (opcional)
+                    </Label>
+                    {/* SHADCN peta el input type=file en FIREFOX! */}
+                    <input className="border rounded-sm p-1 px-2 text-gray-400" type="file"                         id="image"
                         name="image"
-                        accept="image/*"
-                        onChange={e => setData('image', e.target.files[0])}
-                    />
+                        accept="image/*" onChange={e => {
+                            if (e.target.files && e.target.files.length > 0) {
+                                setData('image', e.target.files[0]);
+                            }
+                        }}></input>
                     {errors.image && <small className="text-red-500">{errors.image}</small>}
-                    <p className="text-sm text-muted-foreground">La imágen es opcional pero recomendable. Se mostrará en el menú y también en el resumen de los pedidos para mayor facilidad de uso.</p>
-
+                    <p className="text-sm text-muted-foreground">
+                        La imagen es opcional pero recomendable. Se mostrará en el menú y también en el resumen de los pedidos para mayor facilidad de uso.
+                    </p>
                 </div>
 
 

@@ -44,7 +44,14 @@ class AuthController extends Controller
             'password' => ['required']
         ]);
 
-        if (Auth::attempt($validated)) {
+        // HAcerlo CASE INseSITIVE!
+        $credentials = [
+            'email' => strtolower($validated['email']),
+            'password' => $validated['password'],
+        ];
+
+
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('/gestion/pedidos');
@@ -65,7 +72,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'email' => $request->email,
+            'email' => strtolower($request->email),
             'password' => Hash::make($request->password),
         ]);
 
@@ -107,7 +114,7 @@ class AuthController extends Controller
             ['email' => $googleUser->getEmail()],
             [
                 'name' => $googleUser->getName(),
-                'google_id' => $googleUser->getId(),
+                'google_id' => strtolower($googleUser->getId()),
                 'avatar' => $googleUser->getAvatar(),
                 'password' => Hash::make(Str::random(24)), // contraseña aleatoria segura
             ]

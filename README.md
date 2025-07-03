@@ -181,16 +181,12 @@ server {
 
 ### En proceso
 
-- Numero de artículos debe er cantidad no diferentes tipos de articulos
-- Crear seeders con tamaño
-- Si no hay imagen que salga un placeholder
-- En firefox no funciona el subir imagen de input file de shadcn
-- Auth inicio y registro siempre debe guardar el input de pass en minusculas (case insensitive)
 - Alertas en Borrar imagen en editarArticulo pide confirmación!
 - Alertas en Historial confirmacion (a travez del componente!)
 - Filtros historial sin boton
 - Sockets en Historial también
 - Mesas si no se da nombre, genrar random
+- Crear seeders con tamaño
  
 ### Fix errores tontos
 
@@ -229,6 +225,7 @@ server {
 - Extraer componente CardPedido para reutilizar
 - No permitir subida de archivos raros en fotos.
 - No permitir subir igamenes demasiado pesadas
+- Corregir textos erratas y dejarlo formal.
 
 ---
 

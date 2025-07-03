@@ -116,4 +116,26 @@ class ArticuloController extends Controller
 
         return redirect()->back()->with('success', 'Artículo eliminado correctamente.');
     }
+
+        /**
+     * Elimina la imagen asociada al artículo.
+     */
+    public function destroyImage(Articulo $articulo)
+    {
+        // Comprueba primero si tiene URL de imagen
+        if ($articulo->image_url) {
+            // Le quitamos el prefijo '/storage/' para obtener la ruta en 'public' disk
+            $relativePath = str_replace('/storage/', '', $articulo->image_url);
+
+            // Elimina el fichero (silencioso si no existe)
+            Storage::disk('public')->delete($relativePath);
+
+            // Limpia el campo en la BBDD
+            $articulo->image_url = null;
+            $articulo->save();
+        }
+
+        // Si vienes de un formulario Inertia, puedes volver con:
+        return back()->with('success', 'Imagen eliminada correctamente.');
+    }
 }

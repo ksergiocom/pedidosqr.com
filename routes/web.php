@@ -59,6 +59,7 @@ Route::prefix('gestion')->name('gestion.')->middleware('auth')->group(function (
         Route::get('{articulo}/editar', [ArticuloController::class,'edit'])->name('edit');
         Route::put('{articulo}/editar', [ArticuloController::class,'update'])->name('update');
         Route::delete('{articulo}', [ArticuloController::class,'destroy'])->name('destroy');
+        Route::delete('{articulo}/imagen/eliminar', [ArticuloController::class, 'destroyImage'])->name('imagen.destroy');
     });
     Route::prefix('pedidos')->name('pedidos.')->group(function(){
         Route::get('',[PedidoController::class,'index'])->name('index');

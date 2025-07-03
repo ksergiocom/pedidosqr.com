@@ -1,14 +1,15 @@
-import React from "react";
-import { Link, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
+import { Link, useForm, router } from "@inertiajs/react";
 import GestionLayout from "../../Layout/GestionLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { Trash } from "lucide-react";
+import { ImageOff, Trash } from "lucide-react";
 import Title from "@/components/Title";
 import TitleDescription from "@/components/TitleDescription";
+import ConfirmDialog from "@/components/ConfirmDialog";
 
 export default function EditPage({ articulo }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -19,25 +20,31 @@ export default function EditPage({ articulo }) {
     _method: "put",
   });
 
+  const [showConfirmImageDelete, setShowConfirmImageDelete] = useState(false);
+
   function submit(e) {
     e.preventDefault();
     post(`/gestion/articulos/${articulo.id}/editar`);
   }
 
-  function deleteImage() {
-    if (confirm("¿Eliminar la imagen actual?")) {
-      post(
-        `/gestion/articulos/${articulo.id}/imagen/eliminar`,
-        { _method: "delete" },
-        { preserveScroll: true }
-      );
-    }
+  function confirmDeleteImage() {
+    setShowConfirmImageDelete(true);
+  }
+
+  function handleDeleteImage() {
+    router.delete(
+      `/gestion/articulos/${articulo.id}/imagen/eliminar`,
+      { preserveScroll: true }
+    );
+    setShowConfirmImageDelete(false);
   }
 
   return (
     <div className="flex flex-col max-w-xl">
       <Title>Editar Artículo</Title>
-      <TitleDescription className="mt-2">Modifica los datos de tu artículo existente</TitleDescription>
+      <TitleDescription className="mt-2">
+        Modifica los datos de tu artículo existente
+      </TitleDescription>
 
       <form
         onSubmit={submit}
@@ -95,14 +102,14 @@ export default function EditPage({ articulo }) {
             <small className="text-red-500 text-sm">{errors.descripcion}</small>
           )}
           <p className="text-sm text-muted-foreground">
-            La descripción es opcional pero recomendable. En el menú se mantiene oculta dentro de la sección desplegable hasta que el cliente la despliega.
+            La descripción es opcional, pero muy recomendable. Aunque ya no aparece en un menú desplegable, sigue siendo muy importante escribir una descripción atractiva y bien cuidada: ayuda a informar mejor al cliente y aumenta las posibilidades de concretar la venta.
           </p>
         </div>
 
         <Separator className="my-5" />
 
         {/* Imagen actual y borrar */}
-        {articulo.image_url && (
+        {articulo.image_url ? (
           <div className="flex flex-col gap-3">
             <p className="text-sm text-muted-foreground">
               Esta es la imagen actualmente guardada para el artículo.
@@ -114,24 +121,34 @@ export default function EditPage({ articulo }) {
             />
             <Button
               variant="destructive"
-              onClick={deleteImage}
+              type="button"
+              onClick={confirmDeleteImage}
               className="w-full"
             >
               <Trash className="w-4 h-4 mr-1" />
               Borrar imagen
             </Button>
           </div>
-        )}
+        ) :
+          (
+            <div className="w-full min-h-[30vh] h-full bg-gray-200 flex items-center justify-center">
+              <div className="flex flex-col gap-3 justify-center ites-center text-center">
+              <ImageOff className="mx-auto w-12 h-12 text-white opacity-80" />
+              <p className="mx-auto text-gray-400">Sin imágen</p>
+              </div>
+            </div>
+          )}
 
         <Separator className="my-5" />
 
         {/* Reemplazar imagen */}
         <div className="grid w-full items-center gap-3">
           <Label htmlFor="image">Reemplazar imagen (opcional)</Label>
-          <Input
+          <input
             id="image"
             type="file"
             name="image"
+            className="border rounded-sm p-1 px-2 text-gray-400"
             accept="image/*"
             onChange={(e) => setData("image", e.target.files[0])}
           />
@@ -144,10 +161,18 @@ export default function EditPage({ articulo }) {
         </div>
 
         {/* Botón Guardar */}
-          <Button disabled={processing} type="submit" className="w-full mt-9 mb-6">
-            Actualizar
-          </Button>
+        <Button disabled={processing} type="submit" className="w-full mt-9 mb-6">
+          Actualizar
+        </Button>
       </form>
+
+      <ConfirmDialog
+        title="¿Eliminar imagen?"
+        description="Esta acción eliminará la imagen actual del artículo. No podrá deshacerse. ¿Quieres continuar?"
+        open={showConfirmImageDelete}
+        onCancel={() => setShowConfirmImageDelete(false)}
+        onConfirm={handleDeleteImage}
+      />
     </div>
   );
 }
