@@ -180,6 +180,7 @@ server {
 ## Estado actual y tareas pendientes
 
 ### En proceso
+- Al hacer edit del pedido desde el movil me esta dando un error 403. Cuidado!
 - Sockets en Historial también
 - Mesas si no se da nombre, genrar random
 - Animaciones entrada y salida de pedidos (y otros recursos)

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import AuthLayout from "../Layout/AuthLayout";
+import { Eye, EyeOff } from "lucide-react";
 
 const handleGoogleLogin = () => {
     window.location.href = '/auth/google/redirect';
@@ -27,6 +28,9 @@ const LoginPage = () => {
     e.preventDefault();
     post("/auth/login");
   }
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
 
   return (
     <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
@@ -55,14 +59,26 @@ const LoginPage = () => {
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="password">Contraseña</Label>
-          <Input
-            id="password"
-            type="password"
-            required
-            value={data.password}
-            placeholder='*******'
-            onChange={(e) => setData("password", e.target.value)}
-          />
+         <div className="relative">
+  <Input
+    id="password"
+    type={showPassword ? "text" : "password"}
+    required
+    value={data.password}
+    placeholder="*******"
+    onChange={(e) => setData("password", e.target.value)}
+    className="pr-10"
+  />
+  <Button
+    type="button"
+    variant='ghost'
+    onClick={() => setShowPassword((prev) => !prev)}
+    className={`absolute inset-y-0 right-0 mx-1 flex items-center text-muted-foreground transition ${data.password ? 'opacity-100' : 'opacity-0'}`}
+    // tabIndex={-1}
+  >
+    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+  </Button>
+</div>
           {errors.password && (
             <small className="text-red-500 text-sm">{errors.password}</small>
           )}

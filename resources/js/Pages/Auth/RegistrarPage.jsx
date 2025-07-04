@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import AuthLayout from "../Layout/AuthLayout";
+import { Eye, EyeOff } from "lucide-react";
 
 const RegistrarPage = () => {
   const { data, setData, post, processing, errors } = useForm({
@@ -11,6 +12,9 @@ const RegistrarPage = () => {
     password: "",
     password_confirmation: "",
   });
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
 
   function submit(e) {
     e.preventDefault();
@@ -44,14 +48,28 @@ const RegistrarPage = () => {
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="password">Contraseña</Label>
-          <Input
-            id="password"
-            type="password"
-            required
-            value={data.password}
-            placeholder='*******'
-            onChange={(e) => setData("password", e.target.value)}
-          />
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              required
+              value={data.password}
+              placeholder="*******"
+              onChange={(e) => setData("password", e.target.value)}
+              className="pr-10"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={(e) => {
+                setShowPassword(!showPassword);
+              }}
+              className={`absolute inset-y-0 right-0 mx-1 flex items-center text-muted-foreground transition ${data.password ? 'opacity-100' : 'opacity-0'}`}
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </Button>
+          </div>
           {errors.password && (
             <small className="text-red-500 text-sm">{errors.password}</small>
           )}
@@ -60,16 +78,28 @@ const RegistrarPage = () => {
         {/* Confirm Password */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="confirm-password">Repetir contraseña</Label>
-          <Input
-            id="confirm-password"
-            type="password"
-            required
-            value={data.password_confirmation}
-            placeholder='*******'
-            onChange={(e) =>
-              setData("password_confirmation", e.target.value)
-            }
-          />
+          <div className="relative">
+            <Input
+              id="confirm-password"
+              type={showPassword ? "text" : "password"}
+              required
+              value={data.password_confirmation}
+              placeholder="*******"
+              onChange={(e) => setData("password_confirmation", e.target.value)}
+              className="pr-10"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={(e) => {
+                setShowPassword(!showPassword);
+              }}
+              className={`absolute inset-y-0 right-0 mx-1 flex items-center text-muted-foreground transition ${data.password_confirmation ? 'opacity-100' : 'opacity-0'}`}
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </Button>
+          </div>
           {errors.password_confirmation && (
             <small className="text-red-500 text-sm">
               {errors.password_confirmation}
