@@ -44,7 +44,7 @@ export default function GestionLayout(props) {
 
         <Separator className="my-5" />
 
-         <Toaster />
+         <Toaster/>
         
 
         {/* Main content */}

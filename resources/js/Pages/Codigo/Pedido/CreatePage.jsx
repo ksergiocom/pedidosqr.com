@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ArrowUp, Check, CheckCircle, Minus, Plus } from 'lucide-react';
 import { router } from '@inertiajs/react';
@@ -25,6 +25,14 @@ const PedidoEnCodigo = ({ articulos, codigo }) => {
         });
         return inicial;
     });
+
+
+  useEffect(() => {
+    const pedidoGuardado = localStorage.getItem(`pedido_${codigo.id}`);
+    if (pedidoGuardado) {
+      router.visit(`/${codigo.id}/${pedidoGuardado}`);
+    }
+  }, [codigo.id]);
 
     const cantidadTotal = useMemo(() => {
         return Object.values(cantidades).reduce((acc, val) => acc + val, 0);

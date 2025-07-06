@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+@source '../**/*.blade.php';
+
+ol,ul{
+    @apply p-5;
+}
+
+ol{
+    @apply list-decimal mt-0 pt-0;
+}
+
+ul{
+    @apply list-disc mt-0 pt-0;
+}
+
+main{
+    @apply max-w-xl p-8 xl:p-12;
+}
+
+/* section{
+    @apply mb-15;
+} */
+
+h2{
+    @apply text-4xl mb-5 font-semibold;
+}
+
+h3{
+    @apply text-xl mb-5 font-semibold;
+}
+
+.link-boton{
+    @apply p-2 bg-black text-white rounded inline-block text-center no-underline;
+}
+
+a{
+    @apply text-blue-700 underline underline-offset-4;
+}
+
+hr{
+    @apply my-10 w-2/3;
+}

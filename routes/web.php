@@ -14,20 +14,22 @@ use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 // ----- Lading -----------------------------------------------------------------------------------
 Route::view('/', 'home')->name('home');
+// Route::view('/about', 'about')->name('about');
+Route::view('/terminos', 'terminos')->name('terminos');
 // ----- Inertia ----------------------------------------------------------------------------------
 
 
 // ----- OAuth ------------------------------------------------------------------------------------
 
-Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirect'])->middleware('guess')->name('auth.google.redirect');
-Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->middleware('guess')->name('auth.google.callback');
+Route::get('/auth/google/redirect', [AuthController::class, 'googleRedirect'])->middleware('guest')->name('auth.google.redirect');
+Route::get('/auth/google/callback', [AuthController::class, 'googleCallback'])->middleware('guest')->name('auth.google.callback');
 
 // ------------------------------------------------------------------------------------------------
 
-Route::get('/recuperar-pass', [AuthController::class, 'recuperarView'])->middleware('guess')->name('password.request');
-Route::post('/recuperar-pass', [AuthController::class, 'enviarLinkRecuperacion'])->middleware('guess')->name('password.email');
-Route::get('/recuperar-pass/{token}', [AuthController::class, 'nuevaContraseñaView'])->middleware('guess')->name('password.reset');
-Route::post('/recuperar-pass/{token}', [AuthController::class, 'resetContraseña'])->middleware('guess')->name('password.update');
+Route::get('/recuperar-pass', [AuthController::class, 'recuperarView'])->middleware('guest')->name('password.request');
+Route::post('/recuperar-pass', [AuthController::class, 'enviarLinkRecuperacion'])->middleware('guest')->name('password.email');
+Route::get('/recuperar-pass/{token}', [AuthController::class, 'nuevaContraseñaView'])->middleware('guest')->name('password.reset');
+Route::post('/recuperar-pass/{token}', [AuthController::class, 'resetContraseña'])->middleware('guest')->name('password.update');
 
 // ----- Inertia ----------------------------------------------------------------------------------
 

@@ -181,17 +181,10 @@ server {
 
 ### En proceso
 
-- TOAST EN EL CNETRO!
-- Recuperacion mensaje custom
-- Landing page
-- Erres custom!
-- Ocultar CON que se ha hecho
 - Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
 
 - Accordions, quitar los outlined o rings, no s que es
 - Al hacer edit del pedido desde el movil me esta dando un error 403. Cuidado!
-- Sockets en Historial también
-- Mesas si no se da nombre, genrar random
 - Animaciones entrada y salida de pedidos (y otros recursos)
 - View Transition entr distintas paginas
 - Crear seeders con tamaño
@@ -219,6 +212,7 @@ server {
 - Ajustar tiempo espera para alertas en perfil  
 - Seguridad: solo pedido en mesa puede modificar o cancelar (tokens en peticiones)  
 - Reestructurar carpetas y archivos  
+- Ocultar CON que se ha hecho
 - Logger y gestión de errores 404, 401, etc.  
 - Login social  
 - Uso de Gates y Policies para modelos  

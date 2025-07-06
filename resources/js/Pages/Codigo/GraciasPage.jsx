@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "@inertiajs/react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,6 +19,15 @@ import Title from "@/components/Title";
 import CardPedido from "@/components/CardPedido";
 
 export default function GraciasPage({ codigo, pedido }) {
+
+ useEffect(() => {
+    localStorage.setItem(`pedido_${codigo.id}`, pedido.id);
+  }, [codigo.id, pedido.id]);
+
+    const handleCancel = () => {
+    localStorage.removeItem(`pedido_${codigo.id}`);
+  };
+
   return (
     <main className="p-7 flex flex-col justify-center text-center items-center min-h-screen 3xl:min-w-3xl">
       <div className="3xl:max-w-2xl flex flex-col">
@@ -53,6 +62,7 @@ export default function GraciasPage({ codigo, pedido }) {
                   asChild
                   variant='destructive'
                   className='bg-red-600 hover:bg-red-700'
+                  onClick={handleCancel}
                 >
                   {/* Usamos Link con method delete para enviar la petición */}
                   <Link
