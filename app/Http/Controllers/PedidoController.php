@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Pedido;
 use App\Models\PedidoDetalle;
-use App\Models\Mesa;
+use App\Models\Codigo;
 
 use App\Events\PedidoCreado;
 use App\Events\PedidoCancelado;
@@ -22,7 +22,7 @@ class PedidoController extends Controller
 
         $pedidos = $user->pedidos()
             ->where('estado', '=', 'pendiente')
-            ->with(['mesa', 'detalles.articulo'])
+            ->with(['codigo', 'detalles.articulo'])
             ->latest()
             ->get();
 
@@ -31,12 +31,12 @@ class PedidoController extends Controller
         ]);
     }
 
-    public function pedirPedidoEnMesa(Request $request, Mesa $mesa)
+    public function pedirPedidoEnCodigo(Request $request, Codigo $codigo)
     {
         $articulos = $request->input('articulos', []);
 
-        $pedido = DB::transaction(function () use ($mesa, $articulos) {
-            $pedido = Pedido::create(['mesa_id' => $mesa->id]);
+        $pedido = DB::transaction(function () use ($codigo, $articulos) {
+            $pedido = Pedido::create(['codigo_id' => $codigo->id]);
 
             foreach ($articulos as $articuloId => $cantidad) {
                 if ($cantidad > 0) {
@@ -53,35 +53,35 @@ class PedidoController extends Controller
 
         // Aquí la transacción ya se ha completado
         DB::afterCommit(function () use ($pedido) {
-            $pedido->load(['mesa', 'detalles.articulo']); // Cargar relaciones
+            $pedido->load(['codigo', 'detalles.articulo']); // Cargar relaciones
             broadcast(new PedidoCreado($pedido));
         });
 
-        return redirect()->route('pedidoEnMesa.gracias', [
-            'mesa' => $mesa,
+        return redirect()->route('pedidoEnCodigo.gracias', [
+            'codigo' => $codigo,
             'pedido' => $pedido,
         ])->with('success', '¡Pedido creado con éxito!');
     }
 
-    public function edit(Mesa $mesa, Pedido $pedido)
+    public function edit(Codigo $codigo, Pedido $pedido)
     {
-        $articulos = $mesa->user->articulos;
+        $articulos = $codigo->user->articulos;
 
         $pedido->load(['detalles.articulo']);
 
-        return inertia('Mesa/Pedido/EditPage', [
-            'mesa' => $mesa,
+        return inertia('Codigo/Pedido/EditPage', [
+            'codigo' => $codigo,
             'pedido' => $pedido,
             'articulos' => $articulos,
         ]);
     }
 
-    public function update(Request $request, Mesa $mesa, Pedido $pedido)
+    public function update(Request $request, Codigo $codigo, Pedido $pedido)
     {
         $articulos = $request->input('articulos', []);
 
         // Autorización opcional
-        if ($pedido->mesa_id !== $mesa->id || $pedido->mesa->user_id !== auth()->id()) {
+        if ($pedido->codigo_id !== $codigo->id || $pedido->codigo->user_id !== auth()->id()) {
             abort(403);
         }
 
@@ -103,24 +103,24 @@ class PedidoController extends Controller
 
         // Emitir después de commit
         DB::afterCommit(function () use ($pedido) {
-            $pedido->load(['mesa', 'detalles.articulo']);
+            $pedido->load(['codigo', 'detalles.articulo']);
             broadcast(new PedidoActualizado($pedido));
         });
 
         // O puedes emitir un evento de actualización si lo necesitas
-        return redirect()->route('pedidoEnMesa.gracias', [
-            'mesa' => $mesa,
+        return redirect()->route('pedidoEnCodigo.gracias', [
+            'codigo' => $codigo,
             'pedido' => $pedido,
         ])->with('success', '¡Pedido actualizado con éxito!');
     }
 
     public function destroy(Pedido $pedido)
     {
-        if ($pedido->mesa->user_id !== auth()->id()) {
+        if ($pedido->codigo->user_id !== auth()->id()) {
             abort(403, 'No tienes permiso para eliminar este pedido.');
         }
 
-        $userId = $pedido->mesa->user_id;
+        $userId = $pedido->codigo->user_id;
         $pedidoId = $pedido->id;
 
         $pedido->detalles()->delete();
@@ -132,13 +132,13 @@ class PedidoController extends Controller
         return back()->with('success', 'Se ha eliminado el pedido correctamente');
     }
 
-    public function cancelar(Mesa $mesa, Pedido $pedido)
+    public function cancelar(Codigo $codigo, Pedido $pedido)
     {
-        if ($pedido->mesa->id != $mesa->id) {
+        if ($pedido->codigo->id != $codigo->id) {
             abort(403, 'No tienes permiso para eliminar este pedido.');
         }
 
-        $userId = $pedido->mesa->user_id;
+        $userId = $pedido->codigo->user_id;
         $pedidoId = $pedido->id;
 
         $pedido->detalles()->delete();
@@ -147,16 +147,16 @@ class PedidoController extends Controller
         // Emitir evento broadcast de cancelación
         broadcast(new PedidoCancelado($pedidoId, $userId));
 
-        return redirect()->route('pedidoEnMesa.show', ['mesa' => $mesa])->with('success', 'Se ha eliminado el pedido correctamente');
+        return redirect()->route('pedidoEnCodigo.show', ['codigo' => $codigo])->with('success', 'Se ha eliminado el pedido correctamente');
     }
 
     public function show(Pedido $pedido)
     {
-        if ($pedido->mesa->user_id !== auth()->id()) {
+        if ($pedido->codigo->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para ver esta pedido');
         }
 
-        $pedido->load(['detalles.articulo', 'mesa']);
+        $pedido->load(['detalles.articulo', 'codigo']);
 
         return inertia('Gestion/Pedidos/ShowPage', [
             'pedido' => $pedido,
@@ -165,7 +165,7 @@ class PedidoController extends Controller
 
     public function completar(Pedido $pedido)
     {
-        if ($pedido->mesa->user_id !== auth()->id()) {
+        if ($pedido->codigo->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para modificar el estado de este pedido');
         }
 
@@ -177,7 +177,7 @@ class PedidoController extends Controller
 
     public function pendiente(Pedido $pedido)
     {
-        if ($pedido->mesa->user_id !== auth()->id()) {
+        if ($pedido->codigo->user_id !== auth()->id()) {
             abort(403, 'No tienes permisos para modificar el estado de este pedido');
         }
 

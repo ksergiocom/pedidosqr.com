@@ -8,6 +8,8 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import Title from '@/components/Title';
 import TitleDescription from '@/components/TitleDescription';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircleIcon, Info, MessageCircleWarning } from 'lucide-react';
 
 const MiPerfilPage = () => {
   const {
@@ -34,29 +36,31 @@ const MiPerfilPage = () => {
         Gestiona tu información y preferencias de cuenta desde aquí.
       </TitleDescription>
 
-      <Separator className="mt-8 mb-5" />
+      <Separator className="mt-8 mb-2" />
 
       <h2 className='text-xl font-semibold'>Preferencias usuario</h2>
-      
+
       <CustomInput
-        label="Tiempo alerta mesa"
-        className='mt-8'
+        disabled
+        value="5"
+        label="Tiempo alerta codigo"
+        className='mt-8 hover:cursor-not-allowed'
         type="number"
         description='Minutos que deben pasar hasta que el pedido se marque con un aviso rojo'
       ></CustomInput>
 
       <div className="flex items-center space-x-2 mt-10">
-        <Switch id="enable-toast" />
+        <Switch disabled checked={true} id="enable-toast" />
         <Label htmlFor="enable-toast">Activar mensajes</Label>
       </div>
-      <p className='text-muted-foreground text-sm mt-2'>Los mensajes flotantes aparecen cuando se generan nuevos artículos, mesas o pedidos. También pueden avisar de eventos especiales</p>
+      <p className='text-muted-foreground text-sm mt-2'>Los mensajes flotantes aparecen cuando se generan nuevos artículos, codigos o pedidos. También pueden avisar de eventos especiales</p>
 
-      <Button disabled={processing} className="mt-10 mb-5 w-full" variant='outline'>
+      <Button disabled className="mt-10 mb-5 w-full hover:cursor-not-allowed" variant='outline'>
         Cambiar preferencias
       </Button>
 
 
-      
+
       <Separator className="mt-8 mb-5" />
 
       <h2 className='text-xl font-semibold'>Recuperar contraseña</h2>

@@ -24,7 +24,7 @@ const RegistrarPage = () => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
       <h1 className="text-3xl font-semibold">Regístrate</h1>
-      <p className="text-muted-foreground">
+      <p className="text-muted-foreground text-sm">
         Introduce tu correo electrónico y contraseña para crear tu cuenta
       </p>
 

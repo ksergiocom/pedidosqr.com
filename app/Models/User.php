@@ -54,9 +54,9 @@ class User extends Authenticatable
 
     // --- Relaciones -------------------------------------
 
-    public function mesas(): HasMany
+    public function codigos(): HasMany
     {
-        return $this->hasMany(Mesa::class, 'user_id');
+        return $this->hasMany(Codigo::class, 'user_id');
     }
 
     public function articulos(): HasMany
@@ -66,6 +66,6 @@ class User extends Authenticatable
 
     public function pedidos(): HasManyThrough
     {
-        return $this->hasManyThrough(Pedido::class, Mesa::class, 'user_id', 'mesa_id');
+        return $this->hasManyThrough(Pedido::class, Codigo::class, 'user_id', 'codigo_id');
     }
 }

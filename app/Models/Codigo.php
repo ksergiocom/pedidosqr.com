@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Mesa extends Model
+class Codigo extends Model
 {
     use HasUuids;
 
-    protected $table = "mesas";
+    protected $table = "codigos";
     protected $fillable = [
         "nombre",
         "user_id",
@@ -26,6 +26,6 @@ class Mesa extends Model
 
     public function pedidos(): HasMany
     {
-        return $this->hasMany(Pedido::class,"mesa_id");
+        return $this->hasMany(Pedido::class,"codigo_id");
     }
 }

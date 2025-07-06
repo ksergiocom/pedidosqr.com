@@ -7,51 +7,51 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Models\Mesa;
+use App\Models\Codigo;
 
-class MesaController extends Controller
+class CodigoController extends Controller
 {
     public function index()
     {
-        $mesas = auth()->user()->mesas;
+        $codigos = auth()->user()->codigos;
 
-        return inertia("Gestion/Mesas/IndexPage", [
-            "mesas" => $mesas,
+        return inertia("Gestion/Codigos/IndexPage", [
+            "codigos" => $codigos,
         ]);
     }
 
     public function create()
     {
-        $mesas = auth()->user()->mesas;
+        $codigos = auth()->user()->codigos;
 
-        return inertia("Gestion/Mesas/CreatePage", [
+        return inertia("Gestion/Codigos/CreatePage", [
         ]);
     }
 
-    public function show(Mesa $mesa)
+    public function show(Codigo $codigo)
     {
-        $ultimosPedidos = $mesa->pedidos()->latest()->limit(5)->get();
+        $ultimosPedidos = $codigo->pedidos()->latest()->limit(5)->get();
 
-        return inertia('Gestion/Mesas/ShowPage', [
-            'mesa' => $mesa,
+        return inertia('Gestion/Codigos/ShowPage', [
+            'codigo' => $codigo,
             'ultimosPedidos' => $ultimosPedidos,
         ]);
     }
 
-    public function showPedidoEnMesa(Request $request, Mesa $mesa)
+    public function showPedidoEnCodigo(Request $request, Codigo $codigo)
     {
-        $articulos = $mesa->user->articulos;
+        $articulos = $codigo->user->articulos;
 
-        return inertia('Mesa/Pedido/CreatePage', [
-            'mesa' => $mesa,
+        return inertia('Codigo/Pedido/CreatePage', [
+            'codigo' => $codigo,
             'articulos' => $articulos,
         ]);
     }
 
-    public function gracias(Request $request, Mesa $mesa, Pedido $pedido)
+    public function gracias(Request $request, Codigo $codigo, Pedido $pedido)
     {
-        return inertia('Mesa/GraciasPage', [
-            'mesa' => $mesa,
+        return inertia('Codigo/GraciasPage', [
+            'codigo' => $codigo,
             'pedido' => $pedido,
         ]);
     }
@@ -76,7 +76,7 @@ class MesaController extends Controller
             do {
                 // 8 chars alfanuméricos aleatorios
                 $nombre = Str::random(8);
-                $existe = Mesa::where('user_id', auth()->id())
+                $existe = Codigo::where('user_id', auth()->id())
                     ->where('nombre', $nombre)
                     ->exists();
             } while ($existe);
@@ -86,37 +86,40 @@ class MesaController extends Controller
                 ['nombre' => $nombre],
                 [
                     'nombre' => [
-                        Rule::unique('mesas')
+                        Rule::unique('codigos')
                             ->where(fn($q) => $q->where('user_id', auth()->id()))
                     ],
                 ],
-                ['nombre.unique' => 'Ya tienes una mesa con ese nombre.']
+                ['nombre.unique' => 'Ya tienes una codigo con ese nombre.']
             )->validate();
         }
 
-        // 4) Creamos la mesa con el nombre definitivo
-        Mesa::create([
+        // 4) Creamos la codigo con el nombre definitivo
+        Codigo::create([
             'nombre' => $nombre,
             'user_id' => auth()->id(),
         ]);
 
         return redirect()
-            ->route('gestion.mesas.index')
-            ->with('success', "Mesa “{$nombre}” creada correctamente.");
+            ->route('gestion.codigos.index')
+            ->with('success', "Codigo “{$nombre}” creada correctamente.");
     }
 
-    public function destroy(Mesa $mesa)
+    public function destroy(Codigo $codigo)
     {
+        if ($codigo->pedidos()->exists()) {
+            return back()->with('error','No se puede eliminar el código porque tiene pedidos asociados.');
+        }
 
-        $mesa->delete();
+        $codigo->delete();
 
-        return redirect()->back()->with('success', 'Mesa eliminada correctamente.');
+        return redirect()->back()->with('success', 'Codigo eliminada correctamente.');
     }
 
-    public function edit(Mesa $mesa)
+    public function edit(Codigo $codigo)
     {
-        return inertia("Gestion/Mesas/EditPage", [
-            'mesa' => $mesa,
+        return inertia("Gestion/Codigos/EditPage", [
+            'codigo' => $codigo,
         ]);
     }
     /**
@@ -125,10 +128,10 @@ class MesaController extends Controller
      * Esto es un ERROR, pero lo dejo asi por ahora
      * 
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Mesa $mesa
+     * @param \App\Models\Codigo $codigo
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Mesa $mesa)
+    public function update(Request $request, Codigo $codigo)
     {
         // 1) Validamos: nombre opcional, max 20 chars
         $validated = Validator::make($request->all(), [
@@ -142,31 +145,31 @@ class MesaController extends Controller
             // Si no viene nombre, generamos uno corto y comprobamos colisiones
             do {
                 $nombre = Str::random(8);
-                $existe = Mesa::where('user_id', auth()->id())
+                $existe = Codigo::where('user_id', auth()->id())
                     ->where('nombre', $nombre)
                     ->exists();
             } while ($existe);
         } else {
-            // Si viene nombre, validamos que sea único (ignorando la mesa actual)
+            // Si viene nombre, validamos que sea único (ignorando la codigo actual)
             Validator::make(
                 ['nombre' => $nombre],
                 [
                     'nombre' => [
-                        Rule::unique('mesas')
+                        Rule::unique('codigos')
                             ->where(fn($q) => $q->where('user_id', auth()->id()))
-                            ->ignore($mesa->id),
+                            ->ignore($codigo->id),
                     ],
                 ],
-                ['nombre.unique' => 'Ya tienes otra mesa con ese nombre.']
+                ['nombre.unique' => 'Ya tienes otra codigo con ese nombre.']
             )->validate();
         }
 
-        // 3) Actualizamos la mesa
-        $mesa->update(['nombre' => $nombre]);
+        // 3) Actualizamos la codigo
+        $codigo->update(['nombre' => $nombre]);
 
         return redirect()
-            ->route('gestion.mesas.index')
-            ->with('success', "Mesa actualizada correctamente. Nuevo nombre: “{$nombre}”");
+            ->route('gestion.codigos.index')
+            ->with('success', "Codigo actualizada correctamente. Nuevo nombre: “{$nombre}”");
     }
 
 }

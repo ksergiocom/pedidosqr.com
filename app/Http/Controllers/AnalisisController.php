@@ -11,7 +11,7 @@ class AnalisisController extends Controller
     public function historial(Request $request)
     {
         $query = auth()->user()->pedidos()
-            ->with(['detalles.articulo', 'mesa'])
+            ->with(['detalles.articulo', 'codigo'])
             ->orderBy('created_at', 'desc');
 
         // Filtro por estado

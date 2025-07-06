@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -21,6 +23,19 @@ class AuthController extends Controller
     public function registrarView(Request $request)
     {
         return inertia('Auth/RegistrarPage');
+    }
+
+
+    public function recuperarView(Request $request)
+    {
+        return inertia('Auth/ResetPage');
+    }
+
+    public function nuevaContraseñaView(Request $request, $token) {
+        return inertia('Auth/ResetPasswordPage', [
+            'token' => $token,
+            'email' => $request->query('email'),
+        ]);
     }
 
 
@@ -64,7 +79,7 @@ class AuthController extends Controller
 
     public function registrar(Request $request)
     {
-        return "Lo siento no se puede registrar nadie todavía :(";
+        // return "Lo siento no se puede registrar nadie todavía :(";
 
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
@@ -106,7 +121,7 @@ class AuthController extends Controller
 
     public function googleCallback()
     {
-        return "Lo siento no se puede registrar nadie todavía :(";
+        // return "Lo siento no se puede registrar nadie todavía :(";
 
         $googleUser = Socialite::driver('google')->stateless()->user();
 
@@ -123,6 +138,35 @@ class AuthController extends Controller
         Auth::login($user);
 
         return redirect('/gestion/pedidos'); // o donde quieras redirigir
+    }
+
+    public function enviarLinkRecuperacion(Request $request) {
+        $request->validate(['email' => 'required|email']);
+        $status = Password::sendResetLink($request->only('email'));
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('info', 'Hemos enviado un enlace de recuperación a tu correo')
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function resetContraseña(Request $request, $token) {
+        $data = $request->validate([
+            'email'                 => ['required','email'],
+            'password'              => ['required','string','min:5','confirmed'],
+        ]);
+        $data['token'] = $token;
+        $status = Password::reset(
+            $data,
+            function ($user, $newPassword) {
+                $user->forceFill([
+                    'password'       => Hash::make($newPassword),
+                    'remember_token' => Str::random(60),
+                ])->save();
+                event(new PasswordReset($user));
+            }
+        );
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('auth.login')->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
     }
 
 }

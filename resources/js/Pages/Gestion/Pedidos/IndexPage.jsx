@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Ban, Check, Cross, Edit, EllipsisVertical, Eye, Radio, RadioTower, Signal, Trash } from "lucide-react";
+import { Ban, Check, Cross, Edit, EllipsisVertical, Eye, ImageOff, Radio, RadioTower, Signal, Trash } from "lucide-react";
 import { Link, router, usePage } from "@inertiajs/react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -26,6 +26,8 @@ function IndexPage({ pedidos: initialPedidos }) {
   // El user hay que sacarlo explicitamente
   const { auth } = usePage().props;
 
+  const [erroresDeImagen, setErroresDeImagen] = useState({});
+
   // Estado local de pedidos, inicializado con los pasados por Inertia
   const [pedidos, setPedidos] = useState(initialPedidos);
 
@@ -34,6 +36,7 @@ function IndexPage({ pedidos: initialPedidos }) {
   const [showConfirmTerminar, setshowConfirmTerminar] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
   const [idToTerminar, setIdToTerminar] = useState(null);
+  
 
   // ----- Confirmaciones -----------------------------------------------------
 
@@ -132,7 +135,7 @@ function IndexPage({ pedidos: initialPedidos }) {
                     <AccordionTrigger>
                       <div className="flex gap-5 flex-row text-xs sm:text-base justify-between w-full">
                         <span>
-                          {pedido.mesa?.nombre}
+                          {pedido.codigo?.nombre}
                           <Badge
                             className="ml-5 text-xs"
                             variant={minutosTranscurridos(pedido.updated_at) > 5 ? "destructive" : "secondary"}
@@ -156,17 +159,23 @@ function IndexPage({ pedidos: initialPedidos }) {
                               }`}
                           >
                             <div className="flex items-center gap-3">
-                              {detalle.articulo.image_url ? (
-                                <img
-                                  src={detalle.articulo.image_url}
-                                  alt={detalle.articulo.nombre}
-                                  className="w-12 h-12 object-cover rounded"
-                                />
-                              ) : (
-                                <div className="w-12 h-12 bg-muted text-xs flex items-center justify-center rounded text-muted-foreground">
-                                  Sin imagen
-                                </div>
-                              )}
+                              {detalle.articulo.image_url && !erroresDeImagen[detalle.articulo.id] ? (
+  <img
+    src={detalle.articulo.image_url}
+    alt={detalle.articulo.nombre}
+    className="w-12 h-12 object-cover rounded"
+    onError={() =>
+      setErroresDeImagen((prev) => ({
+        ...prev,
+        [detalle.articulo.id]: true,
+      }))
+    }
+  />
+) : (
+    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+    <ImageOff className="w-12 h-12 text-white opacity-80" />
+  </div>
+)}
                               <div className="text-xs sm:text-base font-medium">
                                 {detalle.cantidad} x {detalle.articulo.nombre}
                               </div>
@@ -211,7 +220,7 @@ function IndexPage({ pedidos: initialPedidos }) {
                             </DropdownMenuTrigger>
 
                             <DropdownMenuContent align="end">
-                              <DropdownMenuItem asChild>
+                              <DropdownMenuItem  disabled asChild>
                                 <Link href={`/gestion/pedidos/${pedido.id}`}>
                                   <Eye className="w-4 h-4 mr-2" />
                                   Ver detalles

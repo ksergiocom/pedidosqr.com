@@ -9,20 +9,20 @@ import Title from "@/components/Title";
 import TitleDescription from "@/components/TitleDescription";
 
 function CreatePage(props) {
-  const { data, setData, put, processing, errors } = useForm({
-    nombre:  props.mesa.nombre,
+  const { data, setData, post, processing, errors } = useForm({
+    nombre: "",
   });
 
-    function submit(e) {
-        e.preventDefault()
-        put(`/gestion/mesas/${props.mesa.id}/editar`)
-    }
+  function submit(e) {
+    e.preventDefault();
+    post("/gestion/codigos/crear");
+  }
 
   return (
     <div className="flex flex-col max-w-xl">
-        <Title>Actualizar Mesa</Title>
+        <Title>Crear Codigo</Title>
       <TitleDescription className="mt-2">
-        Actualiza los datos de tu mesa. Seguirá manteniendo su QR único.
+        Crear nueva codigo a tu grupo de codigos. También se le asocia directamente un código QR.
       </TitleDescription>
 
       <form onSubmit={submit} className="mt-8 max-w-sm">
@@ -32,23 +32,24 @@ function CreatePage(props) {
             type="text"
             id="nombre"
             name="nombre"
+            placeholder="*Opcional"
             value={data.nombre}
             onChange={(e) => setData("nombre", e.target.value)}
           />
           {errors.nombre && <small className="text-red-500">{errors.nombre}</small>}
           <p className="text-sm text-muted-foreground">
-            Este nombre es para uso interno. Se mostrará en la sección de pedidos para identificar de qué mesa proviene cada pedido.
+            Si no se proporciona un nombre se generará uno automáticamente. Se mostrará en la sección de pedidos para identificar de donde proviene cada pedido.
           </p>
         </div>
 
         <Button disabled={processing} className="w-full mt-15 mb-5">
-          Actualizar
+          Crear
         </Button>
       </form>
     </div>
   );
 }
 
-CreatePage.layout = (page) => <GestionLayout children={page} title="Crear Mesa" />;
+CreatePage.layout = (page) => <GestionLayout children={page} title="Crear Codigo" />;
 
 export default CreatePage;

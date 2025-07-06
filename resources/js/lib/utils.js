@@ -6,9 +6,9 @@ export function cn(...inputs) {
 }
 
 
-// Función para abrir QR en nueva ventana, recibe id de mesa
-export const openQrFullScreen = (mesa, qrRefs) => {
-  const svgNode = qrRefs.current[mesa.id];
+// Función para abrir QR en nueva ventana, recibe id de codigo
+export const openQrFullScreen = (codigo, qrRefs) => {
+  const svgNode = qrRefs.current[codigo.id];
   if (!svgNode) return;
 
   // Clonamos el SVG y extraemos su outerHTML
@@ -18,7 +18,7 @@ export const openQrFullScreen = (mesa, qrRefs) => {
   const html = `
       <html>
       <head>
-        <title>QR Mesa ${mesa.nombre}</title>
+        <title>QR Codigo ${codigo.nombre}</title>
         <style>
           html, body {
             margin: 0; padding: 0; height: 100vh; width: 100vw;

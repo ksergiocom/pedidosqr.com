@@ -41,7 +41,7 @@ function IndexPage({ articulos }) {
             <section className="mt-8 grid grid-cols-1 gap-10">
 
                 {/*                 
-                    <Link href="/gestion/mesas/crear" className=" group block h-full w-full">
+                    <Link href="/gestion/codigos/crear" className=" group block h-full w-full">
                         <Card className="m-0 p-0 h-full w-full grid items-center justify-center bg-gray-100 hover:bg-gray-200 transition">
                             <Plus className="text-gray-300 group-hover:text-gray-500 transition" />
                         </Card>

@@ -180,6 +180,15 @@ server {
 ## Estado actual y tareas pendientes
 
 ### En proceso
+
+- TOAST EN EL CNETRO!
+- Recuperacion mensaje custom
+- Landing page
+- Erres custom!
+- Ocultar CON que se ha hecho
+- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
+
+- Accordions, quitar los outlined o rings, no s que es
 - Al hacer edit del pedido desde el movil me esta dando un error 403. Cuidado!
 - Sockets en Historial también
 - Mesas si no se da nombre, genrar random
@@ -195,6 +204,7 @@ server {
 
 ### En desarrollo
 
+- Capar el máximo de imagenes que se pueden subir/mesas crear/ Qr crear
 - Detalle mesa: mostrar últimos 5 pedidos y estadísticas  
 - Detalle pedido: mostrar estadísticas  
 - Añadir varias fotos a un artículo  
@@ -225,6 +235,7 @@ server {
 - No permitir subida de archivos raros en fotos.
 - No permitir subir igamenes demasiado pesadas
 - Corregir textos erratas y dejarlo formal.
+
 
 ---
 

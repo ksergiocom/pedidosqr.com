@@ -16,7 +16,7 @@ class Pedido extends Model
 
     protected $table = 'pedidos';
     protected $fillable = [
-        'mesa_id',
+        'codigo_id',
         'estado',
     ];
 
@@ -37,9 +37,9 @@ class Pedido extends Model
 
     // --- Relaciones -------------------------------------
 
-    public function mesa(): BelongsTo
+    public function codigo(): BelongsTo
     {
-        return $this->belongsTo(Mesa::class);
+        return $this->belongsTo(Codigo::class);
     }
 
     public function detalles(): HasMany

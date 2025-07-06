@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->uuid('id')->primary();
             
-            $table->uuid('mesa_id');
+            $table->uuid('codigo_id');
             $table->enum('estado', ['pendiente', 'completado'])->default('pendiente');
 
             
-            $table->foreign('mesa_id')->references('id')->on('mesas');
+            $table->foreign('codigo_id')->references('id')->on('codigos');
 
             $table->timestamps();
         });

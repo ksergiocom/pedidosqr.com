@@ -32,15 +32,18 @@ import {
   ChartNoAxesCombined,
   PackageSearch,
   History,
+  User,
+  ShoppingCart,
+  Package,
 } from "lucide-react";
 
 const sections = [
   {
     label: "Gestión",
     items: [
-      { title: "Pedidos", url: "/gestion/pedidos", icon: HandPlatter },
-      { title: "Artículos", url: "/gestion/articulos", icon: Hamburger },
-      { title: "Mesas", url: "/gestion/mesas", icon: QrCode },
+      { title: "Pedidos", url: "/gestion/pedidos", icon: ShoppingCart },
+      { title: "Artículos", url: "/gestion/articulos", icon: Package },
+      { title: "Códigos", url: "/gestion/codigos", icon: QrCode },
     ],
   },
   // {
@@ -52,11 +55,13 @@ const sections = [
   //   ],
   // },
   {
-    label: "Análisis",
+    label: "Información",
     items: [
       { title: "Historial", url: "/analisis/historial", icon: History },
+      { title: "Perfil", url: "/perfil", icon: User },
       // { title: "Estadisticas", url: "/analisis/estadisticas", icon: ChartNoAxesCombined },
     ],
+
   },
 ];
 

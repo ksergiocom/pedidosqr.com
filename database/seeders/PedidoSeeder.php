@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Pedido;
 use App\Models\PedidoDetalle;
-use App\Models\Mesa;
+use App\Models\Codigo;
 use App\Models\Articulo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -22,14 +22,14 @@ class PedidoSeeder extends Seeder
             return;
         }
 
-        // Obtener solo las mesas asociadas a ese usuario
-        $mesas = Mesa::where('user_id', $user->id)->get();
+        // Obtener solo las codigos asociadas a ese usuario
+        $codigos = Codigo::where('user_id', $user->id)->get();
 
-        foreach ($mesas as $mesa) {
-            // Cada mesa tendrá de 1 a 5 pedidos
+        foreach ($codigos as $codigo) {
+            // Cada codigo tendrá de 1 a 5 pedidos
             for ($i = 0; $i < rand(1, 5); $i++) {
                 $pedido = Pedido::create([
-                    'mesa_id' => $mesa->id,
+                    'codigo_id' => $codigo->id,
                 ]);
 
                 // Obtener artículos del mismo usuario

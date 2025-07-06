@@ -1,21 +1,24 @@
-import React, {useMemo} from "react";
+import React, { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { calcularTotalPedido, formatearFechaHora, minutosTranscurridos } from "@/lib/utils";
+import { ImageOff } from "lucide-react";
 
-const CardPedido = ({ pedido, mesa, className = "" }) => {
+const CardPedido = ({ pedido, codigo, className = "" }) => {
 
     const totalObjetos = useMemo(() => {
         return pedido.detalles.reduce((acc, detalle) => acc + detalle.cantidad, 0);
     }, [pedido.detalles]);
+
+    const [erroresDeImagen, setErroresDeImagen] = useState({});
 
     return (
         <Card key={pedido.id} className={`my-5 p-2 ${className}`}>
             <CardContent>
                 <div className="flex justify-between items-center w-full mb-2 mt-5 text-xs xl:text-base">
                     <span className="text-xs sm:text-base">
-                        {mesa?.nombre}
+                        {codigo?.nombre}
                         <Badge
                             className="ml-5 text-xs"
                             variant={
@@ -42,16 +45,22 @@ const CardPedido = ({ pedido, mesa, className = "" }) => {
                                 }`}
                         >
                             <div className="flex items-center gap-3">
-                                {detalle.articulo.image_url ? (
+                                {detalle.articulo.image_url && !erroresDeImagen[detalle.articulo.id] ? (
                                     <img
                                         src={detalle.articulo.image_url}
                                         alt={detalle.articulo.nombre}
                                         className="w-12 h-12 object-cover rounded"
+                                        onError={() =>
+                                            setErroresDeImagen((prev) => ({
+                                                ...prev,
+                                                [detalle.articulo.id]: true,
+                                            }))
+                                        }
                                     />
                                 ) : (
-                                    <div className="w-12 h-12 bg-muted text-xs flex items-center justify-center rounded text-muted-foreground">
-                                        Sin imagen
-                                    </div>
+                                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+    <ImageOff className="w-12 h-12 text-white opacity-80" />
+  </div>
                                 )}
                                 <div className="text-xs sm:text-base font-medium">
                                     {detalle.cantidad} x {detalle.articulo.nombre}

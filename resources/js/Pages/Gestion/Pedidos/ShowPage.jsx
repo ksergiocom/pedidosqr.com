@@ -18,7 +18,7 @@ const ShowPage = ({ pedido }) => {
     <div className="flex flex-col">
       <Title>Detalle de pedido</Title>
        <TitleDescription className="mt-5 mb-8">Pendiente implementarár estadisticas. También que se puedan eliminar o editar los pedidos para uso gestión interna. ¡Cuidado! Lo pedidos borrados no se tienen en cuenta en las estadísticas finales.</TitleDescription>
-      <CardPedido pedido={pedido} mesa={pedido.mesa}/>
+      <CardPedido pedido={pedido} codigo={pedido.codigo}/>
 
     </div>
   );

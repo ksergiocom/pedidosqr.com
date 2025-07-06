@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import Title from '@/components/Title';
 
-const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
+const EditPedidoEnCodigo = ({ articulos, codigo, pedido }) => {
   const [cantidades, setCantidades] = useState(() => {
     const inicial = {};
     articulos.forEach((art) => {
@@ -62,7 +62,7 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
       return;
     }
 
-    router.put(`/${mesa.id}/${pedido.id}`, {
+    router.put(`/${codigo.id}/${pedido.id}`, {
       articulos: articulosSeleccionados,
     });
   };
@@ -162,7 +162,7 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
               </AlertDialogContent>
             </AlertDialog>
 
-            <Link href={`/${mesa.id}/${pedido.id}`} className="w-1/2">
+            <Link href={`/${codigo.id}/${pedido.id}`} className="w-1/2">
               <Button variant="outline" className="w-full">
                 Volver
               </Button>
@@ -174,4 +174,4 @@ const EditPedidoEnMesa = ({ articulos, mesa, pedido }) => {
   );
 };
 
-export default EditPedidoEnMesa;
+export default EditPedidoEnCodigo;

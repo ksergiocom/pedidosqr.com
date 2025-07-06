@@ -18,17 +18,17 @@ import {
 import Title from "@/components/Title";
 import CardPedido from "@/components/CardPedido";
 
-export default function GraciasPage({ mesa, pedido }) {
+export default function GraciasPage({ codigo, pedido }) {
   return (
     <main className="p-7 flex flex-col justify-center text-center items-center min-h-screen 3xl:min-w-3xl">
       <div className="3xl:max-w-2xl flex flex-col">
         <Title className="text-pretty">¡Gracias por realizar tu pedido!</Title>
 
-        <CardPedido pedido={pedido} mesa={mesa} />
+        <CardPedido pedido={pedido} codigo={codigo} />
 
         <p className="mt-2 mb-6 text-xs text-muted-foreground ">
           ¿Quieres cambiar algo?<br></br> Puedes{" "}
-          <Link className="cursor-pointer hover:text-gray-900 underline underline-offset-4" href={`/${mesa.id}/${pedido.id}/editar`}>
+          <Link className="cursor-pointer hover:text-gray-900 underline underline-offset-4" href={`/${codigo.id}/${pedido.id}/editar`}>
             editar
           </Link>{" "}
           o{" "}
@@ -57,7 +57,7 @@ export default function GraciasPage({ mesa, pedido }) {
                   {/* Usamos Link con method delete para enviar la petición */}
                   <Link
                     method="delete"
-                    href={`/${mesa.id}/${pedido.id}`}
+                    href={`/${codigo.id}/${pedido.id}`}
 
                   >
                     Confirmar

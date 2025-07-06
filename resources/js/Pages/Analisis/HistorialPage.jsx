@@ -163,7 +163,7 @@ const HistorialPage = ({ pedidos, filtros }) => {
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end" className="w-48">
                                             <DropdownMenuGroup>
-                                                <DropdownMenuItem onClick={() => router.visit(`/gestion/pedidos/${pedido.id}`)}>
+                                                <DropdownMenuItem disabled onClick={() => router.visit(`/gestion/pedidos/${pedido.id}`)}>
                                                     <Eye /> Ver detalles
                                                 </DropdownMenuItem>
                                                 {pedido.estado === 'completado' && (

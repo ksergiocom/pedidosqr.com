@@ -13,10 +13,10 @@ const QrPage = (props) => {
     const baseUrl = usePage().props.appUrl
 
     return <div className="flex flex-col max-w-3xl">
-        <Title>Detalle de mesa ¡PENDIENTE!</Title>
-        <TitleDescription className="mt-2">Aquí puedes ver el historial de tu mesa y ver su código QR. Si lo deseas puedes verlo en versión para imprimir dando click aquí.</TitleDescription>
-        <QRCodeSVG size={256} className="mt-8" value={`${baseUrl}/${props.mesa.id}`}></QRCodeSVG>
-        <p className="mt-8">Está pendiente implementar un historial de los pedidos de cada mesa.</p>
+        <Title>Detalle de codigo ¡PENDIENTE!</Title>
+        <TitleDescription className="mt-2">Aquí puedes ver el historial de tu codigo y ver su código QR. Si lo deseas puedes verlo en versión para imprimir dando click aquí.</TitleDescription>
+        <QRCodeSVG size={256} className="mt-8" value={`${baseUrl}/${props.codigo.id}`}></QRCodeSVG>
+        <p className="mt-8">Está pendiente implementar un historial de los pedidos de cada codigo.</p>
         <h2 className="text-3xl font-semibold">Listado ultimos pedidos</h2>
         <ul>
             {props.ultimosPedidos.map(pedido => (

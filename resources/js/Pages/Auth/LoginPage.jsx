@@ -15,8 +15,8 @@ import AuthLayout from "../Layout/AuthLayout";
 import { Eye, EyeOff } from "lucide-react";
 
 const handleGoogleLogin = () => {
-    window.location.href = '/auth/google/redirect';
-  };
+  window.location.href = '/auth/google/redirect';
+};
 
 const LoginPage = () => {
   const { data, setData, post, processing, errors } = useForm({
@@ -35,8 +35,14 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-md mx-auto">
       <h1 className="text-3xl font-semibold">Inicia sesión</h1>
-      <p className="text-muted-foreground">
-        Introduce tu correo electrónico para acceder a tu cuenta
+      <p className="text-muted-foreground text-sm">
+        Introduce tu correo electrónico para acceder a tu cuenta.         ¿Has ovlidado tu contraseña?{" "}
+        <Link
+          href="/recuperar-pass"
+          className="text-black font-medium underline-offset-4 hover:underline"
+        >
+          Recupérala aquí
+        </Link>
       </p>
 
       <form onSubmit={submit} className="flex flex-col gap-5">
@@ -59,26 +65,26 @@ const LoginPage = () => {
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="password">Contraseña</Label>
-         <div className="relative">
-  <Input
-    id="password"
-    type={showPassword ? "text" : "password"}
-    required
-    value={data.password}
-    placeholder="*******"
-    onChange={(e) => setData("password", e.target.value)}
-    className="pr-10"
-  />
-  <Button
-    type="button"
-    variant='ghost'
-    onClick={() => setShowPassword((prev) => !prev)}
-    className={`absolute inset-y-0 right-0 mx-1 flex items-center text-muted-foreground transition ${data.password ? 'opacity-100' : 'opacity-0'}`}
-    // tabIndex={-1}
-  >
-    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-  </Button>
-</div>
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              required
+              value={data.password}
+              placeholder="*******"
+              onChange={(e) => setData("password", e.target.value)}
+              className="pr-10"
+            />
+            <Button
+              type="button"
+              variant='ghost'
+              onClick={() => setShowPassword((prev) => !prev)}
+              className={`absolute inset-y-0 right-0 mx-1 flex items-center text-muted-foreground transition ${data.password ? 'opacity-100' : 'opacity-0'}`}
+            // tabIndex={-1}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </Button>
+          </div>
           {errors.password && (
             <small className="text-red-500 text-sm">{errors.password}</small>
           )}
@@ -105,6 +111,7 @@ const LoginPage = () => {
           Regístrate aquí
         </Link>
       </p>
+
     </div>
   );
 };

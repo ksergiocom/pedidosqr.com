@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Mesa;
+use App\Models\Codigo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
-class MesaSeeder extends Seeder
+class CodigoSeeder extends Seeder
 {
     public function run(): void
     {
@@ -16,8 +16,8 @@ class MesaSeeder extends Seeder
 
 
         for ($i = 0; $i < 7; $i++) {
-            Mesa::create([
-                'nombre' => "Mesa " . strtoupper($faker->bothify('??-##')),
+            Codigo::create([
+                'nombre' => "Codigo " . strtoupper($faker->bothify('??-##')),
                 'user_id' => $user->id,
             ]);
         }

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mesas', function (Blueprint $table) {
+        Schema::create('codigos', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nombre');
             $table->uuid('user_id');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unique(['user_id','nombre']); // Nombre de mesa único para cada usuario
+            $table->unique(['user_id','nombre']); // Nombre de codigo único para cada usuario
 
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mesas');
+        Schema::dropIfExists('codigos');
     }
 };

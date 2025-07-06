@@ -42,29 +42,29 @@ class ArticuloController extends Controller
     public function update(Request $request, Articulo $articulo)
     {
         $validated = $request->validate([
-            'nombre'     => ['required', Rule::unique('articulos')->where(fn($q)=> $q->where('user_id', auth()->id()))->ignore($articulo->id)],
-            'descripcion'=> ['nullable'],
-            'precio'     => ['required','numeric','decimal:0,2'],
-            'image'      => ['nullable','image','max:2048'],
+            'nombre' => ['required', Rule::unique('articulos')->where(fn($q) => $q->where('user_id', auth()->id()))->ignore($articulo->id)],
+            'descripcion' => ['nullable'],
+            'precio' => ['required', 'numeric', 'decimal:0,2'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ], [
             'nombre.unique' => 'Ya tienes un artículo con ese nombre.',
         ]);
 
-        $articulo->nombre      = $validated['nombre'];
+        $articulo->nombre = $validated['nombre'];
         $articulo->descripcion = $validated['descripcion'] ?? null;
-        $articulo->precio      = $validated['precio'];
+        $articulo->precio = $validated['precio'];
 
         if ($request->hasFile('image')) {
             // (Opcional) Borra la anterior si quieres: Storage::disk('public')->delete(str_replace('/storage/','',$articulo->image_url));
-            $path = $request->file('image')->store('articulos','public');
-            Storage::disk('public')->delete(str_replace('/storage/','',$articulo->image_url));
+            $path = $request->file('image')->store('articulos', 'public');
+            Storage::disk('public')->delete(str_replace('/storage/', '', $articulo->image_url));
             $articulo->image_url = "/storage/{$path}";
         }
 
         $articulo->save();
 
         return redirect()->route('gestion.articulos.index')
-                        ->with('success','Artículo actualizado correctamente.');
+            ->with('success', 'Artículo actualizado correctamente.');
     }
 
 
@@ -102,6 +102,10 @@ class ArticuloController extends Controller
 
     public function destroy(Articulo $articulo)
     {
+        if ($articulo->pedidosDetalles()->exists()) {
+            return back()->with('error','No se puede eliminar el artículo porque tiene pedidos asociados.');
+        }
+
         // Si tiene imagen y existe la ruta
         if ($articulo->image_url) {
             // Quitamos el prefijo '/storage/' para obtener la ruta en disk('public')
@@ -117,7 +121,7 @@ class ArticuloController extends Controller
         return redirect()->back()->with('success', 'Artículo eliminado correctamente.');
     }
 
-        /**
+    /**
      * Elimina la imagen asociada al artículo.
      */
     public function destroyImage(Articulo $articulo)

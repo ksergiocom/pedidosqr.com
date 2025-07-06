@@ -17,7 +17,7 @@ import {
 import Title from '@/components/Title';
 
 
-const PedidoEnMesa = ({ articulos, mesa }) => {
+const PedidoEnCodigo = ({ articulos, codigo }) => {
     const [cantidades, setCantidades] = useState(() => {
         const inicial = {};
         articulos.forEach(art => {
@@ -66,7 +66,7 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
             Object.entries(cantidades).filter(([_, cantidad]) => cantidad > 0)
         );
 
-        router.post(`/${mesa.id}/pedir`, {
+        router.post(`/${codigo.id}/pedir`, {
             articulos: articulosSeleccionados
         });
     };
@@ -163,4 +163,4 @@ const PedidoEnMesa = ({ articulos, mesa }) => {
     );
 };
 
-export default PedidoEnMesa;
+export default PedidoEnCodigo;
