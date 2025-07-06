@@ -11,7 +11,6 @@ export default defineConfig({
     'resources/css/app.css',     // Inertia
     'resources/js/app.js',       // Inertia
     'resources/css/style.css',   // Blade normal
-    'resources/js/script.js',    // Blade normal
             ],
             refresh: true,
         }),
