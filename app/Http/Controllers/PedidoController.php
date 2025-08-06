@@ -80,11 +80,6 @@ class PedidoController extends Controller
     {
         $articulos = $request->input('articulos', []);
 
-        // Autorización opcional
-        if ($pedido->codigo_id !== $codigo->id || $pedido->codigo->user_id !== auth()->id()) {
-            abort(403);
-        }
-
         DB::transaction(function () use ($pedido, $articulos) {
             // Borrar los detalles antiguos
             $pedido->detalles()->delete();
