@@ -7,12 +7,12 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { AlertDialog, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableHead,
+    Table,
+    TableHeader,
+    TableBody,
+    TableRow,
+    TableCell,
+    TableHead,
 } from '@/components/ui/table';
 import Title from '@/components/Title';
 
@@ -27,12 +27,43 @@ const PedidoEnCodigo = ({ articulos, codigo }) => {
     });
 
 
-  useEffect(() => {
-    const pedidoGuardado = localStorage.getItem(`pedido_${codigo.id}`);
-    if (pedidoGuardado) {
-      router.visit(`/${codigo.id}/${pedidoGuardado}`);
-    }
-  }, [codigo.id]);
+    /**
+     * Cuando el usuario acceda a esta mesa, se comprueba su localhost.
+     * Puede que exista un pediod guardado de otra vez. Si existe intenta hacer una
+     * peticion HTTP para ver si sigue exisitendo en el server o le devuelve un 404 porque
+     * ya se cancelo allí.
+     * 
+     * En caso de que se haya cancelado removemos el elemento del localstorage.
+     * En caso de que SI exista lo redirigmos a su pedido (GraciasPage).
+     */
+    useEffect(() => {
+        const pedidoGuardado = localStorage.getItem(`pedido_${codigo.id}`);
+
+        if (pedidoGuardado) {
+            const url = `/${codigo.id}/${pedidoGuardado}`;
+
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest', // importante para que Laravel entienda que es una petición AJAX (si usas Inertia o no)
+                    'Accept': 'application/json',
+                },
+            })
+                .then(res => {
+                    if (res.ok) {
+                        router.visit(url);
+                    } else {
+                        // Error: probablemente 404
+                        localStorage.removeItem(`pedido_${codigo.id}`);
+                    }
+                })
+                .catch(() => {
+                    // Error de red o similar
+                    localStorage.removeItem(`pedido_${codigo.id}`);
+                    router.visit(`/${codigo.id}`);
+                });
+        }
+    }, [codigo.id]);
 
     const cantidadTotal = useMemo(() => {
         return Object.values(cantidades).reduce((acc, val) => acc + val, 0);
@@ -61,13 +92,13 @@ const PedidoEnCodigo = ({ articulos, codigo }) => {
     };
 
     const articulosSeleccionados = useMemo(() => {
-  return articulos
-    .filter(art => cantidades[art.id] > 0)
-    .map(art => ({
-      ...art,
-      cantidad: cantidades[art.id],
-    }));
-}, [cantidades, articulos]);
+        return articulos
+            .filter(art => cantidades[art.id] > 0)
+            .map(art => ({
+                ...art,
+                cantidad: cantidades[art.id],
+            }));
+    }, [cantidades, articulos]);
 
     const hacerPedido = () => {
         const articulosSeleccionados = Object.fromEntries(
@@ -86,7 +117,7 @@ const PedidoEnCodigo = ({ articulos, codigo }) => {
                 {/* <p className="text-xl mt-5 text-center">Elige lo que quieres tomar y pulsa <strong>“Hacer pedido”</strong>.</p>
                 <p className="text-xl mt-2 text-center">¡Te atenderemos al instante!</p> */}
 
- 
+
                 <div className="grid grid-cols-1 gap-10 mt-7 sm:mt-10 place-items-start items-stretch">
 
                     {articulos.map(articulo => (
@@ -144,7 +175,7 @@ const PedidoEnCodigo = ({ articulos, codigo }) => {
                     </div>
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button disabled={cantidadTotal<1} className='w-full mt-2 sm:mt-4 mb-2'>Hacer pedido</Button>
+                            <Button disabled={cantidadTotal < 1} className='w-full mt-2 sm:mt-4 mb-2'>Hacer pedido</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <AlertDialogHeader>

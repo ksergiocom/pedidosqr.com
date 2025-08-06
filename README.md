@@ -181,8 +181,11 @@ server {
 
 ### En proceso
 
-- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
+- Agregar Correo dominio
+- Agregar Ads
 
+- Limitar las descripciones y el total de fotos que puede subir un usuario.
+- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
 - Accordions, quitar los outlined o rings, no s que es
 - Al hacer edit del pedido desde el movil me esta dando un error 403. Cuidado!
 - Animaciones entrada y salida de pedidos (y otros recursos)

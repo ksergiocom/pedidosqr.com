@@ -15,13 +15,13 @@ class PedidoCreado implements ShouldBroadcast
 
     public function __construct(Pedido $pedido)
     {
-        $this->pedido = $pedido;
+        $this->pedido = $pedido->load(['codigo', 'detalles.articulo']);
     }
 
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('user.' . $this->pedido->mesa->user_id),
+            new PrivateChannel('user.' . $this->pedido->codigo->user_id),
         ];
     }
 

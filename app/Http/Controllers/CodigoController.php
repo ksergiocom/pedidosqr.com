@@ -50,6 +50,10 @@ class CodigoController extends Controller
 
     public function gracias(Request $request, Codigo $codigo, Pedido $pedido)
     {
+        if($pedido->estado == 'completado'){
+            abort(404);
+        }
+
         return inertia('Codigo/GraciasPage', [
             'codigo' => $codigo,
             'pedido' => $pedido,
