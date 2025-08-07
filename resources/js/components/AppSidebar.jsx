@@ -1,4 +1,5 @@
 import React from "react";
+import logo from '../../imgs/logo.svg';
 import { Link, usePage } from "@inertiajs/react";
 import {
   Sidebar,
@@ -77,8 +78,11 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <a href="/"><h3 className="text-xl p-2">pedidosqr.com</h3></a>
-      <SidebarSeparator />
+        <a href="/" className="flex items-center gap-2 p-2">
+          <img src={logo} alt="Logo PedidosQR" className="w-6 h-6" />
+          <h3 className="text-xl">pedidosqr.com</h3>
+        </a>
+        <SidebarSeparator />
       </SidebarHeader>
 
 
@@ -116,7 +120,7 @@ export default function AppSidebar() {
 
 
       <SidebarFooter>
-<SidebarSeparator />
+        <SidebarSeparator />
         <SidebarMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

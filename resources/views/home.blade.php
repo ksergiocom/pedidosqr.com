@@ -3,8 +3,13 @@
 @section('main')
 
     {{-- Sección principal: Encabezado y CTA --}}
-    <nav class="text-left w-full mb-7 px-4">
-        <h3><a class="underline underline-offset-3 text-gray-50 font-light hover:text-white text-lg" href="/">pedidosqr.com</a></h3>
+    <nav class="flex gap-2 w-full mb-7 px-4">
+        <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-6 h-6" />
+        <h3 class="m-0">
+            <a class="hover:underline underline-offset-3 text-gray-50 hover:text-white text-xl" href="/">
+                pedidosqr.com
+            </a>
+        </h3>
     </nav>
     <section class="px-4 pb-10 text-white mx-auto">
         <h1 class="text-4xl font-medium md:text-5xl">
@@ -18,8 +23,8 @@
         </h1>
 
         {{-- Botón de llamada a la acción --}}
-        <a class="my-15 inline-block bg-white rounded p-2 px-7 text-gray-900 font-semibold shadow hover:bg-gray-100 w-full text-center"
-           href="/gestion">¡Pruébame!</a>
+        <a class="my-15 inline-block bg-white rounded p-2 px-7 text-gray-700 hover:text-gray-900 font-semibold shadow hover:bg-gray-100 w-full text-center"
+            href="/gestion">¡Pruébame!</a>
 
         {{-- Descripción principal --}}
         <p class=" text-gray-100 max-w-2xl mx-auto">
@@ -72,7 +77,8 @@
                 <li>Conexión con otras herramientas que ya utilices (CRM, sistemas de inventario, etc.).</li>
             </ul>
             <p class="mt-4 text-gray-100">
-                Para estas opciones avanzadas, <a class="underline text-blue-300 hover:text-blue-400" href="#contacto">contáctanos</a> y crearemos una solución a tu medida.
+                Para estas opciones avanzadas, <a class="underline text-blue-300 hover:text-blue-400"
+                    href="#contacto">contáctanos</a> y crearemos una solución a tu medida.
             </p>
         </section>
 
@@ -93,8 +99,10 @@
         {{-- Contacto --}}
         <section id="contacto">
             <h2 class="text-4xl font-semibold mb-4">Contacto</h2>
-            <p class="text-gray-100">Escríbenos a: <a class="underline text-blue-300 hover:text-blue-400" href="mailto:sergio@ksergiocom">sergio@ksergiocom</a></p>
-            <p class="text-gray-100"><a class="underline text-blue-300 hover:text-blue-400" href="/terminos">Términos y condiciones de uso</a></p>
+            <p class="text-gray-100">Escríbenos a: <a class="underline text-blue-300 hover:text-blue-400"
+                    href="mailto:sergio@ksergiocom">sergio@ksergiocom</a></p>
+            <p class="text-gray-100"><a class="underline text-blue-300 hover:text-blue-400" href="/terminos">Términos y
+                    condiciones de uso</a></p>
         </section>
 
     </section>
