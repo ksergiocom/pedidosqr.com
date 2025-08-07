@@ -180,7 +180,6 @@ server {
 ## Estado actual y tareas pendientes
 
 ### En proceso
-
 - Agregar Correo dominio
 - Agregar Ads
 - Limitar las descripciones y el total de fotos que puede subir un usuario.

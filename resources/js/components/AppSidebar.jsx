@@ -35,6 +35,7 @@ import {
   User,
   ShoppingCart,
   Package,
+  ChevronUp,
 } from "lucide-react";
 
 const sections = [
@@ -76,39 +77,12 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <SidebarMenu>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton className="flex justify-between">
-                <User2 /> {auth.user.email ?? "Usuario"}
-                <ChevronDown />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent side="top">
-              <DropdownMenuItem asChild>
-                <Link className="w-full" href="/perfil">
-                  Perfil
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem disabled asChild>
-                <Link className="w-full" href="#">
-                  Facturación
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link className="w-full" method="post" href="/auth/logout">
-                  Cerrar sesión
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenu>
+        <a href="/"><h3 className="text-xl p-2">pedidosqr.com</h3></a>
+      <SidebarSeparator />
       </SidebarHeader>
 
-      <SidebarSeparator className="mx-auto w-fit" />
 
-      <SidebarContent>
+      <SidebarContent className="overflow-x-hidden">
         {sections.map((section) => (
           <React.Fragment key={section.label}>
             <SidebarGroup>
@@ -116,7 +90,7 @@ export default function AppSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   {section.items.map((item) => {
-                   const isActive = url.startsWith(item.url);
+                    const isActive = url.startsWith(item.url);
 
                     return (
                       <SidebarMenuItem key={item.title}>
@@ -140,7 +114,38 @@ export default function AppSidebar() {
         ))}
       </SidebarContent>
 
-      <SidebarFooter />
+
+      <SidebarFooter>
+<SidebarSeparator />
+        <SidebarMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton className="flex justify-between">
+                <User2 /> {auth.user.email ?? "Usuario"}
+                <ChevronUp />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top">
+              <DropdownMenuItem asChild>
+                <Link className="w-full" href="/perfil">
+                  Perfil
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled asChild>
+                <Link className="w-full" href="#">
+                  Facturación
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link className="w-full" method="post" href="/auth/logout">
+                  Cerrar sesión
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

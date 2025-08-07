@@ -36,6 +36,7 @@ export default function GestionLayout(props) {
       <AppSidebar />
       <div className="min-h-screen flex flex-col flex-1 p-5 sm:px-10 py-5">
         {/* Header con Breadcrumb y Trigger */}
+        
         <div className="flex space-x-4 items-center h-6">
           <SidebarTrigger />
           <Separator orientation="vertical" />
@@ -49,6 +50,7 @@ export default function GestionLayout(props) {
 
         {/* Main content */}
         <main className="flex-1">
+
           {props.children}
         </main>
 
