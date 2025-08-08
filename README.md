@@ -1,3 +1,5 @@
+![Favicon](./public/favicon.svg)
+
 # pedidosqr.com
 ### Laravel + React + WebSockets
 
