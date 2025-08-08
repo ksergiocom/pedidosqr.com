@@ -242,3 +242,8 @@ server {
    ```bash
    php artisan storage:link
    ```
+
+5. Corre las migraciones y opcionalmente el seeder
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
