@@ -11,9 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
 use App\Models\Mesa;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasUuids;
@@ -62,6 +65,25 @@ class User extends Authenticatable
         $this->notify(new CustomResetPassword($token));
     }
 
+    /**
+     * Mis usuarios no tienen el campo 'name' en vez de eso este
+     * atributo devolverá directamente el mail.
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Control de acceso a filament
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+
+        return $this->email === 'sergio@ksergio.com';
+    }
 
     // --- Relaciones -------------------------------------
 

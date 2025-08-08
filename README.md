@@ -1,6 +1,14 @@
-# Laravel + React + WebSockets
+# pedidosqr.com
+### Laravel + React + WebSockets
 
-Proyecto SaaS para mandar pedidos por WebSockets.
+
+Proyecto SaaS para mandar pedidos por **WebSockets**. Sigue en desarollo. Voy agregando pequeñas mejoras y hay alguna idea que todavía está en desarollo.
+
+Esta es una versión de prueba que realmente funciona, pero siguen faltando funcionalidades.
+
+Utilizo la librería **shadcn/ui** para los componentes del dashboard. El resto de los estilos están ajustados y personalizados con **Tailwindcss**.
+
+Se ha agregado un panel de administracion hecho con **Filament**.
 
 <table>
   <tr>
@@ -177,53 +185,6 @@ server {
 
 ---
 
-## Estado actual y tareas pendientes
-
-### En proceso
-- Github simple al publico
-
-### En desarrollo
-
-- Agregar Ads
-- Animaciones entrada y salida de pedidos (y otros recursos)
-- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
-- Comprimir imagen subida y usar la comprimida y formateada
-- Agregar Correo dominio
-- Detalle mesa: mostrar últimos 5 pedidos y estadísticas  
-- Detalle pedido: mostrar estadísticas  
-- Añadir varias fotos a un artículo  
-- Comprimir y redimensionar fotos subidas  
-- Crear página perfil de usuario  
-- Crear página facturación  
-- Mejorar gestión y visualización de mesas y pedidos  
-- Animación en página de espera usuario mesa  
-- Mejorar transiciones entre vistas  
-- Botones para eliminar/editar en detalles  
-- Filtrados y ordenaciones  
-- Ajustar tiempo espera para alertas en perfil  
-- Seguridad: solo pedido en mesa puede modificar o cancelar (tokens en peticiones)  
-- Reestructurar carpetas y archivos  
-- Ocultar CON que se ha hecho
-- Logger y gestión de errores 404, 401, etc.  
-- Login social  
-- Uso de Gates y Policies para modelos  
-- Añadir Zippy para rutas backend/frontend  
-- Pasarela de pago  
-- LocalStorage para cliente de mesa  
-- Crear estilos consistentes  
-- Estados a pedidos y notificaciones en tiempo real  
-- Mejorar URLs y renombrar recursos  
-- Servidor de correo propio y notificaciones por mail  
-- Docker para despliegue
-- Crear unos seeders con imagenes y muchos pedidos historial para ver estadisticas.
-- Extraer componente CardPedido para reutilizar
-- No permitir subida de archivos raros en fotos.
-- No permitir subir igamenes demasiado pesadas
-- Corregir textos erratas y dejarlo formal.
-
-
----
-
 ## ¿Qué necesito para desarrollar y correr?
 
 1. Servir la app Laravel:  
@@ -247,3 +208,10 @@ server {
    ```bash
    php artisan migrate:fresh --seed
    ```
+
+6. Build y optimiza los recursos
+    ```bash
+    npm run build
+    php artisan optimize
+    php artisan filament:optimize
+    ```
