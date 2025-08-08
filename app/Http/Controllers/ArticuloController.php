@@ -70,9 +70,21 @@ class ArticuloController extends Controller
 
     public function store(Request $request)
     {
+        /**
+         * Comprobamos si el usuario no ha superado el limite de articulos permitidos a crear.
+         */
+        $user = auth()->user();
+        $limiteArticulos = 150; // <- Define tu límite aquí
+
+        // Comprobamos si el usuario ha superado el límite
+        if ($user->articulos()->count() >= $limiteArticulos) {
+             return back()->with('error','Has alcanzado el número máximo de artículos permitidos (' . $limiteArticulos . ').');
+        }
+        // -----------------------------------------------------
+
         $validated = $request->validate([
             'nombre' => ['required', Rule::unique('articulos')->where(fn($q) => $q->where('user_id', auth()->id()))],
-            'descripcion' => ['nullable'],
+            'descripcion' => ['nullable','string','max:1200'],
             'precio' => ['required', 'numeric', 'decimal:0,2'],
             'image' => ['nullable', 'image', 'max:2048'],  // <— validación
         ], [

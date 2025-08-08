@@ -68,6 +68,19 @@ class CodigoController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * Comprobamos si el usuario no ha superado el limite de codigos permitidos a crear.
+         */
+        $user = auth()->user();
+        $limiteCodigos = 50; // <- Define tu límite aquí
+
+        // Comprobamos si el usuario ha superado el límite
+        if ($user->codigos()->count() >= $limiteCodigos) {
+             return back()->with('error','Has alcanzado el número máximo de artículos permitidos (' . $limiteCodigos . ').');
+        }
+        // -----------------------------------------------------
+
+
         // 1) Validamos: nombre opcional, max 20 chars si viene
         $validated = Validator::make($request->all(), [
             'nombre' => ['nullable', 'string', 'max:20'],

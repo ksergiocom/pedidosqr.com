@@ -182,20 +182,11 @@ server {
 ### En proceso
 - Agregar Correo dominio
 - Agregar Ads
-- Limitar las descripciones y el total de fotos que puede subir un usuario.
 - Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
 - Accordions, quitar los outlined o rings, no s que es
-- Al hacer edit del pedido desde el movil me esta dando un error 403. Cuidado!
 - Animaciones entrada y salida de pedidos (y otros recursos)
 - View Transition entr distintas paginas
-- Crear seeders con tamaño
  
-### Fix errores tontos
-
-1. `confirmDelete is not defined` (Detalle pedido botón eliminar)  
-2. Quitar `console.log` en eventos
-3. Falta favicon
-
 ### En desarrollo
 
 - Capar el máximo de imagenes que se pueden subir/mesas crear/ Qr crear
