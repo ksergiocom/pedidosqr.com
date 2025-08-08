@@ -100,7 +100,7 @@
         <section id="contacto">
             <h2 class="text-4xl font-semibold mb-4">Contacto</h2>
             <p class="text-gray-100">Escríbenos a: <a class="underline text-blue-300 hover:text-blue-400"
-                    href="mailto:sergio@ksergiocom">sergio@ksergiocom</a></p>
+                    href="mailto:sergio@ksergio.com">sergio@ksergio.com</a></p>
             <p class="text-gray-100"><a class="underline text-blue-300 hover:text-blue-400" href="/terminos">Términos y
                     condiciones de uso</a></p>
         </section>
