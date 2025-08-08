@@ -22,9 +22,17 @@ class PedidoResource extends Resource
 {
     protected static ?string $model = Pedido::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
     protected static ?string $navigationLabel = 'Pedidos';
     protected static ?string $modelLabel = 'Pedido';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?string $navigationGroup = 'Recursos';
+
 
     public static function form(Form $form): Form
     {
@@ -43,7 +51,7 @@ class PedidoResource extends Resource
 
                 Repeater::make('detalles')
                     ->label('Detalles del Pedido')
-                    ->itemLabel(fn (array $state): string => 'Detalle #' . ($state['id'] ?? 'Nuevo'))
+                    ->itemLabel(fn(array $state): string => 'Detalle #' . ($state['id'] ?? 'Nuevo'))
                     ->relationship()
                     ->schema([
                         Select::make('articulo_id')
@@ -62,8 +70,9 @@ class PedidoResource extends Resource
                     ->collapsible()
                     ->reorderable()
                     ->columns(2)
+                    ->columnSpanFull()
                     ->required(),
-            ]);
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table

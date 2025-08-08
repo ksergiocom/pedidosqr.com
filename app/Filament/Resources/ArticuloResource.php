@@ -26,6 +26,14 @@ class ArticuloResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static ?string $navigationGroup = 'Recursos';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -41,17 +49,15 @@ class ArticuloResource extends Resource
                     )
                     ->maxLength(255),
 
-                Textarea::make('descripcion')
-                    ->label('Descripción')
-                    ->nullable()
-                    ->maxLength(1200)
-                    ->columnSpanFull(),
-
                 TextInput::make('precio')
                     ->label('Precio')
                     ->required()
                     ->numeric()
                     ->rule('decimal:0,2'),
+
+                    Select::make('user_id')
+                        ->relationship('user', 'email')
+                        ->required(),
 
                 FileUpload::make('image_url')
                     ->label('Imagen')
@@ -62,9 +68,12 @@ class ArticuloResource extends Resource
                     ->imagePreviewHeight('200')
                     ->hint('Tamaño máximo 2MB'),
 
-                Select::make('user_id')
-                    ->relationship('user', 'email')
-                    ->required(),
+
+                Textarea::make('descripcion')
+                    ->label('Descripción')
+                    ->nullable()
+                    ->maxLength(1200),
+
             ]);
     }
 

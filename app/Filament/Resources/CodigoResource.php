@@ -21,7 +21,15 @@ class CodigoResource extends Resource
 {
     protected static ?string $model = Codigo::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-qr-code';
+
+    public static function getNavigationBadge(): ?string
+{
+    return static::getModel()::count();
+}
+
+    protected static ?string $navigationGroup = 'Recursos';
+
 
     public static function form(Form $form): Form
     {
