@@ -180,16 +180,15 @@ server {
 ## Estado actual y tareas pendientes
 
 ### En proceso
-- Agregar Correo dominio
-- Agregar Ads
-- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
-- Accordions, quitar los outlined o rings, no s que es
-- Animaciones entrada y salida de pedidos (y otros recursos)
-- View Transition entr distintas paginas
- 
+- Github simple al publico
+
 ### En desarrollo
 
-- Capar el máximo de imagenes que se pueden subir/mesas crear/ Qr crear
+- Agregar Ads
+- Animaciones entrada y salida de pedidos (y otros recursos)
+- Solo se puede editar en el codigo por la misma persona (guardar en localhsot y un token)
+- Comprimir imagen subida y usar la comprimida y formateada
+- Agregar Correo dominio
 - Detalle mesa: mostrar últimos 5 pedidos y estadísticas  
 - Detalle pedido: mostrar estadísticas  
 - Añadir varias fotos a un artículo  

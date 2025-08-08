@@ -78,17 +78,21 @@ class ArticuloController extends Controller
 
         // Comprobamos si el usuario ha superado el límite
         if ($user->articulos()->count() >= $limiteArticulos) {
-             return back()->with('error','Has alcanzado el número máximo de artículos permitidos (' . $limiteArticulos . ').');
+            return back()->with('error', 'Has alcanzado el número máximo de artículos permitidos (' . $limiteArticulos . ').');
         }
         // -----------------------------------------------------
 
         $validated = $request->validate([
-            'nombre' => ['required', Rule::unique('articulos')->where(fn($q) => $q->where('user_id', auth()->id()))],
-            'descripcion' => ['nullable','string','max:1200'],
+            'nombre' => [
+                'required',
+                Rule::unique('articulos')->where(fn($q) => $q->where('user_id', auth()->id()))
+            ],
+            'descripcion' => ['nullable', 'string', 'max:1200'],
             'precio' => ['required', 'numeric', 'decimal:0,2'],
-            'image' => ['nullable', 'image', 'max:2048'],  // <— validación
+            'image' => ['nullable', 'image', 'max:2048'],  // 2048 = exactamente 2 MB
         ], [
-            'nombre.unique' => 'Ya tienes un articulo con ese nombre.',
+            'nombre.unique' => 'Ya tienes un artículo con ese nombre.',
+            'image.max' => 'La imagen no puede superar los 2 MB.',
         ]);
 
         $data = [
@@ -115,7 +119,7 @@ class ArticuloController extends Controller
     public function destroy(Articulo $articulo)
     {
         if ($articulo->pedidosDetalles()->exists()) {
-            return back()->with('error','No se puede eliminar el artículo porque tiene pedidos asociados.');
+            return back()->with('error', 'No se puede eliminar el artículo porque tiene pedidos asociados.');
         }
 
         // Si tiene imagen y existe la ruta
