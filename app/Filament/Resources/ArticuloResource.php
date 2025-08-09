@@ -55,18 +55,24 @@ class ArticuloResource extends Resource
                     ->numeric()
                     ->rule('decimal:0,2'),
 
-                    Select::make('user_id')
-                        ->relationship('user', 'email')
-                        ->required(),
+                Select::make('user_id')
+                    ->relationship('user', 'email')
+                    ->required(),
 
-                FileUpload::make('image_url')
-                    ->label('Imagen')
-                    ->image()
-                    ->directory('articulos') // Carpeta dentro de storage/app/public
-                    ->maxSize(2048) // 2 MB en kilobytes
-                    ->nullable()
-                    ->imagePreviewHeight('200')
-                    ->hint('Tamaño máximo 2MB'),
+                // FileUpload::make('image_url')
+                //     ->label('Imagen')
+                //     ->image()
+                //     ->disk('public')
+                //     ->directory('articulos')
+                //     ->maxSize(2048)
+                //     ->nullable()
+                //     ->imagePreviewHeight('200')
+                //     ->hint('Tamaño máximo 2MB')
+                //     ->saveUploadedFileUsing(function ($file, $record, $set) {
+                //         $path = $file->store('articulos', 'public');
+                //         // Devuelvo la URL pública para que se guarde en BD
+                //         return '/storage/' . $path;
+                //     }),
 
 
                 Textarea::make('descripcion')
@@ -81,12 +87,6 @@ class ArticuloResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image_url')
-                    ->label('Imagen')
-                    ->defaultImageUrl(url('/favicon.svg'))
-                    ->circular() // O puedes usar ->square() si prefieres
-                    ->size(40) // Tamaño de la miniatura
-                    ->toggleable(), // Ocultable desde la tabla,
                 TextColumn::make('nombre')
                     ->searchable()
                     ->sortable(),
@@ -96,6 +96,7 @@ class ArticuloResource extends Resource
                 TextColumn::make('user.email')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('image_url')
             ])
             ->filters([
                 //
