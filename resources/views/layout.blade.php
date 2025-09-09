@@ -9,9 +9,17 @@
     <title>pedidosqr.com</title>
     @vite('resources/css/style.css')
 </head>
-
 <body>
-    <main class="mx-auto">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZNQZQPMWN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1ZNQZQPMWN');
+</script>
+<main class="mx-auto">
         @yield('main')
     </main>
 </body>
