@@ -6,6 +6,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\CodigoController;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home')->name('home');
 // Route::view('/about', 'about')->name('about');
 Route::view('/terminos', 'terminos')->name('terminos');
+Route::post('/contacto/enviar', [ContactoController::class, 'enviar'])->name('contacto.enviar');
 // ----- Inertia ----------------------------------------------------------------------------------
 
 

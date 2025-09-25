@@ -2,110 +2,107 @@
 
 @section('main')
 
-    {{-- Sección principal: Encabezado y CTA --}}
-    <nav class="flex gap-2 w-full mb-7 px-4">
-        <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-6 h-6" />
-        <h3 class="m-0">
-            <a class="hover:underline underline-offset-3 text-gray-50 hover:text-white text-xl" href="/">
-                pedidosqr.com
-            </a>
-        </h3>
-    </nav>
-    <section class="px-4 pb-10 text-white mx-auto">
-        <h1 class="text-4xl font-medium md:text-5xl">
-            <span class="font-extrabold text-white">
-                Códigos QR
-            </span>
-            personalizados y gestión de
-            <span class="font-extrabold text-white">
-                pedidos en tiempo real
-            </span>
-        </h1>
+    <h3 class="text-xl flex gap-2 tracking-tighter font-semibold items-center"><img class="h-6"
+            src="{{ asset('/favicon.svg') }}">Pedidos QR
+    </h3>
 
-        {{-- Botón de llamada a la acción --}}
-        <a class="my-15 inline-block bg-white rounded p-2 px-7 text-gray-700 hover:text-gray-900 font-semibold shadow hover:bg-gray-100 w-full text-center"
-            href="/gestion">¡Pruébame!</a>
 
-        {{-- Descripción principal --}}
-        <p class=" text-gray-100 max-w-2xl mx-auto">
-            Una aplicación web <strong>completamente gratuita</strong> que te permite crear códigos QR personalizados.
-            Cada vez que un cliente escanea o marca un artículo en el QR, su petición aparece al instante en tu panel de
-            control, en tiempo real.
-        </p>
-    </section>
+    <div class="p-5 mt-10 relative w-full rounded-2xl overflow-hidden h-fit bg-black">
+        <h1 class="relative text-6xl text-balance font-semibold tracking-wide text-white absolute z-10">Gestiona tus pedidos
+            en tiempo real</h1>
+        <img class="w-full rounded-2xl absolute inset-0 opacity-30" src="{{ asset('/imgs/hero1.webp') }}" alt="Hero">
+    </div>
 
-    {{-- Contenido detallado --}}
-    <section class="min-h-dvh py-10 text-white max-w-5xl mx-auto space-y-16">
+    <a class="block bg-black text-white p-3 px-4 rounded-2xl text-center mx-auto mt-10" href="/gestion">Empieza ahora &rsaquo;</a>
+    <a class="block border p-2 px-4 rounded-2xl text-center mx-auto mt-5" href="#contacto">Contactar &rsaquo;</a>
 
-        <hr class="opacity-20">
+    <p class="mt-14">Puedes administrar tus pedidos en tiempo real, desde tu smartphone, tablet u ordenador.
+    </p>
+    <p class="mt-2">Genera códigos QR para cada uno de tus puntos de venta y tener un control de donde
+        provienen los pedidos.</p>
 
-        {{-- ¿Cómo funciona? --}}
-        <section id="como-funciona">
-            <h2 class="text-4xl font-semibold mb-4">¿Cómo funciona?</h2>
-            <ol class="list-decimal list-inside text-gray-100 space-y-2">
-                <li>Genera tu código QR con los productos o servicios que ofrezcas.</li>
-                <li>Comparte el QR en tus mesas, escaparates o redes sociales.</li>
-                <li>El cliente marca lo que desea desde su móvil.</li>
-                <li>Tú recibes el pedido instantáneamente en tu dashboard.</li>
-            </ol>
-        </section>
 
-        <hr class="opacity-20">
+    <div class="mt-15 relative rounded-2xl overflow-hidden bg-black p-5 pb-10">
+        <h2 class="text-5xl relative font-semibold z-10 text-white mb-5">¿Como funciona?</h2>
+        <ol class="list-decimal mt-2 list-inside space-y-3 relative z-10 text-white">
+            <li>Crea tus puntos de venta con QR personalizados</li>
+            <li>Agrega tus artículos, imagen y descripción</li>
+            <li>Accede a tus pedidos en tiempo real</li>
+        </ol>
+        <img class="absolute inset-0 h-full w-full object-cover opacity-30" src="{{ asset('/imgs/hero2.webp') }}"
+            alt="Hero">
+    </div>
 
-        {{-- Ventajas clave --}}
-        <section id="ventajas-clave">
-            <h2 class="text-4xl font-semibold mb-4">Ventajas clave</h2>
-            <ul class="list-disc list-inside text-gray-100 space-y-2">
-                <li><strong>Sin descargas ni instalaciones</strong>: todo funciona en el navegador.</li>
-                <li><strong>Tiempo real</strong>: recibe cada pedido al momento, gestiona de forma ágil.</li>
-                <li><strong>Interfaz intuitiva</strong>: fácil de usar, sin curvas de aprendizaje.</li>
-                <li><strong>100% gratis</strong>: sin suscripciones ocultas ni comisiones.</li>
-            </ul>
-        </section>
+    <h2 class="mt-15 text-4xl">Acerca de <span class="tracking-wider font-extrabold">pedidosqr.com</span>
+    </h2>
 
-        <hr class="opacity-20">
+    <p class="mt-5">Es una herramienta para ayudarte a gestionar los pedidos de tu negocio en tiempo real.</p>
+    <p class="mt-5">Puedes consultar los terminos y condiciones del servicio <a href="/terminos" class="underline">aquí</a>.</p>
 
-        {{-- ¿Necesitas más? --}}
-        <section id="necesitas-mas">
-            <h2 class="text-4xl font-semibold mb-4">¿Necesitas más?</h2>
-            <p class="text-gray-100 mb-4">
-                Aunque el uso básico es gratuito, ofrecemos servicios de personalización para negocios que buscan un extra:
-            </p>
-            <ul class="list-disc list-inside text-gray-100 space-y-2">
-                <li>Diseño propio de tus códigos QR y dashboard.</li>
-                <li>Integración con tu sistema de TPV.</li>
-                <li>Conexión con otras herramientas que ya utilices (CRM, sistemas de inventario, etc.).</li>
-            </ul>
-            <p class="mt-4 text-gray-100">
-                Para estas opciones avanzadas, <a class="underline text-blue-300 hover:text-blue-400"
-                    href="#contacto">contáctanos</a> y crearemos una solución a tu medida.
-            </p>
-        </section>
+    <div class="mt-16 max-w-lg mx-auto bg-white" id="contacto">
+        <h2 class="text-2xl font-bold mb-4">Contacto</h2>
+        @if(session('success'))
+            <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if($errors->has('error'))
+            <div class="mb-4 p-3 bg-red-100 text-red-800 rounded">
+                {{ $errors->first('error') }}
+            </div>
+        @endif
+        <form method="POST" action="{{ route('contacto.enviar') }}" class="space-y-5">
+            @csrf
+            <div>
+                <label for="email" class="block font-medium mb-1">Correo electrónico <span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required class="w-full border rounded p-2" value="{{ old('email') }}">
+                @error('email')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="nombre" class="block font-medium mb-1">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="w-full border rounded p-2" placeholder="(Opcional)" value="{{ old('nombre') }}">
+                @error('nombre')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="telefono" class="block font-medium mb-1">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" class="w-full border rounded p-2" placeholder="(Opcional)" value="{{ old('telefono') }}">
+                @error('telefono')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="descripcion" class="block font-medium mb-1">Descripción <span class="text-red-500">*</span></label>
+                <textarea id="descripcion" name="descripcion" required rows="4" class="w-full border rounded p-2">{{ old('descripcion') }}</textarea>
+                @error('descripcion')
+                    <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="submit" class="mt-3 w-full bg-black text-white py-2 rounded-2xl font-semibold hover:bg-gray-900 transition">Enviar mensaje</button>
+        </form>
+    </div>
 
-        <hr class="opacity-20">
+    <div class="mt-10"></div>
+    <footer class="w-full text-center mt-10 bg-white flex flex-col items-center gap-2">
+        <span>Contactar: <a href="mailto:info@pedidosqr.com" class="underline">info@pedidosqr.com</a></span>
+        <p class="text-sm opacity-50">Hecho por:  <a href="https://www.ksergio.com" class="underline">www.ksergio.com</a></p>
+    </footer>
 
-        {{-- ¡Empieza ya! --}}
-        <section id="empieza-ya">
-            <h2 class="text-4xl font-semibold mb-4">¡Empieza ya!</h2>
-            <ol class="list-decimal list-inside text-gray-100 space-y-2">
-                <li>Regístrate en dos minutos.</li>
-                <li>Crea tu primer QR.</li>
-                <li>Comparte y recibe tus primeros pedidos al instante.</li>
-            </ol>
-        </section>
-
-        <hr class="opacity-20">
-
-        {{-- Contacto --}}
-        <section id="contacto">
-            <h2 class="text-4xl font-semibold mb-4">Contacto</h2>
-            <p class="text-gray-100">Escríbenos a: <a class="underline text-blue-300 hover:text-blue-400"
-                    href="mailto:sergio@ksergio.com">sergio@ksergio.com</a></p>
-            <p class="text-gray-100"><a class="underline text-blue-300 hover:text-blue-400" href="/terminos">Términos y
-                    condiciones de uso</a></p>
-        </section>
-
-    </section>
-
+    @if(session('scroll_to_contact') || $errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactoSection = document.getElementById('contacto');
+            if (contactoSection) {
+                contactoSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    </script>
+    @endif
 
 @endsection

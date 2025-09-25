@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="sr">
+<html lang="es" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -9,17 +9,9 @@
     <title>pedidosqr.com</title>
     @vite('resources/css/style.css')
 </head>
-<body>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZNQZQPMWN"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-1ZNQZQPMWN');
-</script>
-<main class="mx-auto">
+<body class="scroll-smooth">
+    <main class="m-5">
         @yield('main')
     </main>
 </body>
