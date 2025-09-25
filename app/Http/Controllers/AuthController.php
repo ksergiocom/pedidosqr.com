@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -91,6 +92,14 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // Enviar correo de notificación de registro
+        try {
+            $this->enviarNotificacionRegistro($user);
+        } catch (\Exception $e) {
+            // Log del error pero no interrumpir el registro
+            \Log::error('Error enviando correo de registro: ' . $e->getMessage());
+        }
+
         auth()->login($user);
 
         return redirect()->route('home');
@@ -125,6 +134,7 @@ class AuthController extends Controller
 
         $googleUser = Socialite::driver('google')->stateless()->user();
 
+        $isNewUser = false;
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
@@ -134,6 +144,21 @@ class AuthController extends Controller
                 'password' => Hash::make(Str::random(24)), // contraseña aleatoria segura
             ]
         );
+
+        // Verificar si es un usuario nuevo
+        if ($user->wasRecentlyCreated) {
+            $isNewUser = true;
+        }
+
+        // Enviar correo de notificación si es un usuario nuevo
+        if ($isNewUser) {
+            try {
+                $this->enviarNotificacionRegistro($user);
+            } catch (\Exception $e) {
+                // Log del error pero no interrumpir el registro
+                \Log::error('Error enviando correo de registro (Google): ' . $e->getMessage());
+            }
+        }
 
         Auth::login($user);
 
@@ -167,6 +192,72 @@ class AuthController extends Controller
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('auth.login')->with('status', __($status))
             : back()->withErrors(['email' => __($status)]);
+    }
+
+    private function enviarNotificacionRegistro($user)
+    {
+        $email = $user->email;
+        $fecha = now()->format('d/m/Y H:i:s');
+        $nombre = $user->name ?? 'Nuevo usuario';
+
+        // Enviar el correo con contenido HTML directo
+        Mail::send([], [], function ($message) use ($email, $nombre, $fecha) {
+            $html = "
+            <!DOCTYPE html>
+            <html lang='es'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>Nuevo usuario registrado - PedidosQR</title>
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .header { background-color: #000; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+                    .content { background-color: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #ddd; }
+                    .field { margin-bottom: 20px; }
+                    .field-label { font-weight: bold; color: #555; margin-bottom: 5px; }
+                    .field-value { background-color: white; padding: 10px; border-radius: 4px; border: 1px solid #ddd; }
+                    .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
+                    .success { background-color: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <h1>🎉 Nuevo usuario registrado</h1>
+                    <p>PedidosQR.com</p>
+                </div>
+                <div class='content'>
+                    <div class='success'>
+                        <strong>¡Excelente!</strong> Un nuevo usuario se ha registrado en tu plataforma.
+                    </div>
+                    <div class='field'>
+                        <div class='field-label'>Fecha y hora de registro:</div>
+                        <div class='field-value'>{$fecha}</div>
+                    </div>
+                    <div class='field'>
+                        <div class='field-label'>Correo electrónico:</div>
+                        <div class='field-value'>{$email}</div>
+                    </div>
+                    <div class='field'>
+                        <div class='field-label'>Nombre:</div>
+                        <div class='field-value'>{$nombre}</div>
+                    </div>
+                    <div class='field'>
+                        <div class='field-label'>Estado:</div>
+                        <div class='field-value'>✅ Usuario activo y autenticado</div>
+                    </div>
+                </div>
+                <div class='footer'>
+                    <p>Este es un correo automático del sistema de registro de pedidosqr.com</p>
+                    <p>El usuario ya puede acceder a la plataforma de gestión.</p>
+                </div>
+            </body>
+            </html>";
+
+            $message->to('sergio@ksergio.com')
+                ->subject('🎉 Nuevo usuario registrado - PedidosQR')
+                ->from('noreply@pedidosqr.com', 'PedidosQR - Sistema')
+                ->html($html);
+        });
     }
 
 }
