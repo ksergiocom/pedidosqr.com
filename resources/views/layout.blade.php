@@ -11,7 +11,7 @@
 </head>
 
 <body class="scroll-smooth">
-    <main class="m-5">
+    <main class="m-5 max-w-sm mx-auto">
         @yield('main')
     </main>
 </body>
