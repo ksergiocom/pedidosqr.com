@@ -2,11 +2,6 @@
 
 @section('main')
 
-    <h3 class="text-xl flex gap-2 tracking-tighter font-semibold items-center"><img class="h-6"
-            src="{{ asset('/favicon.svg') }}">Pedidos QR
-    </h3>
-
-
     <div class="p-5 mt-10 relative w-full rounded-2xl overflow-hidden h-fit bg-black">
         <h1 class="relative text-6xl text-balance font-semibold tracking-wide text-white absolute z-10">Gestiona tus pedidos
             en tiempo real</h1>

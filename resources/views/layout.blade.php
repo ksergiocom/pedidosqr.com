@@ -10,8 +10,13 @@
     @vite('resources/css/style.css')
 </head>
 
-<body class="scroll-smooth">
-    <main class="m-5 max-w-sm mx-auto">
+<body class="scroll-smooth p-5 max-w-sm mx-auto">
+    <header class="">
+        <h3 class="text-xl flex gap-2 tracking-tighter font-semibold items-center"><img class="h-6"
+                src="{{ asset('/favicon.svg') }}">Pedidos QR
+        </h3>
+    </header>
+    <main class="">
         @yield('main')
     </main>
 </body>

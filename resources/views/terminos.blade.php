@@ -3,9 +3,9 @@
 @section('title', 'PedidosQR - Términos y Condiciones')
 
 @section('main')
-<a class="mb-7 underline inline-block hover:text-gray-700 px-4" href="/">&larr; Volver</a>
+<a class="mt-7 mb-7 underline inline-block hover:text-gray-700 " href="/">&larr; Volver</a>
 
-<section id="terminos-condiciones" class="flex flex-col gap-6 px-4">
+<section id="terminos-condiciones" class="flex flex-col gap-6 ">
   <h2 class="text-3xl font-semibold">Términos y Condiciones de <strong>pedidosqr.com</strong></h2>
 
   <div class="mb-4">
