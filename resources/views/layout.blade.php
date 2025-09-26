@@ -13,13 +13,20 @@
 
 <body class="scroll-smooth p-5 max-w-sm mx-auto">
     <header class="">
-        <a href="/"><h3 class="text-xl flex gap-2 tracking-tighter font-semibold items-center"><img class="h-6"
-                src="{{ asset('/favicon.svg') }}">Pedidos QR
-        </h3></a>
+        <a href="/">
+            <h3 class="text-xl flex gap-2 tracking-tighter font-semibold items-center"><img class="h-6"
+                    src="{{ asset('/favicon.svg') }}">Pedidos QR
+            </h3>
+        </a>
     </header>
     <main class="">
         @yield('main')
     </main>
+
+    <!-- 100% privacy-first analytics -->
+    <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt=""
+            referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </body>
 
 </html>
