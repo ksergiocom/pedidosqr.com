@@ -1,12 +1,8 @@
-@extends('layout')
+@extends('errors.error-layout')
 
-@section('title', 'PedidosQR - 500')
-
-@section('main')
-<section id="terminos-condiciones" class="flex flex-col gap-2">
-  <h2>500</h2>
-  <p>¡Ups! Algo no salió bien en el servidor</p>
-  <a href="/">Volver</a>
-</section>
-
+@section('code')
+  500
+@endsection
+@section('error-message')
+  ¡Ups! Algo no salió bien en el servidor
 @endsection

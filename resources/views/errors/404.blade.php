@@ -1,12 +1,8 @@
-@extends('layout')
+@extends('errors.error-layout')
 
-@section('title', 'PedidosQR - 404')
-
-@section('main')
-<section id="terminos-condiciones" class="flex flex-col gap-2">
-  <h2>404</h2>
-  <p>El recurso buscado no se ha encontrado</p>
-  <a href="/">Volver</a>
-</section>
-
+@section('code')
+  404
+@endsection
+@section('error-message')
+  El recurso no se ha encontrado
 @endsection
